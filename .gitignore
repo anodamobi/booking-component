@@ -15,7 +15,6 @@ xcuserdata
 DerivedData
 *.hmap
 *.ipa
-*.xcuserstate
 .DS_Store
 
 #markdown files
