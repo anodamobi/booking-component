@@ -31,7 +31,11 @@ class UserDataForm: FormViewController {
             <<< DateRow() { row in
                row.title = "Reservation Date"
                 }.cellSetup({ (cell, row) in
+                    cell.datePicker.minimumDate = Date()
+                    cell.datePicker.datePickerMode = .date
+                    cell.datePicker.timeZone = TimeZone(abbreviation: "UTC") //TODO: pavel - should be able to change timezone
                     self.user.reservedDate = cell.datePicker.date
+                    row.value = cell.datePicker.date
                 })
             <<< NameRow() { row in
                 row.title = "Booking price"

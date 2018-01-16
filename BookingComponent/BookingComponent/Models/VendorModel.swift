@@ -30,7 +30,4 @@ class VendorModel: NSObject {
     var profilePhotoURL: String = ""
     var firstName: String = ""
     var lastName: String = ""
-    var currentCustomer: CustomerModel = CustomerModel() // set from timeTable
-
-    
 }

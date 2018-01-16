@@ -34,7 +34,6 @@ class TestDataGenerator: NSObject {
         user.timeStep = 10
         user.timeZone = TimeZone.current
         user.wishedSessionTime = Date(timeIntervalSinceReferenceDate: 1200)
-        user.vendor = singleVendor()
         
         return user
     }

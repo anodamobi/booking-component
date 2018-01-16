@@ -12,8 +12,8 @@ class CustomerModel: NSObject {
     
     var firstName: String = ""
     var lastName: String = ""
-    var reservedDate: Date = Date()
-    var reservedTime: Date = Date() //HH:mm
+    var reservedDate: Date = Date() //yyyy-MM-dd
+//    var reservedTime: Date = Date() //HH:mm
     var bookedPrice: Float = 0.0
     var untis: UnitType = .minute
     var vendor: VendorModel = VendorModel()
@@ -37,8 +37,7 @@ class CustomerModel: NSObject {
     }
     
     func fullDateTime() {
-        //Add reserved time to reserved date to keep all date in single variable even if time part
-        //will not be used
+        
     }
     
 }
