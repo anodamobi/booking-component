@@ -9,6 +9,7 @@
 import Foundation
 
 enum ServiceType: String, Equatable {
+    case none = "none"
     case service1 = "service1"
 }
 
@@ -24,10 +25,7 @@ struct ReservationPeriod {
     var startDate: Date = Date()
     var endDate: Date = Date()
     
-    func reservationLenght(unit: UnitType) -> Float {
-        var interval: TimeInterval = endDate.timeIntervalSince(startDate)
-        
-        //TODO: pavel convert to specific lengh depend on unit. Include timezone.
-        return Float(interval)
+    func reservationLenght(unit: UnitType) -> DateInterval {
+        return DateInterval.init(start: startDate, end: endDate)
     }
 }

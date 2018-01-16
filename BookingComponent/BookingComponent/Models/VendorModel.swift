@@ -10,23 +10,27 @@ import Foundation
 
 class VendorModel: NSObject {
     
-//    - startTime: DateComponent
-//    - endTime: DateComponent
-//    - lunchTime: DateComponent
-//    - timeTable: [Int:Customer]
-//    - rate: Float
-//    - unit: UnitType
-//    - pricePerCustomer: Float
-//    - timeGap: Int
-//    - serviceTypes: ServiceType
-//    - timeZone: TimeZone
-//    - country: String
-//    - state: String
-//    - city: String
-//    - publicHolydays: [DateComponent]
-//    - phone: String
-//    - email: String
-//    - profileDetails: String
-//    - rating: Float
-//    - customer: Customer
+    var startTime: Date = Date() // HH:MM
+    var endTime: Date = Date() //HH:MM
+    var timeTable: [Int: CustomerModel] = [:] // [ID: Customer]
+    var rate: Float = 0.0 //price per timeUnit
+    var unit: UnitType = .minute
+    var pricePerCustomer: Float = 0.0 //static price per customer
+    var timeGap: TimeInterval = 15 * 60 // base value of 15 minutes
+    var serviceType: ServiceType = .none
+    var timeZone: TimeZone = TimeZone.current
+    var country: String = ""
+    var state: String = ""
+    var city: String = ""
+    var details: String = ""
+    var publicHolidays: [Date] = []
+    var profileDetails: String = ""
+    var phone: String = ""
+    var email: String = ""
+    var profilePhotoURL: String = ""
+    var firstName: String = ""
+    var lastName: String = ""
+    var currentCustomer: CustomerModel = CustomerModel() // set from timeTable
+
+    
 }
