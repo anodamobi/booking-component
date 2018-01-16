@@ -22,7 +22,7 @@ class CustomerModel: NSObject {
     var sessionLength: Int = 0 // reservtion length depends on it.
     var timeStep: Int = 5 //minimal step to increase sessionLength
     var reservationPeriod: ReservationPeriod = ReservationPeriod()
-    var reservationLength: TimeInterval = TimeInterval(exactly: 0)
+    var reservationLength: TimeInterval = TimeInterval(exactly: 0)!
     var profilePhotoURL: String = ""
     var phoneNumber: String = ""
     var email: String = ""
