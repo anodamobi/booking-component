@@ -28,7 +28,6 @@ class TestDataGenerator: NSObject {
         user.reservationLength = TimeInterval(60 * 60 * user.sessionLength)  // 2h
         user.reservationPeriod.startDate = Date()
         user.reservationPeriod.endDate = Date().addingTimeInterval(user.reservationLength)
-        user.reservedTime = Date(timeIntervalSinceReferenceDate: 1200)
         user.untis = .hour
         user.bookedPrice = 40
         user.timeStep = 10

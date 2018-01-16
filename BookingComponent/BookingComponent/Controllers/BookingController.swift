@@ -21,31 +21,38 @@ class BookingController: NSObject {
         self.booked = booked
     }
     
-    func isPossibleToBook(procedureLength: TimeInterval) -> Bool {
+    func isPossibleToBook(newBook: Booking) -> [TimeInterval] {
         
-        var canBeBooked = false
+        let procedureLength = newBook.procedure.endDate.timeIntervalSince(newBook.procedure.startDate)
+        var validTimeIntervals: [TimeInterval] = []
         
         guard booked.count > 0 else {
-            return true //we can book
+            return [endDate.timeIntervalSince(startDate)]
         }
         
         for index in 0..<booked.count {
             if index == 0 {
                 
-                let timeInterval =  booked[index].when.timeIntervalSince(startDate)
-                canBeBooked = compareTimeIntervals(timeInterval, procedure: procedureLength)
+                let timeInterval =  booked[index].procedure.startDate.timeIntervalSince(startDate)
+                if compareTimeIntervals(timeInterval, procedure: procedureLength) {
+                    validTimeIntervals += [timeInterval]
+                }
             } else if index == (booked.count - 1) {
                 
-                let timeInterval = endDate.timeIntervalSince(booked[index].when)
-                canBeBooked = compareTimeIntervals(timeInterval, procedure: procedureLength)
+                let timeInterval = endDate.timeIntervalSince(booked[index].procedure.endDate)
+                if compareTimeIntervals(timeInterval, procedure: procedureLength) {
+                    validTimeIntervals += [timeInterval]
+                }
             } else {
                 
-                let timeInterval = booked[index].when.timeIntervalSince(booked[index - 1].when)
-                canBeBooked = compareTimeIntervals(timeInterval, procedure: procedureLength)
+                let timeInterval = booked[index].procedure.startDate.timeIntervalSince(booked[index - 1].procedure.endDate)
+                if compareTimeIntervals(timeInterval, procedure: procedureLength) {
+                    validTimeIntervals += [timeInterval]
+                }
             }
         }
         
-        return canBeBooked
+        return validTimeIntervals
     }
     
     private func compareTimeIntervals(_ frombooked: TimeInterval, procedure: TimeInterval) -> Bool {
@@ -59,7 +66,7 @@ class Booking {
     
     var client: CustomerModel = CustomerModel()
     var when: Date = Date()
-    var procedrue: Procedure = Procedure()
+    var procedure: Procedure = Procedure()
     
 }
 

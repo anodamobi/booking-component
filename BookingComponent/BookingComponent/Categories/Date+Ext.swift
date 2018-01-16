@@ -55,4 +55,17 @@ extension Date {
     func dateTimeFormat() -> String {
         return StaticVariables.dateTimeFormatter().string(from: self)
     }
+    
+    static func date(from dateString: String?, timeFormat: String) -> Date? {
+        StaticVariables.dateTimeFormatter().dateFormat = timeFormat
+        if let string = dateString {
+            let day = StaticVariables.dateTimeFormatter().date(from: string)
+            return day
+        }
+        return nil
+    }
+    
+    static func dateFromString(dateString: String) {
+        return
+    }
 }
