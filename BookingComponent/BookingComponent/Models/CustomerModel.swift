@@ -27,4 +27,13 @@ class CustomerModel: NSObject {
     var phoneNumber: String = ""
     var email: String = ""
     
+    
+    func pricePerUnit(unit: UnitType) -> String {
+        return ""
+    }
+    
+    func dateAndTime() -> String {
+        return reservedDate.dateTimeFormat
+    }
+    
 }

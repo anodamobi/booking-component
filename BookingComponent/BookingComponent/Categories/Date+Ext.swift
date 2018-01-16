@@ -13,6 +13,7 @@ private struct StaticVariables {
     private static var formatter: DateFormatter = DateFormatter()
     //private static let serverDateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
     private static let dateFormat = "yyyy-MM-dd"
+    private static let dateTimeFormat = "yyyy-MM-dd'T'HH:mm"
     private static let timeFormat = "HH:mm"
     private static let utcTimeZone = "UTC"
 //    private static let cstTimeZone = "CST"
@@ -22,6 +23,13 @@ private struct StaticVariables {
     
     static func utcDateFormatter() -> DateFormatter {
         formatter.dateFormat = dateFormat
+        formatter.locale = NSLocale.current
+        formatter.timeZone = NSTimeZone(abbreviation: utcTimeZone) as TimeZone?
+        return formatter
+    }
+    
+    static func dateTimeFormatter() -> DateFormatter {
+        formatter.dateFormat = dateTimeFormat
         formatter.locale = NSLocale.current
         formatter.timeZone = NSTimeZone(abbreviation: utcTimeZone) as TimeZone?
         return formatter
@@ -42,5 +50,9 @@ extension Date {
     
     func dateFormat() -> String {
         return StaticVariables.utcDateFormatter().string(from: self)
+    }
+    
+    func dateTimeFormat() -> String {
+        return StaticVariables.dateTimeFormatter().string(from: self)
     }
 }
