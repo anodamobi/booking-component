@@ -26,22 +26,5 @@ class CustomerModel: NSObject {
     var profilePhotoURL: String = ""
     var phoneNumber: String = ""
     var email: String = ""
-//    - firstName: String
-//    - lastName: String
-//    - reservedDate: Date
-//    - reservedTime: DateComponent.Time
-//    - bookedPrice: Float
-//    - units: UnitType
-//    - vendor: Vendor
-//    - timeZone: TimeZone
-//    - timeFormat: TimeFormat
-//    - wishedSessionTime: DateComponent.Time
-//    - timeStep: Int
-//    - reservationPeriod: ReservationPeriod
-//    - reservationLength: Float
-//    - photoURL: String
-//    - photoData: NSData/UIImage
-//    - phoneNumber: String
-//    - email: String
     
 }

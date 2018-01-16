@@ -12,7 +12,7 @@ class VendorModel: NSObject {
     
     var startTime: Date = Date() // HH:MM
     var endTime: Date = Date() //HH:MM
-    var timeTable: [Int: CustomerModel] = [:] // [ID: Customer]
+    var timeTable: [Date: [Int:CustomerModel]] = [:] // [ID: Customer]
     var rate: Float = 0.0 //price per timeUnit
     var unit: UnitType = .minute
     var pricePerCustomer: Float = 0.0 //static price per customer
