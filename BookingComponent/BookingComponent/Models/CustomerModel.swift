@@ -33,7 +33,12 @@ class CustomerModel: NSObject {
     }
     
     func dateAndTime() -> String {
-        return reservedDate.dateTimeFormat
+        return reservedDate.dateTimeFormat()
+    }
+    
+    func fullDateTime() {
+        //Add reserved time to reserved date to keep all date in single variable even if time part
+        //will not be used
     }
     
 }
