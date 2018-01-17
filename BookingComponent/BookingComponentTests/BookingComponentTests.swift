@@ -106,7 +106,7 @@ class BookingComponentTests: XCTestCase {
         bookingController = BookingController(booked: [], startDate: startDate, endDate: endDate)
         
         let intervals = bookingController?.isPossibleToBook(newBook: newBook)
-        expect(intervals!.count <= 0 || intervals == nil).to(beTrue())
+        expect(intervals!.count == 0 || intervals == nil).to(beTrue())
     }
     
     func procedure(start: String, end: String) -> Procedure {
