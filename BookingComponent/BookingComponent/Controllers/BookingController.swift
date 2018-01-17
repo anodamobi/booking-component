@@ -21,10 +21,15 @@ class BookingController: NSObject {
         self.booked = booked
     }
     
+    // TODO: Pavel - change newBook to reservation or bookingTimeInterval etc.
     func isPossibleToBook(newBook: Booking) -> [TimeInterval] {
         
-        let procedureLength = newBook.procedure.endDate.timeIntervalSince(newBook.procedure.startDate)
+        let procedureLength = newBook.procedure.procedureLength()
         var validTimeIntervals: [TimeInterval] = []
+        
+        guard newBook.procedure.startDate.timeIntervalSince(startDate) > 0 else {
+            return []
+        }
         
         guard booked.count > 0 else {
             return [endDate.timeIntervalSince(startDate)]
