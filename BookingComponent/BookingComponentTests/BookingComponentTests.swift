@@ -7,6 +7,9 @@
 //
 
 import XCTest
+import Nimble
+import Quick
+
 @testable import BookingComponent
 
 class BookingComponentTests: XCTestCase {
