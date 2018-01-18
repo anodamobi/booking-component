@@ -8,49 +8,71 @@
 
 import Foundation
 import UIKit
+import SnapKit
+import CalendarKit
+import DateToolsSwift
 
-class MainVC: UIViewController {
-    
-    let startDate: Date
-    let endDate: Date
-    let controller: BookingController
-    let booked1 = Booking()
-    let booked2 = Booking()
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        booked1.procedure.startDate = Date.date(from: "2018-01-17T9:00", timeFormat: "yyyy-mm-dd'T'HH:mm")!
-        booked1.procedure.endDate = Date.date(from: "2018-01-17T10:00", timeFormat: "yyyy-mm-dd'T'HH:mm")!
-        booked1.procedure.endDate = booked1.procedure.endDate.addingTimeInterval(15*60)
-        booked2.procedure.startDate = Date.date(from: "2018-01-17T11:00", timeFormat: "yyyy-mm-dd'T'HH:mm")!
-        booked2.procedure.endDate = Date.date(from: "2018-01-17T13:00", timeFormat: "yyyy-mm-dd'T'HH:mm")!
-        booked2.procedure.endDate = booked2.procedure.endDate.addingTimeInterval(15*60)
-        startDate = Date.date(from: "2018-01-17T8:00", timeFormat: "yyyy-mm-dd'T'HH:mm")!
-        endDate = Date.date(from: "2018-01-17T18:00", timeFormat: "yyyy-mm-dd'T'HH:mm")!
-        controller = BookingController(booked: [booked1, booked2],
-                                       startDate: startDate,
-                                       endDate: endDate)
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+
+class MainVC: DayViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let newBook = Booking()
-        newBook.procedure.startDate = Date.date(from: "2018-01-15T10:00", timeFormat: "yyyy-mm-dd'T'HH:mm")!
-        newBook.procedure.endDate = Date.date(from: "2018-01-15T11:00", timeFormat: "yyyy-mm-dd'T'HH:mm")!
-        newBook.procedure.endDate = newBook.procedure.endDate.addingTimeInterval(15*60)
-        let intervals = controller.isPossibleToBook(newBook: newBook)
-        debugPrint("new book 1: Could be booked")
+        updateStyle(StyleGenerator.appStyle())
+        dayView.autoScrollToFirstEvent = false
+    }
+
+    
+    // This will be used later. No panic.
+    override func eventsForDate(_ date: Date) -> [EventDescriptor] {
+//        var date = date.add(TimeChunk.dateComponents(hours: Int(arc4random_uniform(10) + 5)))
+//        var events = [Event]()
+//
+//        for i in 0...5 {
+//            let event = Event()
+//            let duration = Int(arc4random_uniform(160) + 60)
+//            let datePeriod = TimePeriod(beginning: date,
+//                                        chunk: TimeChunk.dateComponents(minutes: duration))
+//
+//            event.datePeriod = datePeriod
+//            var info = data[Int(arc4random_uniform(UInt32(data.count)))]
+//            info.append("\(datePeriod.beginning!.format(with: "dd.MM.YYYY"))")
+//            info.append("\(datePeriod.beginning!.format(with: "HH:mm")) - \(datePeriod.end!.format(with: "HH:mm"))")
+//            event.text = info.reduce("", {$0 + $1 + "\n"})
+//            event.color = colors[Int(arc4random_uniform(UInt32(colors.count)))]
+//
+//            // Event styles are updated independently from CalendarStyle
+//            // hence the need to specify exact colors in case of Dark style
+//            if currentStyle == .Dark {
+//                event.textColor = textColorForEventInDarkTheme(baseColor: event.color)
+//                event.backgroundColor = event.color.withAlphaComponent(0.6)
+//            }
+//
+//            events.append(event)
+//
+//            let nextOffset = Int(arc4random_uniform(250) + 40)
+//            date = date.add(TimeChunk.dateComponents(minutes: nextOffset))
+//            event.userInfo = String(i)
+//        }
         
-//        let newBook1 = Booking()
-//        newBook1.procedure.startDate = Date.date(from: "2018-01-17T14:00", timeFormat: "yyyy-mm-dd'T'HH:mm")!
-//        newBook1.procedure.endDate = Date.date(from: "2018-01-17T15:00", timeFormat: "yyyy-mm-dd'T'HH:mm")!
-//        let bool1 = controller.isPossibleToBook(newBook: newBook1)
-//        debugPrint("new book 2: Could be booked \(bool1)")
+        return []
+    }
+    
+    // MARK: DayViewDelegate
+    
+    override func dayView(dayView: DayView, willMoveTo date: Date) {
+        //    print("DayView = \(dayView) will move to: \(date)")
+    }
+    
+    override func dayView(dayView: DayView, didMoveTo date: Date) {
+        //    print("DayView = \(dayView) did move to: \(date)")
+    }
+    
+    override func dayViewDidSelectEventView(_ eventview: EventView) {
+        print("Event has been selected: ")
+    }
+    
+    override func dayViewDidLongPressEventView(_ eventView: EventView) {
+        print("Event has been longPressed:")
     }
 }
 

@@ -15,8 +15,7 @@ class BookingController: NSObject {
     var endDate: Date = Date()
     var timeBeforeSession: TimeInterval = 60 * 60 // 1h by default.
     
-    init(booked: [Booking], startDate: Date, endDate: Date) {
-        super.init()
+    func update(booked: [Booking], startDate: Date, endDate: Date) {
         self.endDate = endDate
         self.startDate = startDate
         self.booked = booked
