@@ -40,8 +40,8 @@ class MainVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let newBook = Booking()
-        newBook.procedure.startDate = Date.date(from: "2018-01-17T10:00", timeFormat: "yyyy-mm-dd'T'HH:mm")!
-        newBook.procedure.endDate = Date.date(from: "2018-01-17T11:00", timeFormat: "yyyy-mm-dd'T'HH:mm")!
+        newBook.procedure.startDate = Date.date(from: "2018-01-15T10:00", timeFormat: "yyyy-mm-dd'T'HH:mm")!
+        newBook.procedure.endDate = Date.date(from: "2018-01-15T11:00", timeFormat: "yyyy-mm-dd'T'HH:mm")!
         newBook.procedure.endDate = newBook.procedure.endDate.addingTimeInterval(15*60)
         let intervals = controller.isPossibleToBook(newBook: newBook)
         debugPrint("new book 1: Could be booked")

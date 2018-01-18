@@ -13,6 +13,7 @@ class BookingController: NSObject {
     var booked: [Booking] = []
     var startDate: Date = Date()
     var endDate: Date = Date()
+    var timeBeforeSession: TimeInterval = 60 * 60 // 1h by default.
     
     init(booked: [Booking], startDate: Date, endDate: Date) {
         super.init()
@@ -21,11 +22,12 @@ class BookingController: NSObject {
         self.booked = booked
     }
     
-    // TODO: Pavel - change newBook to reservation or bookingTimeInterval etc.
     func isPossibleToBook(newBook: Booking) -> [TimeInterval] {
         
         let procedureLength = newBook.procedure.procedureLength()
         var validTimeIntervals: [TimeInterval] = []
+        var topTimeLimit = startDate
+        var availableBookings = booked
         
         guard newBook.procedure.startDate.timeIntervalSince(startDate) > 0 else {
             return []
@@ -35,22 +37,35 @@ class BookingController: NSObject {
             return [endDate.timeIntervalSince(startDate)]
         }
         
-        for index in 0..<booked.count {
+        if !isTimePast(start: newBook.procedure.startDate) {
+            topTimeLimit = Date().addingTimeInterval(timeBeforeSession)
+        }
+        
+        if !isTimeBeforeSession(start: newBook.procedure.startDate) {
+            availableBookings = findPossibleTime(availableBookings)
+            topTimeLimit = Date().addingTimeInterval(timeBeforeSession)
+        }
+        
+        guard availableBookings.count > 0 else {
+            return []
+        }
+        
+        for index in 0..<availableBookings.count {
             if index == 0 {
                 
-                let timeInterval =  booked[index].procedure.startDate.timeIntervalSince(startDate)
+                let timeInterval =  availableBookings[index].procedure.startDate.timeIntervalSince(topTimeLimit)
                 if compareTimeIntervals(timeInterval, procedure: procedureLength) {
                     validTimeIntervals += [timeInterval]
                 }
-            } else if index == (booked.count - 1) {
+            } else if index == (availableBookings.count - 1) {
                 
-                let timeInterval = endDate.timeIntervalSince(booked[index].procedure.endDate)
+                let timeInterval = endDate.timeIntervalSince(availableBookings[index].procedure.endDate)
                 if compareTimeIntervals(timeInterval, procedure: procedureLength) {
                     validTimeIntervals += [timeInterval]
                 }
             } else {
                 
-                let timeInterval = booked[index].procedure.startDate.timeIntervalSince(booked[index - 1].procedure.endDate)
+                let timeInterval = availableBookings[index].procedure.startDate.timeIntervalSince(availableBookings[index - 1].procedure.endDate)
                 if compareTimeIntervals(timeInterval, procedure: procedureLength) {
                     validTimeIntervals += [timeInterval]
                 }
@@ -60,8 +75,30 @@ class BookingController: NSObject {
         return validTimeIntervals
     }
     
+    
+//    MARK: Helpers
+    
+    private func isTimePast(start: Date) -> Bool {
+        return start.timeIntervalSince(Date()) > 0
+    }
+    
+    private func isTimeBeforeSession(start: Date) -> Bool {
+        return start.timeIntervalSince(Date()) > self.timeBeforeSession
+    }
+    
     private func compareTimeIntervals(_ frombooked: TimeInterval, procedure: TimeInterval) -> Bool {
-        return frombooked >= procedure ? true : false
+        return frombooked >= procedure
+    }
+    
+    private func findPossibleTime(_ bookings: [Booking]) -> [Booking] {
+        var result: [Booking] = []
+        
+        for book in bookings {
+            if !isTimePast(start: book.procedure.startDate) {
+                result += [book]
+            }
+        }
+        return result
     }
     
 }
