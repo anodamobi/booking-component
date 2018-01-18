@@ -24,6 +24,15 @@ class MainVC: DayViewController {
     
     // This will be used later. No panic.
     override func eventsForDate(_ date: Date) -> [EventDescriptor] {
+        let time = date.add(TimeChunk.dateComponents(hours: 8))
+        var events = [Event]()
+        let event = Event()
+        let duration = 8
+        let datePeriod = TimePeriod(beginning: time, chunk: TimeChunk.dateComponents(hours: duration))
+        event.datePeriod = datePeriod
+        event.color = .cmpPaleGreyThree
+        
+        events.append(event)
 //        var date = date.add(TimeChunk.dateComponents(hours: Int(arc4random_uniform(10) + 5)))
 //        var events = [Event]()
 //
@@ -54,7 +63,7 @@ class MainVC: DayViewController {
 //            event.userInfo = String(i)
 //        }
         
-        return []
+        return events
     }
     
     // MARK: DayViewDelegate
