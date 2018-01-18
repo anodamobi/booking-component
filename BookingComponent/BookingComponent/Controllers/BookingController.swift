@@ -37,7 +37,7 @@ class BookingController: NSObject {
             return [endDate.timeIntervalSince(startDate)]
         }
         
-        if !isTimePast(start: newBook.procedure.startDate) {
+        if isTimePast(start: newBook.procedure.startDate) {
             topTimeLimit = Date().addingTimeInterval(timeBeforeSession)
         }
         
@@ -79,7 +79,7 @@ class BookingController: NSObject {
 //    MARK: Helpers
     
     private func isTimePast(start: Date) -> Bool {
-        return start.timeIntervalSince(Date()) > 0
+        return start.timeIntervalSince(Date()) < 0
     }
     
     private func isTimeBeforeSession(start: Date) -> Bool {
