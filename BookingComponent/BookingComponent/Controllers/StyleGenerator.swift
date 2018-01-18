@@ -44,7 +44,7 @@ struct StyleGenerator {
         timeline.timeIndicator.color = .cmpDarkPeach
         timeline.lineColor = paleGrey
         timeline.timeColor = coolGrey
-        timeline.backgroundColor = .white
+        timeline.backgroundColor = .cmpPaleGreyThree
         
         let style = CalendarStyle()
         style.header = header

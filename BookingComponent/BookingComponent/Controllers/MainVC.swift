@@ -30,7 +30,7 @@ class MainVC: DayViewController {
         let duration = 8
         let datePeriod = TimePeriod(beginning: time, chunk: TimeChunk.dateComponents(hours: duration))
         event.datePeriod = datePeriod
-        event.color = .cmpPaleGreyThree
+        event.color = .white
         
         events.append(event)
 //        var date = date.add(TimeChunk.dateComponents(hours: Int(arc4random_uniform(10) + 5)))
