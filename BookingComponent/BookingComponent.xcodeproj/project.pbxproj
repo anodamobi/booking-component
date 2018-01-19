@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		567DDF892010FFD400906E80 /* StyleGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567DDF882010FFD400906E80 /* StyleGenerator.swift */; };
 		567DDF8B2011018F00906E80 /* UIColor+CMPAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567DDF8A2011018F00906E80 /* UIColor+CMPAdditions.swift */; };
+		568FBC2B2011FB620027001F /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568FBC2A2011FB620027001F /* String+Ext.swift */; };
+		568FBC2F20120CB50027001F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 568FBC2E20120CB50027001F /* Localizable.strings */; };
 		56943BB4200E0D63001E2D75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56943BB3200E0D63001E2D75 /* Assets.xcassets */; };
 		56943BC2200E0D63001E2D75 /* BookingComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56943BC1200E0D63001E2D75 /* BookingComponentTests.swift */; };
 		56943BD0200E1045001E2D75 /* VendorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56943BCF200E1045001E2D75 /* VendorModel.swift */; };
@@ -38,6 +40,8 @@
 		31C183A5285AF8DAD2F441B5 /* Pods-BookingComponent-BookingComponentTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookingComponent-BookingComponentTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BookingComponent-BookingComponentTests/Pods-BookingComponent-BookingComponentTests.debug.xcconfig"; sourceTree = "<group>"; };
 		567DDF882010FFD400906E80 /* StyleGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleGenerator.swift; sourceTree = "<group>"; };
 		567DDF8A2011018F00906E80 /* UIColor+CMPAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+CMPAdditions.swift"; sourceTree = "<group>"; };
+		568FBC2A2011FB620027001F /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		568FBC2E20120CB50027001F /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		56943BA9200E0D63001E2D75 /* BookingComponent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookingComponent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56943BB3200E0D63001E2D75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		56943BBD200E0D63001E2D75 /* BookingComponentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookingComponentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				56943BD4200E109B001E2D75 /* Info.plist */,
+				568FBC2E20120CB50027001F /* Localizable.strings */,
 			);
 			path = BundleFiles;
 			sourceTree = "<group>";
@@ -175,6 +180,7 @@
 			children = (
 				567DDF8A2011018F00906E80 /* UIColor+CMPAdditions.swift */,
 				56943BDF200E2B2D001E2D75 /* Date+Ext.swift */,
+				568FBC2A2011FB620027001F /* String+Ext.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -258,8 +264,6 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
-				Base,
 			);
 			mainGroup = 56943BA0200E0D63001E2D75;
 			productRefGroup = 56943BAA200E0D63001E2D75 /* Products */;
@@ -278,6 +282,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				56943BD6200E109B001E2D75 /* Info.plist in Resources */,
+				568FBC2F20120CB50027001F /* Localizable.strings in Resources */,
 				56943BB4200E0D63001E2D75 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -421,6 +426,7 @@
 				56943BD0200E1045001E2D75 /* VendorModel.swift in Sources */,
 				56943BDB200E10CD001E2D75 /* CustomerModel.swift in Sources */,
 				567DDF8B2011018F00906E80 /* UIColor+CMPAdditions.swift in Sources */,
+				568FBC2B2011FB620027001F /* String+Ext.swift in Sources */,
 				567DDF892010FFD400906E80 /* StyleGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

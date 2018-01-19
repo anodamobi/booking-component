@@ -15,24 +15,53 @@ import DateToolsSwift
 
 class MainVC: DayViewController {
     
+    var bookings: [Booking] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateStyle(StyleGenerator.appStyle())
+        var style: CalendarStyle!
+        style = StyleGenerator.appStyle()
+        updateStyle(style)
+        title = "Select Date and Time".localized
+        navigationController?.navigationBar.barTintColor = style.header.backgroundColor
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.cmpGunmetal]
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         dayView.autoScrollToFirstEvent = false
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
     
     // This will be used later. No panic.
     override func eventsForDate(_ date: Date) -> [EventDescriptor] {
-        let time = date.add(TimeChunk.dateComponents(hours: 8))
         var events = [Event]()
         let event = Event()
         let duration = 8
-        let datePeriod = TimePeriod(beginning: time, chunk: TimeChunk.dateComponents(hours: duration))
+        let datePeriod = TimePeriod(beginning: date, chunk: TimeChunk.dateComponents(hours: duration))
         event.datePeriod = datePeriod
-        event.color = .white
+        event.color = .cmpPaleGreyThree
+        event.text = "Non-business hours"
+        event.textColor = .cmpCoolGrey
         
+        let endTime = date.add(TimeChunk.dateComponents(hours:16))
+        let endDayEvent = Event()
+        let period = TimePeriod(beginning: endTime, chunk: TimeChunk.dateComponents(hours: 8))
+        endDayEvent.datePeriod = period
+        endDayEvent.color = .cmpPaleGreyThree
+        endDayEvent.text = "Non-business hours"
+        endDayEvent.textColor = .cmpCoolGrey
+        
+//        let newEvent = Event()
+//        let newPeriod = TimePeriod(beginning: setup(date: stringDateFromDate() + "T10:00 AM"), end: setup(date: stringDateFromDate() + "T01:00 PM"))
+//        newEvent.color = .cmpMidGreen
+//        newEvent.text = "Test event"
+//        newEvent.textColor = .cmpCoolGrey
+//        newEvent.datePeriod = newPeriod
         events.append(event)
+        events.append(endDayEvent)
+//        events.append(newEvent)
 //        var date = date.add(TimeChunk.dateComponents(hours: Int(arc4random_uniform(10) + 5)))
 //        var events = [Event]()
 //
@@ -77,11 +106,36 @@ class MainVC: DayViewController {
     }
     
     override func dayViewDidSelectEventView(_ eventview: EventView) {
-        print("Event has been selected: ")
+        print("Event has been selected: \(String(describing: eventview.descriptor?.datePeriod))")
     }
     
     override func dayViewDidLongPressEventView(_ eventView: EventView) {
         print("Event has been longPressed:")
+    }
+    
+//    MARK: Helpers
+    
+    func procedure(start: String, end: String) -> Procedure {
+        var proc = Procedure()
+        proc.startDate = setup(date: start)
+        proc.endDate = setup(date: end).addingTimeInterval(15*60)
+        return proc
+    }
+    
+    func setup(date: String) -> Date {
+        return Date.date(from: date, timeFormat: "yyyy-MM-dd'T'HH:mm a")!
+    }
+    
+    func stringDateFromDate(_ date: Date? = nil) -> String {
+        if date == nil {
+            return Date().dateFormat()
+        } else {
+            return (date?.dateFormat())!
+        }
+    }
+    
+    func fullDateStringFrom(_ date: Date) -> String {
+        return date.dateTimeFormat()
     }
 }
 

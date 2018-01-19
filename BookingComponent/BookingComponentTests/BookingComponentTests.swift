@@ -220,7 +220,7 @@ class BookingComponentTests: XCTestCase {
     }
     
     func setup(date: String) -> Date {
-        return Date.date(from: date, timeFormat: "yyyy-mm-dd'T'HH:mm")!
+        return Date.date(from: date, timeFormat: "yyyy-MM-dd'T'HH:mm a")!
     }
     
     func stringDateFromDate(_ date: Date? = nil) -> String {
