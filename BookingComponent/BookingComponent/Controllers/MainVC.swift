@@ -19,12 +19,12 @@ class MainVC: DayViewController, EventHandlerDelegate {
     var procedureLength: TimeInterval = 60 * 60
     
     private let eventHandler = EventHandler()
-    private var booking = Booking()
     private var recognizer: UITapGestureRecognizer!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         recognizer = UITapGestureRecognizer(target: self, action: #selector(addNewBooking))
+        dayView.state?.move(to: Date())
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,8 +37,6 @@ class MainVC: DayViewController, EventHandlerDelegate {
         var style: CalendarStyle!
         style = StyleGenerator.appStyle()
         updateStyle(style)
-        
-        let selectedDate = dayView.state?.selectedDate
         
         title = "Select Date and Time".localized
         navigationController?.navigationBar.barTintColor = style.header.backgroundColor
@@ -62,7 +60,6 @@ class MainVC: DayViewController, EventHandlerDelegate {
         let event = Event()
         let duration = 8
         let datePeriod = TimePeriod(beginning: date, chunk: TimeChunk.dateComponents(hours: duration))
-        businessTime.startDate = datePeriod.end ?? Date() // Pavel. Temp: this dates should be provided by vendor.
         event.datePeriod = datePeriod
         event.color = .cmpPaleGreyThree
         event.text = "Non-business hours"
@@ -71,7 +68,6 @@ class MainVC: DayViewController, EventHandlerDelegate {
         let endTime = date.add(TimeChunk.dateComponents(hours:16))
         let endDayEvent = Event()
         let period = TimePeriod(beginning: endTime, chunk: TimeChunk.dateComponents(hours: 8))
-        businessTime.endDate = period.beginning ?? Date() // Pavel. Temp: this dates should be provided by vendor.
         endDayEvent.datePeriod = period
         endDayEvent.color = .cmpPaleGreyThree
         endDayEvent.text = "Non-business hours"
@@ -79,6 +75,8 @@ class MainVC: DayViewController, EventHandlerDelegate {
         
         events.append(event)
         events.append(endDayEvent)
+        
+        setupBusinessHours()
         
         for book in bookings {
             let bookedEvent = Event()
@@ -96,6 +94,15 @@ class MainVC: DayViewController, EventHandlerDelegate {
         }
         
         return events
+    }
+    
+    func setupBusinessHours() {
+        let today = Date()
+        let date = stringDateFromDate(today)
+        let startDate = setup(date: date + "T8:00")
+        let endDate = setup(date: date + "T18:00")
+        businessTime.startDate = startDate
+        businessTime.endDate = endDate
     }
     
     // MARK: DayViewDelegate
@@ -118,18 +125,18 @@ class MainVC: DayViewController, EventHandlerDelegate {
     
 //    MARK: Helpers
     
-    func procedure(start: String, end: String) -> Procedure {
+    fileprivate func procedure(start: String, end: String) -> Procedure {
         var proc = Procedure()
         proc.startDate = setup(date: start)
         proc.endDate = setup(date: end).addingTimeInterval(15*60)
         return proc
     }
     
-    func setup(date: String) -> Date {
-        return Date.date(from: date, timeFormat: "yyyy-MM-dd'T'HH:mm")!
+    fileprivate func setup(date: String) -> Date {
+        return Date.date(from: date, timeFormat: "yyyy-MM-dd'T'H:mm")!
     }
     
-    func stringDateFromDate(_ date: Date? = nil) -> String {
+    fileprivate func stringDateFromDate(_ date: Date? = nil) -> String {
         if date == nil {
             return Date().dateFormat()
         } else {
@@ -137,23 +144,23 @@ class MainVC: DayViewController, EventHandlerDelegate {
         }
     }
     
-    func fullDateStringFrom(_ date: Date) -> String {
+    fileprivate func fullDateStringFrom(_ date: Date) -> String {
         return date.dateTimeFormat()
     }
     
     override func dayViewDidLongPressTimelineAtHour(_ hour: Int) {
-        let stringDate = stringDateFromDate(dayView.state?.selectedDate)
-        let date = Date.date(from: stringDate, timeFormat: "yyyy-MM-dd")?.addingTimeInterval(TimeInterval(hour * 60 * 60))
-        let selectedDate = setup(date: stringDate)
-        booking.when = selectedDate
-        booking.procedure.startDate = selectedDate
-        booking.procedure.endDate = selectedDate.addingTimeInterval(procedureLength)
-        eventHandler.receiveCurrent(bookings: bookings, businessTime: businessTime, newBook: booking)
+        if let selectedDate = dayView.state?.selectedDate.add(TimeChunk.dateComponents(hours:hour)) {
+            let booking = Booking()
+            booking.when = selectedDate
+            booking.procedure.startDate = selectedDate
+            booking.procedure.endDate = selectedDate.addingTimeInterval(procedureLength)
+            eventHandler.receiveCurrent(bookings: bookings, businessTime: businessTime, newBook: booking)
+        }
     }
     
-//    func getDateFromTable() -> Date {
-//        return (dayView.state?.selectedDate)! // ?? Date()
-//    }
+    func getDateFromTable() -> Date {
+        return (dayView.state?.selectedDate)!
+    }
     
 //    MARK: addEventDelegate
     

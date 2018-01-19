@@ -12,8 +12,8 @@ private struct StaticVariables {
     
     private static var formatter: DateFormatter = DateFormatter()
     private static let dateFormat = "yyyy-MM-dd"
-    private static let dateTimeFormat = "yyyy-MM-dd'T'HH:mm a"
-    private static let timeFormat = "HH:mm a"
+    private static let dateTimeFormat = "yyyy-MM-dd'T'H:mm"
+    private static let timeFormat = "H:mm a"
     private static let utcTimeZone = "UTC"
 
     

@@ -20,17 +20,16 @@ class BookingComponentTests: XCTestCase {
     var startDate: Date = Date()
     var endDate: Date = Date()
     var dateString: String = ""
-    var bookingController: BookingController?
+    var bookingController = BookingController()
     
     override func setUp() {
         super.setUp()
         dateString = self.stringDateFromDate()
-        startDate = setup(date: "\(dateString)T8:00")
-        endDate = setup(date: "\(dateString)T18:00")
+        startDate = setup(date: "\(dateString)T08:00+0000")
+        endDate = setup(date: "\(dateString)T18:00+0000")
     }
     
     override func tearDown() {
-        bookingController = nil
         dateString = ""
         startDate = Date()
         endDate = Date()
@@ -41,12 +40,13 @@ class BookingComponentTests: XCTestCase {
         
         let book = Booking()
         book.procedure = procedure(start: "\(dateString)T9:00", end: "\(dateString)T10:00")
-        bookingController = BookingController(booked: [], startDate: startDate, endDate: endDate)
         
-        let intervals = bookingController?.isPossibleToBook(newBook: book)
+        bookingController.update(booked: [], startDate: startDate, endDate: endDate)
         
-        expect(intervals != nil).to(beTrue())
-        expect(intervals?.first == self.endDate.timeIntervalSince(self.startDate)).to(beTrue())
+        let intervals = bookingController.isPossibleToBook(newBook: book)
+        
+        expect(intervals.count > 0).to(beTrue())
+        expect(intervals.first == self.endDate.timeIntervalSince(self.startDate)).to(beTrue())
         
     }
     
@@ -66,12 +66,12 @@ class BookingComponentTests: XCTestCase {
         let newBook = Booking()
         newBook.procedure = procedure(start: "\(dateString)T9:00", end: "\(dateString)T10:00")
         
-        bookingController = BookingController(booked: [book1, book2, book3, book4, book5], startDate: startDate, endDate: endDate)
+        bookingController.update(booked: [book1, book2, book3, book4, book5], startDate: startDate, endDate: endDate)
         
-        let intervals = bookingController?.isPossibleToBook(newBook: newBook)
+        let intervals = bookingController.isPossibleToBook(newBook: newBook)
         
-        expect(intervals != nil).to(beTrue())
-        for interval in intervals! {
+        expect(intervals.count > 0).to(beTrue())
+        for interval in intervals {
             expect(interval < newBook.procedure.procedureLength()).to(beTrue())
         }
     }
@@ -90,17 +90,17 @@ class BookingComponentTests: XCTestCase {
         let newBook = Booking()
         newBook.procedure = procedure(start: "\(dateString)T9:00", end: "\(dateString)T10:00")
         
-        bookingController = BookingController(booked: [book1, book2, book3, book4], startDate: startDate, endDate: endDate)
+        bookingController.update(booked: [book1, book2, book3, book4], startDate: startDate, endDate: endDate)
         
-        let intervals = bookingController?.isPossibleToBook(newBook: newBook)
+        let intervals = bookingController.isPossibleToBook(newBook: newBook)
         
-        expect(intervals != nil).to(beTrue())
+        expect(intervals.count > 0).to(beTrue())
         
-        for index in 0..<intervals!.count {
-            if intervals![index] >= newBook.procedure.procedureLength() {
-                expect(intervals![index] >= newBook.procedure.procedureLength()).to(beTrue())
+        for index in 0..<intervals.count {
+            if intervals[index] >= newBook.procedure.procedureLength() {
+                expect(intervals[index] >= newBook.procedure.procedureLength()).to(beTrue())
             } else {
-                expect(intervals![index] < newBook.procedure.procedureLength()).to(beTrue())
+                expect(intervals[index] < newBook.procedure.procedureLength()).to(beTrue())
             }
         }
     }
@@ -109,10 +109,10 @@ class BookingComponentTests: XCTestCase {
         let newBook = Booking()
         newBook.procedure = procedure(start: "2018-01-16T16:00", end: "2018-01-16T17:00")
         
-        bookingController = BookingController(booked: [], startDate: startDate, endDate: endDate)
+        bookingController.update(booked: [], startDate: startDate, endDate: endDate)
         
-        let intervals = bookingController?.isPossibleToBook(newBook: newBook)
-        expect(intervals!.count == 0 || intervals == nil).to(beTrue())
+        let intervals = bookingController.isPossibleToBook(newBook: newBook)
+        expect(intervals.count == 0).to(beTrue())
     }
     
     func testBookRightNow() {
@@ -122,11 +122,11 @@ class BookingComponentTests: XCTestCase {
         let booking = Booking()
         booking.procedure = procedure(start: fullDateStringFrom(Date().addingTimeInterval((60 + 15) * 60)),
                                       end: fullDateStringFrom(endDate))
-        bookingController = BookingController(booked: [booking], startDate: startDate, endDate: endDate)
+        bookingController.update(booked: [booking], startDate: startDate, endDate: endDate)
         
-        let intervals = bookingController?.isPossibleToBook(newBook: newBook)
+        let intervals = bookingController.isPossibleToBook(newBook: newBook)
         
-        expect(intervals?.count == 0).to(beTrue())
+        expect(intervals.count == 0).to(beTrue())
     }
     
     func testBookTomorrow() {
@@ -135,11 +135,11 @@ class BookingComponentTests: XCTestCase {
         let end = fullDateStringFrom(Date().addingTimeInterval(day + 3600))
         newBook.procedure = procedure(start: start, end: end)
         
-        bookingController = BookingController(booked: [], startDate: startDate, endDate: endDate)
+        bookingController.update(booked: [], startDate: startDate, endDate: endDate)
         
-        let intervals = bookingController?.isPossibleToBook(newBook: newBook)
+        let intervals = bookingController.isPossibleToBook(newBook: newBook)
         
-        expect(intervals!.count > 0).to(beTrue())
+        expect(intervals.count > 0).to(beTrue())
     }
     
     func testBookTomorrowNotEmtyTable() {
@@ -161,17 +161,17 @@ class BookingComponentTests: XCTestCase {
         let book4 = Booking()
         book4.procedure = procedure(start: "\(stringNextDay)T14:15", end: "\(stringNextDay)T16:30")
         
-        bookingController = BookingController(booked: [book1, book2, book3, book4],
-                                              startDate: setup(date: dayStart),
-                                              endDate: setup(date: dayEnd))
+        bookingController.update(booked: [book1, book2, book3, book4],
+                                 startDate: setup(date: dayStart),
+                                 endDate: setup(date: dayEnd))
         
-        let intervals = bookingController?.isPossibleToBook(newBook: newBook)
+        let intervals = bookingController.isPossibleToBook(newBook: newBook)
         
-        for index in 0..<intervals!.count {
-            if intervals![index] >= newBook.procedure.procedureLength() {
-                expect(intervals![index] >= newBook.procedure.procedureLength()).to(beTrue())
+        for index in 0..<intervals.count {
+            if intervals[index] >= newBook.procedure.procedureLength() {
+                expect(intervals[index] >= newBook.procedure.procedureLength()).to(beTrue())
             } else {
-                expect(intervals![index] < newBook.procedure.procedureLength()).to(beTrue())
+                expect(intervals[index] < newBook.procedure.procedureLength()).to(beTrue())
             }
         }
     }
@@ -197,14 +197,14 @@ class BookingComponentTests: XCTestCase {
         let book5 = Booking()
         book5.procedure = procedure(start: "\(stringNextDay)T17:00", end: "\(stringNextDay)T18:00")
         
-        bookingController = BookingController(booked: [book1, book2, book3, book4, book5],
-                                              startDate: setup(date: dayStart),
-                                              endDate: setup(date: dayEnd))
+        bookingController.update(booked: [book1, book2, book3, book4, book5],
+                                 startDate: setup(date: dayStart),
+                                 endDate: setup(date: dayEnd))
         
-        let intervals = bookingController?.isPossibleToBook(newBook: newBook)
+        let intervals = bookingController.isPossibleToBook(newBook: newBook)
         
-        expect(intervals != nil).to(beTrue())
-        for interval in intervals! {
+        expect(intervals.count > 0).to(beTrue())
+        for interval in intervals {
             expect(interval < newBook.procedure.procedureLength()).to(beTrue())
         }
     }
