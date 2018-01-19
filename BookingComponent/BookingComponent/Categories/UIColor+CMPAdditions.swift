@@ -59,4 +59,8 @@ extension UIColor {
 	@nonobjc class var cmpMidGreen75: UIColor { 
 		return UIColor(red: 76.0 / 255.0, green: 175.0 / 255.0, blue: 80.0 / 255.0, alpha: 0.75)
 	}
+    
+    @nonobjc class var cmpBrownishOrange5: UIColor {
+        return UIColor(red: 222.0 / 255, green: 110.0 / 255.0, blue: 39.0 / 255.0, alpha: 0.05)
+    }
 }

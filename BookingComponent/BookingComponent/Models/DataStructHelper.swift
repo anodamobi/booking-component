@@ -21,11 +21,7 @@ enum UnitType: String, Equatable {
     case month = "month"
 }
 
-struct ReservationPeriod {
+struct BusinessTime {
     var startDate: Date = Date()
     var endDate: Date = Date()
-    
-    func reservationLenght(unit: UnitType) -> DateInterval {
-        return DateInterval.init(start: startDate, end: endDate)
-    }
 }

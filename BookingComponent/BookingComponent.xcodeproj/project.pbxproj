@@ -11,6 +11,7 @@
 		567DDF8B2011018F00906E80 /* UIColor+CMPAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567DDF8A2011018F00906E80 /* UIColor+CMPAdditions.swift */; };
 		568FBC2B2011FB620027001F /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568FBC2A2011FB620027001F /* String+Ext.swift */; };
 		568FBC2F20120CB50027001F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 568FBC2E20120CB50027001F /* Localizable.strings */; };
+		568FBC3620121B450027001F /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568FBC3520121B450027001F /* EventHandler.swift */; };
 		56943BB4200E0D63001E2D75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56943BB3200E0D63001E2D75 /* Assets.xcassets */; };
 		56943BC2200E0D63001E2D75 /* BookingComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56943BC1200E0D63001E2D75 /* BookingComponentTests.swift */; };
 		56943BD0200E1045001E2D75 /* VendorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56943BCF200E1045001E2D75 /* VendorModel.swift */; };
@@ -42,6 +43,7 @@
 		567DDF8A2011018F00906E80 /* UIColor+CMPAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+CMPAdditions.swift"; sourceTree = "<group>"; };
 		568FBC2A2011FB620027001F /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		568FBC2E20120CB50027001F /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		568FBC3520121B450027001F /* EventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
 		56943BA9200E0D63001E2D75 /* BookingComponent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookingComponent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56943BB3200E0D63001E2D75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		56943BBD200E0D63001E2D75 /* BookingComponentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookingComponentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -171,6 +173,7 @@
 				56943BD8200E10BB001E2D75 /* MainVC.swift */,
 				56943BE5200E5456001E2D75 /* BookingController.swift */,
 				567DDF882010FFD400906E80 /* StyleGenerator.swift */,
+				568FBC3520121B450027001F /* EventHandler.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				56943BE0200E2B2D001E2D75 /* Date+Ext.swift in Sources */,
 				56943BD0200E1045001E2D75 /* VendorModel.swift in Sources */,
 				56943BDB200E10CD001E2D75 /* CustomerModel.swift in Sources */,
+				568FBC3620121B450027001F /* EventHandler.swift in Sources */,
 				567DDF8B2011018F00906E80 /* UIColor+CMPAdditions.swift in Sources */,
 				568FBC2B2011FB620027001F /* String+Ext.swift in Sources */,
 				567DDF892010FFD400906E80 /* StyleGenerator.swift in Sources */,

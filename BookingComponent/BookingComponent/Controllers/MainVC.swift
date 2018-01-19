@@ -12,22 +12,44 @@ import SnapKit
 import CalendarKit
 import DateToolsSwift
 
-
-class MainVC: DayViewController {
+class MainVC: DayViewController, EventHandlerDelegate {
     
     var bookings: [Booking] = []
+    var businessTime = BusinessTime()
+    var procedureLength: TimeInterval = 60 * 60
+    
+    private let eventHandler = EventHandler()
+    private var booking = Booking()
+    private var recognizer: UITapGestureRecognizer!
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        recognizer = UITapGestureRecognizer(target: self, action: #selector(addNewBooking))
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         var style: CalendarStyle!
         style = StyleGenerator.appStyle()
         updateStyle(style)
+        
+        let selectedDate = dayView.state?.selectedDate
+        
         title = "Select Date and Time".localized
         navigationController?.navigationBar.barTintColor = style.header.backgroundColor
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.cmpGunmetal]
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         dayView.autoScrollToFirstEvent = false
+        
+        self.dayView.addGestureRecognizer(recognizer)
+
+        eventHandler.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -40,6 +62,7 @@ class MainVC: DayViewController {
         let event = Event()
         let duration = 8
         let datePeriod = TimePeriod(beginning: date, chunk: TimeChunk.dateComponents(hours: duration))
+        businessTime.startDate = datePeriod.end ?? Date() // Pavel. Temp: this dates should be provided by vendor.
         event.datePeriod = datePeriod
         event.color = .cmpPaleGreyThree
         event.text = "Non-business hours"
@@ -48,49 +71,29 @@ class MainVC: DayViewController {
         let endTime = date.add(TimeChunk.dateComponents(hours:16))
         let endDayEvent = Event()
         let period = TimePeriod(beginning: endTime, chunk: TimeChunk.dateComponents(hours: 8))
+        businessTime.endDate = period.beginning ?? Date() // Pavel. Temp: this dates should be provided by vendor.
         endDayEvent.datePeriod = period
         endDayEvent.color = .cmpPaleGreyThree
         endDayEvent.text = "Non-business hours"
         endDayEvent.textColor = .cmpCoolGrey
         
-//        let newEvent = Event()
-//        let newPeriod = TimePeriod(beginning: setup(date: stringDateFromDate() + "T10:00 AM"), end: setup(date: stringDateFromDate() + "T01:00 PM"))
-//        newEvent.color = .cmpMidGreen
-//        newEvent.text = "Test event"
-//        newEvent.textColor = .cmpCoolGrey
-//        newEvent.datePeriod = newPeriod
         events.append(event)
         events.append(endDayEvent)
-//        events.append(newEvent)
-//        var date = date.add(TimeChunk.dateComponents(hours: Int(arc4random_uniform(10) + 5)))
-//        var events = [Event]()
-//
-//        for i in 0...5 {
-//            let event = Event()
-//            let duration = Int(arc4random_uniform(160) + 60)
-//            let datePeriod = TimePeriod(beginning: date,
-//                                        chunk: TimeChunk.dateComponents(minutes: duration))
-//
-//            event.datePeriod = datePeriod
-//            var info = data[Int(arc4random_uniform(UInt32(data.count)))]
-//            info.append("\(datePeriod.beginning!.format(with: "dd.MM.YYYY"))")
-//            info.append("\(datePeriod.beginning!.format(with: "HH:mm")) - \(datePeriod.end!.format(with: "HH:mm"))")
-//            event.text = info.reduce("", {$0 + $1 + "\n"})
-//            event.color = colors[Int(arc4random_uniform(UInt32(colors.count)))]
-//
-//            // Event styles are updated independently from CalendarStyle
-//            // hence the need to specify exact colors in case of Dark style
-//            if currentStyle == .Dark {
-//                event.textColor = textColorForEventInDarkTheme(baseColor: event.color)
-//                event.backgroundColor = event.color.withAlphaComponent(0.6)
-//            }
-//
-//            events.append(event)
-//
-//            let nextOffset = Int(arc4random_uniform(250) + 40)
-//            date = date.add(TimeChunk.dateComponents(minutes: nextOffset))
-//            event.userInfo = String(i)
-//        }
+        
+        for book in bookings {
+            let bookedEvent = Event()
+            let eventTimePeriod = TimePeriod(beginning: book.procedure.startDate, end: book.procedure.endDate)
+            bookedEvent.datePeriod = eventTimePeriod
+            bookedEvent.text = "Busy"
+            bookedEvent.textColor = .cmpCoolGrey
+            bookedEvent.backgroundColor = .cmpBrownishOrange5
+            
+            if book.client.userID == "current_user_name" { // keep current userID in defaults.
+                bookedEvent.textColor = .white
+                bookedEvent.backgroundColor = .cmpMidGreen75
+            }
+            events.append(bookedEvent)
+        }
         
         return events
     }
@@ -123,7 +126,7 @@ class MainVC: DayViewController {
     }
     
     func setup(date: String) -> Date {
-        return Date.date(from: date, timeFormat: "yyyy-MM-dd'T'HH:mm a")!
+        return Date.date(from: date, timeFormat: "yyyy-MM-dd'T'HH:mm")!
     }
     
     func stringDateFromDate(_ date: Date? = nil) -> String {
@@ -136,6 +139,40 @@ class MainVC: DayViewController {
     
     func fullDateStringFrom(_ date: Date) -> String {
         return date.dateTimeFormat()
+    }
+    
+    override func dayViewDidLongPressTimelineAtHour(_ hour: Int) {
+        let stringDate = stringDateFromDate(dayView.state?.selectedDate)
+        let date = Date.date(from: stringDate, timeFormat: "yyyy-MM-dd")?.addingTimeInterval(TimeInterval(hour * 60 * 60))
+        let selectedDate = setup(date: stringDate)
+        booking.when = selectedDate
+        booking.procedure.startDate = selectedDate
+        booking.procedure.endDate = selectedDate.addingTimeInterval(procedureLength)
+        eventHandler.receiveCurrent(bookings: bookings, businessTime: businessTime, newBook: booking)
+    }
+    
+//    func getDateFromTable() -> Date {
+//        return (dayView.state?.selectedDate)! // ?? Date()
+//    }
+    
+//    MARK: addEventDelegate
+    
+    @objc func addNewBooking() {
+//        let selectedDate = getDateFromTable()
+//        booking.when = selectedDate
+//        booking.procedure.startDate = selectedDate
+//        booking.procedure.endDate = selectedDate.addingTimeInterval(procedureLength)
+//        eventHandler.receiveCurrent(bookings: bookings, businessTime: businessTime, newBook: booking)
+    }
+ 
+    func add(booking: Booking) {
+        
+        bookings += [booking]
+        reloadData()
+    }
+    
+    func resetPanGesture() {
+        
     }
 }
 

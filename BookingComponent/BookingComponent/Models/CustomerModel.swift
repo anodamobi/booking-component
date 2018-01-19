@@ -10,6 +10,7 @@ import Foundation
 
 class CustomerModel: NSObject {
     
+    var userID: String = ""
     var firstName: String = ""
     var lastName: String = ""
     var reservedDate: Date = Date() //yyyy-MM-dd
@@ -21,7 +22,6 @@ class CustomerModel: NSObject {
     var wishedSessionTime: Date = Date() //HH:mm
     var sessionLength: Int = 0 // reservtion length depends on it.
     var timeStep: Int = 5 //minimal step to increase sessionLength
-    var reservationPeriod: ReservationPeriod = ReservationPeriod()
     var reservationLength: TimeInterval = TimeInterval(exactly: 0)!
     var profilePhotoURL: String = ""
     var phoneNumber: String = ""
