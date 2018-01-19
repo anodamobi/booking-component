@@ -54,7 +54,6 @@ class MainVC: DayViewController, EventHandlerDelegate {
         super.viewWillAppear(animated)
     }
     
-    // This will be used later. No panic.
     override func eventsForDate(_ date: Date) -> [EventDescriptor] {
         var events = [Event]()
         let event = Event()
@@ -156,20 +155,6 @@ class MainVC: DayViewController, EventHandlerDelegate {
             booking.procedure.endDate = selectedDate.addingTimeInterval(procedureLength)
             eventHandler.receiveCurrent(bookings: bookings, businessTime: businessTime, newBook: booking)
         }
-    }
-    
-    func getDateFromTable() -> Date {
-        return (dayView.state?.selectedDate)!
-    }
-    
-//    MARK: addEventDelegate
-    
-    @objc func addNewBooking() {
-//        let selectedDate = getDateFromTable()
-//        booking.when = selectedDate
-//        booking.procedure.startDate = selectedDate
-//        booking.procedure.endDate = selectedDate.addingTimeInterval(procedureLength)
-//        eventHandler.receiveCurrent(bookings: bookings, businessTime: businessTime, newBook: booking)
     }
  
     func add(booking: Booking) {

@@ -8,19 +8,6 @@
 
 import Foundation
 
-enum ServiceType: String, Equatable {
-    case none = "none"
-    case service1 = "service1"
-}
-
-enum UnitType: String, Equatable {
-    case minute = "minute"
-    case hour = "hour"
-    case day = "day"
-    case week = "week"
-    case month = "month"
-}
-
 struct BusinessTime {
     var startDate: Date = Date()
     var endDate: Date = Date()

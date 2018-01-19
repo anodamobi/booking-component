@@ -18,7 +18,7 @@
 		56943BD5200E109B001E2D75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56943BD2200E109B001E2D75 /* AppDelegate.swift */; };
 		56943BD6200E109B001E2D75 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 56943BD4200E109B001E2D75 /* Info.plist */; };
 		56943BD9200E10BB001E2D75 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56943BD8200E10BB001E2D75 /* MainVC.swift */; };
-		56943BDB200E10CD001E2D75 /* CustomerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56943BDA200E10CD001E2D75 /* CustomerModel.swift */; };
+		56943BDB200E10CD001E2D75 /* ClientModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56943BDA200E10CD001E2D75 /* ClientModel.swift */; };
 		56943BDD200E110C001E2D75 /* DataStructHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56943BDC200E110C001E2D75 /* DataStructHelper.swift */; };
 		56943BE0200E2B2D001E2D75 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56943BDF200E2B2D001E2D75 /* Date+Ext.swift */; };
 		56943BE6200E5456001E2D75 /* BookingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56943BE5200E5456001E2D75 /* BookingController.swift */; };
@@ -53,7 +53,7 @@
 		56943BD2200E109B001E2D75 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56943BD4200E109B001E2D75 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		56943BD8200E10BB001E2D75 /* MainVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
-		56943BDA200E10CD001E2D75 /* CustomerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerModel.swift; sourceTree = "<group>"; };
+		56943BDA200E10CD001E2D75 /* ClientModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientModel.swift; sourceTree = "<group>"; };
 		56943BDC200E110C001E2D75 /* DataStructHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStructHelper.swift; sourceTree = "<group>"; };
 		56943BDF200E2B2D001E2D75 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		56943BE5200E5456001E2D75 /* BookingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingController.swift; sourceTree = "<group>"; };
@@ -143,7 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				56943BCF200E1045001E2D75 /* VendorModel.swift */,
-				56943BDA200E10CD001E2D75 /* CustomerModel.swift */,
+				56943BDA200E10CD001E2D75 /* ClientModel.swift */,
 				56943BDC200E110C001E2D75 /* DataStructHelper.swift */,
 			);
 			path = Models;
@@ -266,8 +266,6 @@
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
-			knownRegions = (
-			);
 			mainGroup = 56943BA0200E0D63001E2D75;
 			productRefGroup = 56943BAA200E0D63001E2D75 /* Products */;
 			projectDirPath = "";
@@ -427,7 +425,7 @@
 				56943BDD200E110C001E2D75 /* DataStructHelper.swift in Sources */,
 				56943BE0200E2B2D001E2D75 /* Date+Ext.swift in Sources */,
 				56943BD0200E1045001E2D75 /* VendorModel.swift in Sources */,
-				56943BDB200E10CD001E2D75 /* CustomerModel.swift in Sources */,
+				56943BDB200E10CD001E2D75 /* ClientModel.swift in Sources */,
 				568FBC3620121B450027001F /* EventHandler.swift in Sources */,
 				567DDF8B2011018F00906E80 /* UIColor+CMPAdditions.swift in Sources */,
 				568FBC2B2011FB620027001F /* String+Ext.swift in Sources */,

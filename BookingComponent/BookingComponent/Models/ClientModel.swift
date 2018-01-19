@@ -14,7 +14,6 @@ class CustomerModel: NSObject {
     var firstName: String = ""
     var lastName: String = ""
     var reservedDate: Date = Date() //yyyy-MM-dd
-//    var reservedTime: Date = Date() //HH:mm
     var bookedPrice: Float = 0.0
     var untis: UnitType = .minute
     var vendor: VendorModel = VendorModel()
@@ -37,7 +36,7 @@ class CustomerModel: NSObject {
     }
     
     func fullDateTime() {
-        
+        //TODO: pavel - fill it or remove it.
     }
     
 }
