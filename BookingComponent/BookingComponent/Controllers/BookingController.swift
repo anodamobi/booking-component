@@ -102,20 +102,3 @@ class BookingController: NSObject {
     
 }
 
-
-class Booking {
-    
-    var client: CustomerModel = CustomerModel()
-    var when: Date = Date()
-    var procedure: Procedure = Procedure()
-    
-}
-
-struct Procedure {
-    var startDate: Date = Date()
-    var endDate: Date = Date()
-    
-    func procedureLength() -> TimeInterval {
-        return endDate.timeIntervalSince(startDate)
-    }
-}
