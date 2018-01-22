@@ -15,14 +15,6 @@ public enum ProcedureType: String, Equatable {
     case manicure = "Manicure"
 }
 
-struct Procedure {
-    
-    var procedureName: String = ""
-    var details: String = ""
-    var durationPrice: Float = 0
-    var procedureDuration: TimeInterval = 0
-}
-
 extension ProcedureType {
     
     func allProcedureTypes() -> [ProcedureType] {

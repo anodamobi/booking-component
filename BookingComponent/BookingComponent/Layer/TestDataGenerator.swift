@@ -17,8 +17,8 @@ class TestDataGenerator {
     static func createVendor() -> VendorModel {
         
         let vendor = VendorModel()
-        vendor.startTime = Date.date(from: stringDate + "T10:00", timeFormat: "yyyy-MM-dd'T'H:mm") ?? Date()
-        vendor.endTime = Date.date(from: stringDate + "T20:00", timeFormat: "yyyy-MM-dd'T'H:mm") ?? Date()
+        vendor.startTime = Date.date(from: stringDate + "T8:00", timeFormat: "yyyy-MM-dd'T'H:mm") ?? Date()
+        vendor.endTime = Date.date(from: stringDate + "T18:00", timeFormat: "yyyy-MM-dd'T'H:mm") ?? Date()
         vendor.contactData.city = "New York"
         vendor.contactData.country = "U.S."
         vendor.contactData.details = "Dummy text :^)"
@@ -33,7 +33,7 @@ class TestDataGenerator {
     
     static func createServiceProviders() -> [ServiceProvider] {
         
-        let haircut = ServiceProvider(types: [.haircut])
+        let haircut = ServiceProvider()
         let booking1 = Booking()
         booking1.client = createClinet(id: 177)
         booking1.procedure.startDate = Date.date(from: stringDate + "T11:00", timeFormat: "yyyy-MM-dd'T'H:mm") ?? Date()
@@ -45,6 +45,9 @@ class TestDataGenerator {
         haircut.endTime = Date.date(from: stringDate + "T20:00", timeFormat: "yyyy-MM-dd'T'H:mm") ?? Date()
         haircut.firstName = "Felitia"
         haircut.lastName = "Boldsome"
+        let procedure = Procedure(procedureName: "Hair style", details: "Test", durationPrice: 80, procedureDuration: 1.5 * hour)
+        haircut.availableProcedureTypes = [.haircut: procedure]
+        
         
         return [haircut]
     }

@@ -30,3 +30,11 @@ struct ProcedureDuration {
         return endDate.timeIntervalSince(startDate)
     }
 }
+
+struct Procedure {
+    
+    var procedureName: String = ""
+    var details: String = ""
+    var durationPrice: Float = 0
+    var procedureDuration: TimeInterval = 0
+}

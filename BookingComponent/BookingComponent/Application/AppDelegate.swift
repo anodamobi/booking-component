@@ -18,8 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white
         window?.makeKeyAndVisible()
-        
-        window?.rootViewController = UINavigationController.init(rootViewController: MainVC(nibName: nil, bundle: nil))
+    
+        let bookingVC = BookingVC(TestDataGenerator.createVendor(), .haircut, TestDataGenerator.createClinet(id: 17))
+        window?.rootViewController = UINavigationController.init(rootViewController: bookingVC)
         
         return true
     }

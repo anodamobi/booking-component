@@ -62,6 +62,7 @@ class BookingController: NSObject {
                 if compareTimeIntervals(timeInterval, procedure: procedureLength) {
                     validTimeIntervals += [timeInterval]
                 }
+                
             } else {
                 
                 let timeInterval = availableBookings[index].procedure.startDate.timeIntervalSince(availableBookings[index - 1].procedure.endDate)

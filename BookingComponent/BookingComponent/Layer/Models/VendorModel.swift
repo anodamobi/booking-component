@@ -41,18 +41,7 @@ class ContactData {
 
 class ServiceProvider {
     
-    var availableProcedureTypes: [Procedure]
-    
-    init(types: [ProcedureType]) {
-        
-        availableProcedureTypes = []
-        
-        for type in types {
-            var procedure = Procedure()
-            procedure.procedureName = type.rawValue
-            availableProcedureTypes += [procedure]
-        }
-    }
+    var availableProcedureTypes: [ProcedureType: Procedure] = [:]
     
     var firstName: String = ""
     var lastName: String = ""

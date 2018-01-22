@@ -1,5 +1,5 @@
 //
-//  MainVC.swift
+//  BookingVC.swift
 //  BookingComponent
 //
 //  Created by Pavel Mosunov on 1/16/18.
@@ -12,19 +12,27 @@ import SnapKit
 import CalendarKit
 import DateToolsSwift
 
-class MainVC: DayViewController, EventHandlerDelegate {
+class BookingVC: DayViewController, EventHandlerDelegate {
     
     var bookings: [Booking] = []
     var businessTime = BusinessTime()
-    var procedureLength: TimeInterval = 60 * 60
+    var procedureLength: TimeInterval!
+    var procedureType: ProcedureType!
+    var vendor: VendorModel!
+    var currentUser: ClientModel!
+    
     var testVendor = TestDataGenerator.createVendor()
     
     private let eventHandler = EventHandler()
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        dayView.state?.move(to: Date())
-        bookings = testVendor.serviceProviders[0].bookings
+    init(_ vendor: VendorModel, _ procedureType: ProcedureType, _ client: ClientModel) {
+        
+        super.init(nibName: nil, bundle: nil)
+        self.vendor = vendor
+        self.procedureType = procedureType
+        self.currentUser = client
+        procedureLength = vendor.serviceProviders[0].availableProcedureTypes[procedureType]?.procedureDuration
+        bookings = vendor.serviceProviders[0].bookings
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -56,19 +64,18 @@ class MainVC: DayViewController, EventHandlerDelegate {
     
         var events = [Event]()
         let event = Event()
-        let duration = 8
+        let duration = vendor.startTime.component(.hour)
         let datePeriod = TimePeriod(beginning: date, chunk: TimeChunk.dateComponents(hours: duration))
         event.datePeriod = datePeriod
         event.color = .cmpPaleGreyThree
-        event.text = "Non-business hours"
+        event.text = "Non-business hours".localized
         event.textColor = .cmpCoolGrey
         
-        let endTime = date.add(TimeChunk.dateComponents(hours:16))
         let endDayEvent = Event()
-        let period = TimePeriod(beginning: endTime, chunk: TimeChunk.dateComponents(hours: 8))
+        let period = TimePeriod(beginning: vendor.endTime, chunk: TimeChunk.dateComponents(hours: 8))
         endDayEvent.datePeriod = period
         endDayEvent.color = .cmpPaleGreyThree
-        endDayEvent.text = "Non-business hours"
+        endDayEvent.text = "Non-business hours".localized
         endDayEvent.textColor = .cmpCoolGrey
         
         events.append(event)
@@ -84,9 +91,11 @@ class MainVC: DayViewController, EventHandlerDelegate {
             bookedEvent.textColor = .cmpCoolGrey
             bookedEvent.backgroundColor = .cmpBrownishOrange5
             
-            if book.client.userID == 0 { // keep current userID in defaults.
+            if book.client.userID == currentUser.userID {
                 bookedEvent.textColor = .white
                 bookedEvent.backgroundColor = .cmpMidGreen75
+                let procedureName = (vendor.serviceProviders[0].availableProcedureTypes[procedureType]?.procedureName) ?? procedureType.rawValue.capitalized
+                bookedEvent.text = procedureName
             }
             events.append(bookedEvent)
         }
@@ -102,8 +111,8 @@ class MainVC: DayViewController, EventHandlerDelegate {
         businessTime.startDate = startDate
         businessTime.endDate = endDate
     }
-    
-    // MARK: DayViewDelegate
+
+//   MARK: DayViewDelegate
     
     override func dayView(dayView: DayView, willMoveTo date: Date) {
     }
@@ -145,8 +154,10 @@ class MainVC: DayViewController, EventHandlerDelegate {
     }
     
     override func dayViewDidLongPressTimelineAtHour(_ hour: Int) {
+        
         if let selectedDate = dayView.state?.selectedDate.add(TimeChunk.dateComponents(hours:hour)) {
             let booking = Booking()
+            booking.client = currentUser
             booking.when = selectedDate
             booking.procedure.startDate = selectedDate
             booking.procedure.endDate = selectedDate.addingTimeInterval(procedureLength)

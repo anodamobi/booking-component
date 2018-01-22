@@ -39,7 +39,7 @@ class EventHandler {
     }
     
     func setBookOrReset(_ interval: TimeInterval, newBook: Booking) {
-        //TODO: pavel - REDO
+        //TODO: pavel - should contain start date.
         if newBook.procedure.procedureLength() <= interval {
             delegate?.add(booking: newBook)
         } else {
