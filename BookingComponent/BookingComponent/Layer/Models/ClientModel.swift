@@ -8,9 +8,9 @@
 
 import Foundation
 
-class CustomerModel: NSObject {
+class ClientModel: NSObject {
     
-    var userID: String = ""
+    var userID: Int = 0
     var firstName: String = ""
     var lastName: String = ""
     var phoneNumber: String = ""

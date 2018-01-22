@@ -17,13 +17,12 @@ class MainVC: DayViewController, EventHandlerDelegate {
     var bookings: [Booking] = []
     var businessTime = BusinessTime()
     var procedureLength: TimeInterval = 60 * 60
+    var type = ProcedureType.none
     
     private let eventHandler = EventHandler()
-    private var recognizer: UITapGestureRecognizer!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        recognizer = UITapGestureRecognizer(target: self, action: #selector(addNewBooking))
         dayView.state?.move(to: Date())
     }
     
@@ -44,8 +43,6 @@ class MainVC: DayViewController, EventHandlerDelegate {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         dayView.autoScrollToFirstEvent = false
-        
-        self.dayView.addGestureRecognizer(recognizer)
 
         eventHandler.delegate = self
     }
@@ -55,6 +52,7 @@ class MainVC: DayViewController, EventHandlerDelegate {
     }
     
     override func eventsForDate(_ date: Date) -> [EventDescriptor] {
+    
         var events = [Event]()
         let event = Event()
         let duration = 8
@@ -85,7 +83,7 @@ class MainVC: DayViewController, EventHandlerDelegate {
             bookedEvent.textColor = .cmpCoolGrey
             bookedEvent.backgroundColor = .cmpBrownishOrange5
             
-            if book.client.userID == "current_user_name" { // keep current userID in defaults.
+            if book.client.userID == 0 { // keep current userID in defaults.
                 bookedEvent.textColor = .white
                 bookedEvent.backgroundColor = .cmpMidGreen75
             }
@@ -107,11 +105,9 @@ class MainVC: DayViewController, EventHandlerDelegate {
     // MARK: DayViewDelegate
     
     override func dayView(dayView: DayView, willMoveTo date: Date) {
-        //    print("DayView = \(dayView) will move to: \(date)")
     }
     
     override func dayView(dayView: DayView, didMoveTo date: Date) {
-        //    print("DayView = \(dayView) did move to: \(date)")
     }
     
     override func dayViewDidSelectEventView(_ eventview: EventView) {
@@ -124,15 +120,15 @@ class MainVC: DayViewController, EventHandlerDelegate {
     
 //    MARK: Helpers
     
-    fileprivate func procedure(start: String, end: String) -> Procedure {
-        var proc = Procedure()
+    fileprivate func procedure(start: String, end: String) -> ProcedureDuration {
+        var proc = ProcedureDuration()
         proc.startDate = setup(date: start)
         proc.endDate = setup(date: end).addingTimeInterval(15*60)
         return proc
     }
     
     fileprivate func setup(date: String) -> Date {
-        return Date.date(from: date, timeFormat: "yyyy-MM-dd'T'H:mm")!
+        return Date.date(from: date, timeFormat: "yyyy-MM-dd'T'H:mm") ?? Date()
     }
     
     fileprivate func stringDateFromDate(_ date: Date? = nil) -> String {

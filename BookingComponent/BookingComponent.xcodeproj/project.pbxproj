@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		567DDF892010FFD400906E80 /* StyleGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567DDF882010FFD400906E80 /* StyleGenerator.swift */; };
 		567DDF8B2011018F00906E80 /* UIColor+CMPAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567DDF8A2011018F00906E80 /* UIColor+CMPAdditions.swift */; };
+		56802F1C2015FD2800DA7B6D /* ProcedureType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56802F1B2015FD2800DA7B6D /* ProcedureType.swift */; };
+		56802F1E2015FEB600DA7B6D /* MainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56802F1D2015FEB600DA7B6D /* MainVM.swift */; };
+		56802F212015FF2400DA7B6D /* TestDataGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56802F202015FF2400DA7B6D /* TestDataGenerator.swift */; };
 		568FBC2B2011FB620027001F /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568FBC2A2011FB620027001F /* String+Ext.swift */; };
 		568FBC2F20120CB50027001F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 568FBC2E20120CB50027001F /* Localizable.strings */; };
 		568FBC3620121B450027001F /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568FBC3520121B450027001F /* EventHandler.swift */; };
@@ -41,6 +44,9 @@
 		31C183A5285AF8DAD2F441B5 /* Pods-BookingComponent-BookingComponentTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookingComponent-BookingComponentTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BookingComponent-BookingComponentTests/Pods-BookingComponent-BookingComponentTests.debug.xcconfig"; sourceTree = "<group>"; };
 		567DDF882010FFD400906E80 /* StyleGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleGenerator.swift; sourceTree = "<group>"; };
 		567DDF8A2011018F00906E80 /* UIColor+CMPAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+CMPAdditions.swift"; sourceTree = "<group>"; };
+		56802F1B2015FD2800DA7B6D /* ProcedureType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcedureType.swift; sourceTree = "<group>"; };
+		56802F1D2015FEB600DA7B6D /* MainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVM.swift; sourceTree = "<group>"; };
+		56802F202015FF2400DA7B6D /* TestDataGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDataGenerator.swift; sourceTree = "<group>"; };
 		568FBC2A2011FB620027001F /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		568FBC2E20120CB50027001F /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		568FBC3520121B450027001F /* EventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
@@ -98,6 +104,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		56802F1F2015FEF900DA7B6D /* Layer */ = {
+			isa = PBXGroup;
+			children = (
+				56943BDE200E2B1B001E2D75 /* Categories */,
+				56943BCE200E1045001E2D75 /* Models */,
+				56802F202015FF2400DA7B6D /* TestDataGenerator.swift */,
+			);
+			path = Layer;
+			sourceTree = "<group>";
+		};
 		56943BA0200E0D63001E2D75 = {
 			isa = PBXGroup;
 			children = (
@@ -121,10 +137,9 @@
 		56943BAB200E0D63001E2D75 /* BookingComponent */ = {
 			isa = PBXGroup;
 			children = (
-				56943BDE200E2B1B001E2D75 /* Categories */,
+				56802F1F2015FEF900DA7B6D /* Layer */,
 				56943BD7200E10BB001E2D75 /* Controllers */,
 				56943BD1200E109B001E2D75 /* Application */,
-				56943BCE200E1045001E2D75 /* Models */,
 				56943BB3200E0D63001E2D75 /* Assets.xcassets */,
 			);
 			path = BookingComponent;
@@ -145,6 +160,7 @@
 				56943BCF200E1045001E2D75 /* VendorModel.swift */,
 				56943BDA200E10CD001E2D75 /* ClientModel.swift */,
 				56943BDC200E110C001E2D75 /* DataStructHelper.swift */,
+				56802F1B2015FD2800DA7B6D /* ProcedureType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -174,6 +190,7 @@
 				56943BE5200E5456001E2D75 /* BookingController.swift */,
 				567DDF882010FFD400906E80 /* StyleGenerator.swift */,
 				568FBC3520121B450027001F /* EventHandler.swift */,
+				56802F1D2015FEB600DA7B6D /* MainVM.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -266,6 +283,9 @@
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 56943BA0200E0D63001E2D75;
 			productRefGroup = 56943BAA200E0D63001E2D75 /* Products */;
 			projectDirPath = "";
@@ -422,13 +442,16 @@
 				56943BD5200E109B001E2D75 /* AppDelegate.swift in Sources */,
 				56943BE6200E5456001E2D75 /* BookingController.swift in Sources */,
 				56943BD9200E10BB001E2D75 /* MainVC.swift in Sources */,
+				56802F212015FF2400DA7B6D /* TestDataGenerator.swift in Sources */,
 				56943BDD200E110C001E2D75 /* DataStructHelper.swift in Sources */,
 				56943BE0200E2B2D001E2D75 /* Date+Ext.swift in Sources */,
 				56943BD0200E1045001E2D75 /* VendorModel.swift in Sources */,
 				56943BDB200E10CD001E2D75 /* ClientModel.swift in Sources */,
 				568FBC3620121B450027001F /* EventHandler.swift in Sources */,
 				567DDF8B2011018F00906E80 /* UIColor+CMPAdditions.swift in Sources */,
+				56802F1C2015FD2800DA7B6D /* ProcedureType.swift in Sources */,
 				568FBC2B2011FB620027001F /* String+Ext.swift in Sources */,
+				56802F1E2015FEB600DA7B6D /* MainVM.swift in Sources */,
 				567DDF892010FFD400906E80 /* StyleGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

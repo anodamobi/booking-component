@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+
 struct BusinessTime {
     var startDate: Date = Date()
     var endDate: Date = Date()
@@ -17,11 +19,10 @@ class Booking {
     
     var client: CustomerModel = CustomerModel()
     var when: Date = Date()
-    var procedure: Procedure = Procedure()
-    
+    var procedure: ProcedureDuration = ProcedureDuration()
 }
 
-struct Procedure {
+struct ProcedureDuration {
     var startDate: Date = Date()
     var endDate: Date = Date()
     
