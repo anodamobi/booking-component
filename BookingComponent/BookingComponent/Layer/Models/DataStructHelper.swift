@@ -17,7 +17,7 @@ struct BusinessTime {
 
 class Booking {
     
-    var client: CustomerModel = CustomerModel()
+    var client: ClientModel = ClientModel()
     var when: Date = Date()
     var procedure: ProcedureDuration = ProcedureDuration()
 }

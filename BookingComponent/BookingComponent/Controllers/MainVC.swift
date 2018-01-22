@@ -17,13 +17,14 @@ class MainVC: DayViewController, EventHandlerDelegate {
     var bookings: [Booking] = []
     var businessTime = BusinessTime()
     var procedureLength: TimeInterval = 60 * 60
-    var type = ProcedureType.none
+    var testVendor = TestDataGenerator.createVendor()
     
     private let eventHandler = EventHandler()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         dayView.state?.move(to: Date())
+        bookings = testVendor.serviceProviders[0].bookings
     }
     
     required init?(coder aDecoder: NSCoder) {
