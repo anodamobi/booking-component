@@ -12,6 +12,7 @@ protocol EventHandlerDelegate {
     
     func add(booking: Booking)
     func resetPanGesture()
+    func availableTimeChunks(_ intervals: [TimeInterval])
 }
 
 class EventHandler {
@@ -26,6 +27,15 @@ class EventHandler {
                           endDate: businessTime.endDate)
         let intervals = controller.isPossibleToBook(newBook: newBook)
         useClosestFrom(intervals: intervals, newBook: newBook, bookings: bookings)
+    }
+    
+    func receiveCurrent(bookings: [Booking], businessTime: BusinessTime) {
+        controller.update(booked: bookings,
+                          startDate: businessTime.startDate,
+                          endDate: businessTime.endDate)
+        let interlvas = controller.possibleChunks()
+        delegate?.availableTimeChunks(interlvas)
+        
     }
     
     func useClosestFrom(intervals: [Date: TimeInterval], newBook: Booking, bookings: [Booking]) {

@@ -173,5 +173,9 @@ class BookingVC: DayViewController, EventHandlerDelegate {
     func resetPanGesture() {
         
     }
+    
+    func availableTimeChunks(_ intervals: [TimeInterval]) {
+        //Stub
+    }
 }
 

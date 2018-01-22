@@ -19,6 +19,7 @@ class SelectiveVC: UIViewController {
     var procedureType: ProcedureType!
     var vendor: VendorModel!
     var currentUser: ClientModel!
+    var storage = ANStorage()
     
     var testVendor = TestDataGenerator.createVendor()
     
@@ -41,12 +42,33 @@ class SelectiveVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func loadView() {
+        self.view = contentView
+    }
+    
     override func viewDidLoad() {
+        eventHandler.delegate = self
+        eventHandler.receiveCurrent(bookings: bookings, businessTime: businessTime)
         
     }
     
     func setupBusinessHours(_ vendor: VendorModel) {
         businessTime.startDate = vendor.startTime
         businessTime.endDate = vendor.endTime
+    }
+}
+
+extension SelectiveVC: EventHandlerDelegate {
+    
+    func add(booking: Booking) {
+        //Stub
+    }
+    
+    func resetPanGesture() {
+        //Stub
+    }
+    
+    func availableTimeChunks(_ intervals: [TimeInterval]) {
+        //TODO: pavel - update cell view models with calculated time
     }
 }

@@ -14,19 +14,14 @@ class BookingController: NSObject {
     var startDate: Date = Date()
     var endDate: Date = Date()
     var timeBeforeSession: TimeInterval = 60 * 60 // 1h by default.
-    
-    private var topConstraint: Int = 0
-    private var botConstraint: Int = 0
-    
+
     func update(booked: [Booking], startDate: Date, endDate: Date) {
         self.endDate = endDate
         self.startDate = startDate
         self.booked = booked
-        topConstraint = startDate.component(.hour)
-        botConstraint = endDate.component(.hour)
     }
     
-    func isPossibleToBook(newBook: Booking) -> ([Date: TimeInterval]) { //TODO: add start Date to return
+    func isPossibleToBook(newBook: Booking) -> [Date: TimeInterval] { //TODO: add start Date to return
         
         let procedureLength = newBook.procedure.procedureLength()
         var validTimeIntervals: [Date: TimeInterval] = [:]
@@ -79,6 +74,34 @@ class BookingController: NSObject {
         }
         
         return validTimeIntervals
+    }
+    
+    func possibleChunks() -> [TimeInterval] {
+        
+        var availableTime: [TimeInterval] = []
+        
+        for index in 0..<booked.count {
+            
+            if index == 0 {
+                
+                let interval = booked[index].procedure.startDate.timeIntervalSince(startDate)
+                if interval >= booked[index].procedure.procedureLength() {
+                    availableTime += [interval]
+                }
+            } else if index == (booked.count - 1) {
+                
+                let interval = endDate.timeIntervalSince(booked[index].procedure.startDate)
+                if interval >= booked[index].procedure.procedureLength() {
+                    availableTime += [interval]
+                }
+            } else {
+                let interval = booked[index].procedure.startDate.timeIntervalSince(booked[index - 1].procedure.endDate)
+                if interval >= booked[index].procedure.procedureLength() {
+                    availableTime += [interval]
+                }
+            }
+        }
+        return availableTime
     }
     
     

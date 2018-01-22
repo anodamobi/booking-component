@@ -13,6 +13,7 @@
 		567F1723201647B7006DC9DF /* SelectiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567F1722201647B7006DC9DF /* SelectiveView.swift */; };
 		567F172520164A8A006DC9DF /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567F172420164A8A006DC9DF /* UIView+Ext.swift */; };
 		567F172820164B5B006DC9DF /* SelectiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567F172720164B5B006DC9DF /* SelectiveCell.swift */; };
+		567F172A2016543B006DC9DF /* StartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567F17292016543B006DC9DF /* StartVC.swift */; };
 		56802F1C2015FD2800DA7B6D /* ProcedureType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56802F1B2015FD2800DA7B6D /* ProcedureType.swift */; };
 		56802F212015FF2400DA7B6D /* TestDataGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56802F202015FF2400DA7B6D /* TestDataGenerator.swift */; };
 		568FBC2B2011FB620027001F /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568FBC2A2011FB620027001F /* String+Ext.swift */; };
@@ -51,6 +52,7 @@
 		567F1722201647B7006DC9DF /* SelectiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectiveView.swift; sourceTree = "<group>"; };
 		567F172420164A8A006DC9DF /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		567F172720164B5B006DC9DF /* SelectiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectiveCell.swift; sourceTree = "<group>"; };
+		567F17292016543B006DC9DF /* StartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartVC.swift; sourceTree = "<group>"; };
 		56802F1B2015FD2800DA7B6D /* ProcedureType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcedureType.swift; sourceTree = "<group>"; };
 		56802F202015FF2400DA7B6D /* TestDataGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDataGenerator.swift; sourceTree = "<group>"; };
 		568FBC2A2011FB620027001F /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 			children = (
 				567F171F201646EE006DC9DF /* SelectiveBooking */,
 				567F171E201646D3006DC9DF /* CalendarBooking */,
+				567F17292016543B006DC9DF /* StartVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -399,6 +402,7 @@
 				"${BUILT_PRODUCTS_DIR}/ANODA-Alister/ANODA_Alister.framework",
 				"${BUILT_PRODUCTS_DIR}/CalendarKit/CalendarKit.framework",
 				"${BUILT_PRODUCTS_DIR}/DateToolsSwift/DateToolsSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/Neon/Neon.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
@@ -411,6 +415,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ANODA_Alister.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CalendarKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateToolsSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Neon.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
@@ -503,6 +508,7 @@
 				568FBC2B2011FB620027001F /* String+Ext.swift in Sources */,
 				567DDF892010FFD400906E80 /* StyleGenerator.swift in Sources */,
 				567F172120164705006DC9DF /* SelectiveVC.swift in Sources */,
+				567F172A2016543B006DC9DF /* StartVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
