@@ -3,7 +3,7 @@
 //  BookingComponent
 //
 //  Created by Pavel Mosunov on 1/22/18.
-//  Copyright © 2018 Anoda. All rights reserved.
+//  Copyright © 2018 ANODA. All rights reserved.
 //
 
 import Foundation
@@ -35,19 +35,29 @@ class TestDataGenerator {
         
         let haircut = ServiceProvider()
         let booking1 = Booking()
-        booking1.client = createClinet(id: 177)
-        booking1.procedure.startDate = Date.date(from: stringDate + "T11:00", timeFormat: "yyyy-MM-dd'T'H:mm") ?? Date()
-        booking1.procedure.endDate = Date.date(from: stringDate + "T12:00", timeFormat: "yyyy-MM-dd'T'H:mm") ?? Date()
-        booking1.when = Date.date(from: stringDate, timeFormat: "yyyy-MM-dd") ?? Date()
-        haircut.bookings = [booking1]
+        let booking2 = Booking()
+        
         haircut.bookingSettings.timeGap = 5 * minunte
         haircut.startTime = Date.date(from: stringDate + "T10:00", timeFormat: "yyyy-MM-dd'T'H:mm") ?? Date()
         haircut.endTime = Date.date(from: stringDate + "T20:00", timeFormat: "yyyy-MM-dd'T'H:mm") ?? Date()
         haircut.firstName = "Felitia"
         haircut.lastName = "Boldsome"
+        
         let procedure = Procedure(procedureName: "Hair style", details: "Test", durationPrice: 80, procedureDuration: 1.5 * hour)
         haircut.availableProcedureTypes = [.haircut: procedure]
+        haircut.bookingSettings.timeGap = 10 * minunte
         
+        booking1.client = createClinet(id: 177)
+        booking1.procedure.startDate = Date.date(from: stringDate + "T11:00", timeFormat: "yyyy-MM-dd'T'H:mm") ?? Date()
+        booking1.procedure.endDate = booking1.procedure.startDate.addingTimeInterval(procedure.procedureDuration + haircut.bookingSettings.timeGap)
+        booking1.when = Date.date(from: stringDate, timeFormat: "yyyy-MM-dd") ?? Date()
+        
+        booking2.client = createClinet(id: 32)
+        booking2.procedure.startDate = Date.date(from: stringDate + "T10:00", timeFormat: "yyyy-MM-dd'T'H:mm")?.addingTimeInterval(24 * hour) ?? Date().addingTimeInterval(24 * hour)
+        booking2.procedure.endDate = booking2.procedure.startDate.addingTimeInterval(procedure.procedureDuration + haircut.bookingSettings.timeGap)
+        booking2.when = (Date.date(from: stringDate, timeFormat: "yyyy-MM-dd")?.addingTimeInterval(24 * hour)) ?? Date().addingTimeInterval(24 * hour)
+        
+        haircut.bookings = [booking1, booking2]
         
         return [haircut]
     }

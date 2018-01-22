@@ -6,6 +6,9 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 target 'BookingComponent' do
 
+#ANODA
+pod 'ANODA-Alister', :git => 'https://github.com/anodamobi/Alister.git', :branch => 'master', :commit => '8178433'
+
 pod 'SwiftyUserDefaults'
 pod 'CalendarKit'
 

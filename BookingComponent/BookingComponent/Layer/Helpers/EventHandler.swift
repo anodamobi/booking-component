@@ -3,7 +3,7 @@
 //  BookingComponent
 //
 //  Created by Pavel Mosunov on 1/19/18.
-//  Copyright © 2018 Anoda. All rights reserved.
+//  Copyright © 2018 ANODA. All rights reserved.
 //
 
 import Foundation
@@ -20,6 +20,7 @@ class EventHandler {
     let controller: BookingController = BookingController()
     
     func receiveCurrent(bookings: [Booking], businessTime: BusinessTime, newBook: Booking) {
+        
         controller.update(booked: bookings,
                           startDate: businessTime.startDate,
                           endDate: businessTime.endDate)
@@ -27,23 +28,33 @@ class EventHandler {
         useClosestFrom(intervals: intervals, newBook: newBook, bookings: bookings)
     }
     
-    func useClosestFrom(intervals: [TimeInterval], newBook: Booking, bookings: [Booking]) {
-        var validInterval: TimeInterval = 0
+    func useClosestFrom(intervals: [Date: TimeInterval], newBook: Booking, bookings: [Booking]) {
+        
+        var validInterval: Dictionary<Date, TimeInterval> = [:]
         for interval in intervals {
-            if interval >= newBook.procedure.procedureLength() {
-                validInterval = interval
+            if interval.value >= newBook.procedure.procedureLength() {
+                validInterval[interval.key] = interval.value
                 break
             }
         }
         setBookOrReset(validInterval, newBook: newBook)
     }
     
-    func setBookOrReset(_ interval: TimeInterval, newBook: Booking) {
-        //TODO: pavel - should contain start date.
-        if newBook.procedure.procedureLength() <= interval {
-            delegate?.add(booking: newBook)
-        } else {
-            delegate?.resetPanGesture()
+    func setBookOrReset(_ intervals: [Date:TimeInterval], newBook: Booking) {
+    var isPossibleToSet = false
+        for date in intervals {
+            
+            let comparisonResult = date.key.compare(newBook.procedure.startDate)
+            
+            if comparisonResult == .orderedSame || comparisonResult == .orderedAscending{
+               // if (date.value >= newBook.procedure.procedureLength()) {
+                    isPossibleToSet = true
+                    delegate?.add(booking: newBook)
+               // }
+            }
+        }
+        if isPossibleToSet == false {
+            self.delegate?.resetPanGesture() //TODO: for future
         }
     }
 }

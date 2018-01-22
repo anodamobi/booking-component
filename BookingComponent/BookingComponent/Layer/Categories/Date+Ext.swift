@@ -3,7 +3,7 @@
 //  BookingComponent
 //
 //  Created by Pavel Mosunov on 1/16/18.
-//  Copyright © 2018 Anoda. All rights reserved.
+//  Copyright © 2018 ANODA. All rights reserved.
 //
 
 import Foundation
@@ -13,7 +13,7 @@ private struct StaticVariables {
     private static var formatter: DateFormatter = DateFormatter()
     private static let dateFormat = "yyyy-MM-dd"
     private static let dateTimeFormat = "yyyy-MM-dd'T'H:mm"
-    private static let timeFormat = "H:mm a"
+    private static let timeFormat = "H:mm"
     private static let utcTimeZone = "UTC"
 
     
@@ -61,9 +61,5 @@ extension Date {
             return day
         }
         return nil
-    }
-    
-    static func dateFromString(dateString: String) {
-        
     }
 }

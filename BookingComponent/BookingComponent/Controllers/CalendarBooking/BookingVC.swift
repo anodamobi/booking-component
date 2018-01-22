@@ -3,7 +3,7 @@
 //  BookingComponent
 //
 //  Created by Pavel Mosunov on 1/16/18.
-//  Copyright © 2018 Anoda. All rights reserved.
+//  Copyright © 2018 ANODA. All rights reserved.
 //
 
 import Foundation
@@ -33,6 +33,8 @@ class BookingVC: DayViewController, EventHandlerDelegate {
         self.currentUser = client
         procedureLength = vendor.serviceProviders[0].availableProcedureTypes[procedureType]?.procedureDuration
         bookings = vendor.serviceProviders[0].bookings
+        setupBusinessHours(vendor)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -61,7 +63,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
     }
     
     override func eventsForDate(_ date: Date) -> [EventDescriptor] {
-    
+        
         var events = [Event]()
         let event = Event()
         let duration = vendor.startTime.component(.hour)
@@ -72,7 +74,8 @@ class BookingVC: DayViewController, EventHandlerDelegate {
         event.textColor = .cmpCoolGrey
         
         let endDayEvent = Event()
-        let period = TimePeriod(beginning: vendor.endTime, chunk: TimeChunk.dateComponents(hours: 8))
+        let hoursTilEnd = 24 - vendor.endTime.component(.hour)
+        let period = TimePeriod(beginning: businessTime.endDate, chunk: TimeChunk.dateComponents(hours: hoursTilEnd))
         endDayEvent.datePeriod = period
         endDayEvent.color = .cmpPaleGreyThree
         endDayEvent.text = "Non-business hours".localized
@@ -80,8 +83,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
         
         events.append(event)
         events.append(endDayEvent)
-        
-        setupBusinessHours()
+
         
         for book in bookings {
             let bookedEvent = Event()
@@ -103,13 +105,9 @@ class BookingVC: DayViewController, EventHandlerDelegate {
         return events
     }
     
-    func setupBusinessHours() {
-        let today = Date()
-        let date = stringDateFromDate(today)
-        let startDate = setup(date: date + "T8:00")
-        let endDate = setup(date: date + "T18:00")
-        businessTime.startDate = startDate
-        businessTime.endDate = endDate
+    func setupBusinessHours(_ vendor: VendorModel) {
+        businessTime.startDate = vendor.startTime
+        businessTime.endDate = vendor.endTime
     }
 
 //   MARK: DayViewDelegate
@@ -160,7 +158,8 @@ class BookingVC: DayViewController, EventHandlerDelegate {
             booking.client = currentUser
             booking.when = selectedDate
             booking.procedure.startDate = selectedDate
-            booking.procedure.endDate = selectedDate.addingTimeInterval(procedureLength)
+            let timeGap = vendor.bookingSettings.timeGap //TODO: Pavel - vendor's or serviceProvider's gap should be used.
+            booking.procedure.endDate = selectedDate.addingTimeInterval(procedureLength + timeGap)
             eventHandler.receiveCurrent(bookings: bookings, businessTime: businessTime, newBook: booking)
         }
     }

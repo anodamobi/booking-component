@@ -3,7 +3,7 @@
 //  BookingComponent
 //
 //  Created by Pavel Mosunov on 1/16/18.
-//  Copyright © 2018 Anoda. All rights reserved.
+//  Copyright © 2018 ANODA. All rights reserved.
 //
 
 import Foundation
@@ -15,59 +15,65 @@ class BookingController: NSObject {
     var endDate: Date = Date()
     var timeBeforeSession: TimeInterval = 60 * 60 // 1h by default.
     
+    private var topConstraint: Int = 0
+    private var botConstraint: Int = 0
+    
     func update(booked: [Booking], startDate: Date, endDate: Date) {
         self.endDate = endDate
         self.startDate = startDate
         self.booked = booked
+        topConstraint = startDate.component(.hour)
+        botConstraint = endDate.component(.hour)
     }
     
-    func isPossibleToBook(newBook: Booking) -> [TimeInterval] { //TODO: add start Date to return
+    func isPossibleToBook(newBook: Booking) -> ([Date: TimeInterval]) { //TODO: add start Date to return
         
         let procedureLength = newBook.procedure.procedureLength()
-        var validTimeIntervals: [TimeInterval] = []
+        var validTimeIntervals: [Date: TimeInterval] = [:]
         var topTimeLimit = startDate
         var availableBookings = booked
         
+        //NOTE: Not in past (yesterday).
         guard newBook.procedure.startDate.timeIntervalSince(startDate) > 0 else {
-            return []
-        }
-        
-        guard booked.count > 0 else {
-            return [endDate.timeIntervalSince(startDate)]
+            return [:]
         }
         
         if isTimePast(start: newBook.procedure.startDate) {
             topTimeLimit = Date().addingTimeInterval(timeBeforeSession)
         }
         
+        guard booked.count > 0 else {
+            return [endDate:endDate.timeIntervalSince(startDate)]
+        }
+        
         if !isTimeBeforeSession(start: newBook.procedure.startDate) {
-            availableBookings = findPossibleTime(availableBookings)
+            availableBookings = findPossibleTime(availableBookings, newBook)
             topTimeLimit = Date().addingTimeInterval(timeBeforeSession)
         }
         
         guard availableBookings.count > 0 else {
-            return []
+            return [:]
         }
         
         for index in 0..<availableBookings.count {
+            
             if index == 0 {
                 
                 let timeInterval =  availableBookings[index].procedure.startDate.timeIntervalSince(topTimeLimit)
                 if compareTimeIntervals(timeInterval, procedure: procedureLength) {
-                    validTimeIntervals += [timeInterval]
+                    validTimeIntervals = [topTimeLimit: timeInterval]
                 }
             } else if index == (availableBookings.count - 1) {
                 
                 let timeInterval = endDate.timeIntervalSince(availableBookings[index].procedure.endDate)
                 if compareTimeIntervals(timeInterval, procedure: procedureLength) {
-                    validTimeIntervals += [timeInterval]
+                    validTimeIntervals = [availableBookings[index].procedure.endDate: timeInterval]
                 }
-                
             } else {
                 
                 let timeInterval = availableBookings[index].procedure.startDate.timeIntervalSince(availableBookings[index - 1].procedure.endDate)
                 if compareTimeIntervals(timeInterval, procedure: procedureLength) {
-                    validTimeIntervals += [timeInterval]
+                    validTimeIntervals = [availableBookings[index - 1].procedure.endDate: timeInterval]
                 }
             }
         }
@@ -90,7 +96,7 @@ class BookingController: NSObject {
         return frombooked >= procedure
     }
     
-    private func findPossibleTime(_ bookings: [Booking]) -> [Booking] {
+    private func findPossibleTime(_ bookings: [Booking], _ newBook: Booking) -> [Booking] {
         var result: [Booking] = []
         
         for book in bookings {
@@ -98,7 +104,21 @@ class BookingController: NSObject {
                 result += [book]
             }
         }
-        return result
+        
+        var filteredDates: [Booking] = []
+        for index in 0..<result.count {
+            let newBookDate = newBook.procedure.startDate.dateFormat()
+            let current = result[index].procedure.startDate.dateFormat()
+            let comparisonResult = Date.date(from: newBookDate,
+                                             timeFormat: "yyyy-MM-dd")?
+                .compare(Date.date(from: current,
+                                   timeFormat: "yyyy-MM-dd") ?? Date())
+            if comparisonResult == .orderedSame {
+                filteredDates += [result[index]]
+            }
+        }
+        
+        return filteredDates
     }
     
 }
