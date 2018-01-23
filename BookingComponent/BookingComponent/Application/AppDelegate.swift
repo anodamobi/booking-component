@@ -19,8 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = .white
         window?.makeKeyAndVisible()
     
-        let bookingVC = BookingVC(TestDataGenerator.createVendor(), .haircut, TestDataGenerator.createClinet(id: 17))
-        window?.rootViewController = UINavigationController.init(rootViewController: bookingVC)
+        window?.rootViewController = UINavigationController.init(rootViewController: StartVC())
         
         return true
     }

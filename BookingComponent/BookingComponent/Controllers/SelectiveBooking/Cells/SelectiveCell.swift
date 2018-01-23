@@ -12,11 +12,18 @@ import SnapKit
 
 class SelectiveCellVM {
     
+    var storage: ANStorage = ANStorage()
+    
+    var selectionClosure: (()->())?
+    
 }
 
 class SelectiveCell: ANBaseTableViewCell {
     
+    var collectionView: UICollectionView
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: SelectiveCell.collectionLayout())
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
     }
@@ -30,6 +37,17 @@ class SelectiveCell: ANBaseTableViewCell {
     }
     
     func setupLayout() {
+        contentView.addSubview(collectionView)
         
+    }
+    
+    static private func collectionLayout() -> UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+//        layout.scrollDirection = .vertical
+        layout.sectionInset = UIEdgeInsetsMake(6, 5, 6, 5)
+        layout.minimumLineSpacing = 5
+        layout.itemSize = CGSize(width: 108, height: 48)
+        
+        return layout
     }
 }

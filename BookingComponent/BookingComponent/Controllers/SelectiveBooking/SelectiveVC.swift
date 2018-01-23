@@ -50,6 +50,12 @@ class SelectiveVC: UIViewController {
         eventHandler.delegate = self
         eventHandler.receiveCurrent(bookings: bookings, businessTime: businessTime)
         
+        controller.configureCells { (configurator) in
+            configurator?.registerCellClass(SelectiveCell.self,
+                                            forModelClass: SelectiveCellVM.self)
+        }
+        
+        controller.attachStorage(storage)
     }
     
     func setupBusinessHours(_ vendor: VendorModel) {
@@ -68,7 +74,17 @@ extension SelectiveVC: EventHandlerDelegate {
         //Stub
     }
     
-    func availableTimeChunks(_ intervals: [TimeInterval]) {
-        //TODO: pavel - update cell view models with calculated time
+    func availableTimeChunks(_ intervals: [Date: TimeInterval]) {
+        
+        var dates: [Date] = []
+        
+        for interval in intervals {
+            let possibleSessions = Int(interval.value / procedureLength)
+            for session in 0..<possibleSessions {
+                let sessionStart = TimeInterval(Int(procedureLength) * session)
+                dates += [interval.key.addingTimeInterval(sessionStart)]
+            }
+        }
+
     }
 }

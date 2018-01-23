@@ -174,7 +174,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
         
     }
     
-    func availableTimeChunks(_ intervals: [TimeInterval]) {
+    func availableTimeChunks(_ intervals: [Date: TimeInterval]) {
         //Stub
     }
 }

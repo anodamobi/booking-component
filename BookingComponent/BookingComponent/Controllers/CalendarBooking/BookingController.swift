@@ -76,9 +76,9 @@ class BookingController: NSObject {
         return validTimeIntervals
     }
     
-    func possibleChunks() -> [TimeInterval] {
+    func possibleChunks() -> [Date: TimeInterval] {
         
-        var availableTime: [TimeInterval] = []
+        var availableTime: [Date: TimeInterval] = [:]
         
         for index in 0..<booked.count {
             
@@ -86,18 +86,18 @@ class BookingController: NSObject {
                 
                 let interval = booked[index].procedure.startDate.timeIntervalSince(startDate)
                 if interval >= booked[index].procedure.procedureLength() {
-                    availableTime += [interval]
+                    availableTime[startDate] = interval
                 }
             } else if index == (booked.count - 1) {
                 
-                let interval = endDate.timeIntervalSince(booked[index].procedure.startDate)
+                let interval = endDate.timeIntervalSince(booked[index].procedure.endDate)
                 if interval >= booked[index].procedure.procedureLength() {
-                    availableTime += [interval]
+                    availableTime[booked[index].procedure.endDate] = interval
                 }
             } else {
                 let interval = booked[index].procedure.startDate.timeIntervalSince(booked[index - 1].procedure.endDate)
                 if interval >= booked[index].procedure.procedureLength() {
-                    availableTime += [interval]
+                    availableTime[booked[index - 1].procedure.endDate] = interval
                 }
             }
         }

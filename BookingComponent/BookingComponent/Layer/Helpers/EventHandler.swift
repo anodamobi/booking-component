@@ -12,7 +12,7 @@ protocol EventHandlerDelegate {
     
     func add(booking: Booking)
     func resetPanGesture()
-    func availableTimeChunks(_ intervals: [TimeInterval])
+    func availableTimeChunks(_ intervals: [Date: TimeInterval])
 }
 
 class EventHandler {
