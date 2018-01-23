@@ -28,6 +28,8 @@ class SelectiveCellVM : NSObject {
     var title: String!
     var selectionClosure: (()->())!
     var delegate: SelectiveCellVMDelegate?
+    var models: [TimeCellVM] = []
+    var type: CellType = CellType.morning
     
     init(_ data: [Date], _ selectionClosure: @escaping ()->(), _ type: CellType, delegate: SelectiveCellVMDelegate?) {
  
@@ -35,22 +37,46 @@ class SelectiveCellVM : NSObject {
         self.delegate = delegate
         self.selectionClosure = selectionClosure
 
+        self.type = type
         switch type {
             case .morning: self.title = CellType.morning.rawValue
             case .day: self.title = CellType.day.rawValue
             case .evening: self.title = CellType.evening.rawValue
         }
 
-        let models = data.map { (element) -> TimeCellVM in
+        models = sortByTime(data: data).map { (element) -> TimeCellVM in
             return TimeCellVM(element)
         }
+        
+        setupStorage(models: models)
+    }
+    
+    private func sortByTime(data: [Date]) -> [Date] {
+        var dateArray: [Date] = []
+        for day in data {
+            if checkDayHour(day, 6, 13) && type == .morning {
+               dateArray += [day]
+            }
+            if checkDayHour(day, 13, 18) && type == .day {
+                dateArray += [day]
+            }
+            if checkDayHour(day, 18, 22) && type == .evening {
+                dateArray += [day]
+            }
+        }
+        return dateArray
+    }
+    
+    private func checkDayHour(_ day: Date, _ minVal: Int, _ maxVal: Int) -> Bool {
+        return day.component(.hour) >= minVal && day.component(.hour) < maxVal
+    }
+    
+    func removeIfNeeded() {
         
         guard models.count > 0 else {
             delegate?.remove(self)
             return
         }
-        
-        setupStorage(models: models)
     }
     
     func setupStorage(models: [TimeCellVM]) {
@@ -80,7 +106,10 @@ class SelectiveCell: ANBaseTableViewCell {
         }
         
         controller.configureItemSelectionBlock { (viewModel, indexPath) in
-            self.viewModel?.selectionClosure()
+            if let vm = viewModel as? TimeCellVM {
+                vm.isSelected = true
+                self.viewModel?.selectionClosure()
+            }
         }
         
         setupLayout()
@@ -95,16 +124,20 @@ class SelectiveCell: ANBaseTableViewCell {
             self.viewModel = viewModel
             controller.attachStorage(viewModel.storage)
             dayTimeLabel.text = viewModel.title
+            viewModel.removeIfNeeded()
         }
     }
     
     func setupLayout() {
+        
         contentView.addSubview(dayTimeLabel)
+        
         dayTimeLabel.snp.makeConstraints { (make) in
             make.top.left.equalTo(contentView).inset(UIEdgeInsetsMake(25, 16, 0, 0))
         }
         
         contentView.addSubview(collectionView)
+        
         collectionView.snp.makeConstraints { (make) in
             make.left.bottom.right.equalTo(contentView).inset(UIEdgeInsetsMake(0, 11, 5, 10))
             make.top.equalTo(dayTimeLabel.snp.bottom).offset(-6)
@@ -113,10 +146,10 @@ class SelectiveCell: ANBaseTableViewCell {
     
     static private func collectionLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .vertical
+        layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsetsMake(6, 5, 6, 5)
         layout.minimumLineSpacing = 5
-        layout.itemSize = CGSize(width: 108, height: 48)
+        layout.itemSize = CGSize(width: UIScreen.width * 0.28, height: 48)
         
         return layout
     }

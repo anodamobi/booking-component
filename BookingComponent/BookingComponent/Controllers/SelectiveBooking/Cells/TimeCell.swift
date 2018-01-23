@@ -13,6 +13,7 @@ import SnapKit
 class TimeCellVM: NSObject {
     
     var item: Date
+    var isSelected: Bool =  false
     
     init(_ model: Date) {
         item = model
@@ -21,8 +22,6 @@ class TimeCellVM: NSObject {
     func updateTimeLabel() -> String {
         return item.hourMinuteFormat()
     }
-    
-    
     
 }
 
@@ -43,18 +42,19 @@ class TimeCell: ANCollectionViewCell {
     
     override func update(withModel model: Any!) {
         if let viewModel = model as? TimeCellVM {
+            isSelected(viewModel.isSelected)
             timeLabel.text = viewModel.updateTimeLabel()
         }
     }
     
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        contentView.layer.borderColor = UIColor.cmpShamrock.cgColor
-//        contentView.backgroundColor = .cmpMidGreen75
-//        timeLabel.textColor = .white
-//    }
-    
+    func isSelected(_ selected: Bool) {
+        
+        if selected {
+            contentView.layer.borderColor = UIColor.cmpShamrock.cgColor
+            contentView.backgroundColor = .cmpMidGreen75
+            timeLabel.textColor = .white
+        }
+    }
     
     func setupLayout() {
         

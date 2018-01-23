@@ -33,6 +33,7 @@ class SelectiveVC: UIViewController {
         self.vendor = vendor
         self.procedureType = procedureType
         self.currentUser = client
+        
         procedureLength = vendor.serviceProviders[0].availableProcedureTypes[procedureType]?.procedureDuration
         bookings = vendor.serviceProviders[0].bookings
         

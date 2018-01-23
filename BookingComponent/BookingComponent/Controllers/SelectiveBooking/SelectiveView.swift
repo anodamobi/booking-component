@@ -36,9 +36,9 @@ class SelectiveView: UIView {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(self)
-            if #available(iOS 11.0, *) {
-                make.edges.equalTo(self.safeArea.edges)
-            }
+//            if #available(iOS 11.0, *) {
+//                make.edges.equalTo(self.safeArea.edges)
+//            }
         }
     }
 }
