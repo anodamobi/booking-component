@@ -120,11 +120,13 @@ class SelectiveCell: ANBaseTableViewCell {
     }
     
     override func update(withModel model: Any!) {
+        
         if let viewModel = model as? SelectiveCellVM {
             self.viewModel = viewModel
             controller.attachStorage(viewModel.storage)
             dayTimeLabel.text = viewModel.title
             viewModel.removeIfNeeded()
+            updateCollectionHeight()
         }
     }
     
@@ -137,11 +139,23 @@ class SelectiveCell: ANBaseTableViewCell {
         }
         
         contentView.addSubview(collectionView)
-        
+        collectionView.backgroundColor = .clear
         collectionView.snp.makeConstraints { (make) in
             make.left.bottom.right.equalTo(contentView).inset(UIEdgeInsetsMake(0, 11, 5, 10))
-            make.top.equalTo(dayTimeLabel.snp.bottom).offset(-6)
+            make.top.equalTo(dayTimeLabel.snp.bottom).offset(6)
+            make.height.equalTo(48)
         }
+    }
+    
+    func updateCollectionHeight() {
+        
+        let height = collectionView.collectionViewLayout.collectionViewContentSize.height + 11.0
+        collectionView.snp.updateConstraints { (make) in
+            make.left.bottom.right.equalTo(contentView).inset(UIEdgeInsetsMake(0, 11, 5, 10))
+            make.top.equalTo(dayTimeLabel.snp.bottom).offset(6)
+            make.height.equalTo(height)
+        }
+        setNeedsLayout()
     }
     
     static private func collectionLayout() -> UICollectionViewFlowLayout {
