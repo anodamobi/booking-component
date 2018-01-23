@@ -29,11 +29,13 @@ class SelectiveVC: UIViewController {
         
         controller = ANTableController(tableView: contentView.tableView)
         super.init(nibName: nil, bundle: nil)
+        
         self.vendor = vendor
         self.procedureType = procedureType
         self.currentUser = client
         procedureLength = vendor.serviceProviders[0].availableProcedureTypes[procedureType]?.procedureDuration
         bookings = vendor.serviceProviders[0].bookings
+        
         setupBusinessHours(vendor)
         
     }
@@ -47,8 +49,10 @@ class SelectiveVC: UIViewController {
     }
     
     override func viewDidLoad() {
+        
+        navigationController?.navigationBar.tintColor = .cmpMidGreen
+        
         eventHandler.delegate = self
-        eventHandler.receiveCurrent(bookings: bookings, businessTime: businessTime)
         
         controller.configureCells { (configurator) in
             configurator?.registerCellClass(SelectiveCell.self,
@@ -56,6 +60,8 @@ class SelectiveVC: UIViewController {
         }
         
         controller.attachStorage(storage)
+        
+        eventHandler.receiveCurrent(bookings: bookings, businessTime: businessTime)
     }
     
     func setupBusinessHours(_ vendor: VendorModel) {
@@ -85,6 +91,40 @@ extension SelectiveVC: EventHandlerDelegate {
                 dates += [interval.key.addingTimeInterval(sessionStart)]
             }
         }
+        
+        var currentDates: [Date] = []
+        
+        for date in dates {
+//            if date.dateFormat() == Date().dateFormat() {
+//                if date.compare(Date().addingTimeInterval(vendor.bookingSettings.prereservationTimeGap))  == .orderedDescending {
+                    currentDates += [date]
+//                }
+//            }
+        }
+        
+        let morningModel = SelectiveCellVM(currentDates, {
+            print("selected from morning")
+        }, .morning, delegate: self)
+        
+        let dayModel = SelectiveCellVM(currentDates, {
+            print("selected from day")
+        }, .day, delegate: self)
+        
+        let eveningModel = SelectiveCellVM(currentDates, {
+            print("selected from evening")
+        }, .evening, delegate: self)
+        
+        storage.updateWithoutAnimationChange { (update) in
+            update?.addItems([morningModel, dayModel, eveningModel])
+        }
+    }
+}
 
+extension SelectiveVC: SelectiveCellVMDelegate {
+    
+    func remove(_ cellVM: SelectiveCellVM) {
+        storage.updateWithoutAnimationChange { (update) in
+            update?.removeItem(cellVM)
+        }
     }
 }

@@ -50,6 +50,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
         
         title = "Select Date and Time".localized
         navigationController?.navigationBar.barTintColor = style.header.backgroundColor
+        navigationController?.navigationBar.tintColor = .cmpMidGreen
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.cmpGunmetal]
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)

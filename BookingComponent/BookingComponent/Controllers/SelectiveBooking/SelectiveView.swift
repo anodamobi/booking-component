@@ -31,6 +31,9 @@ class SelectiveView: UIView {
         addSubview(tableView)
         tableView.separatorStyle = .none
         tableView.bounces = false
+        tableView.allowsSelection = false
+        tableView.estimatedRowHeight = 512
+        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(self)
             if #available(iOS 11.0, *) {

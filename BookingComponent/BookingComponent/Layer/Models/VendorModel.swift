@@ -26,6 +26,7 @@ class VendorModel: NSObject {
 class VendorBookingSettings {
     
     var timeGap: TimeInterval = 0
+    var prereservationTimeGap: TimeInterval = 60 * 60
 }
 
 class ContactData {

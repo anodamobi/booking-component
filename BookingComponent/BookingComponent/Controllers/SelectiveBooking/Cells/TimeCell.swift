@@ -10,7 +10,7 @@ import Foundation
 import ANODA_Alister
 import SnapKit
 
-class TimeCellVM {
+class TimeCellVM: NSObject {
     
     var item: Date
     
@@ -22,16 +22,19 @@ class TimeCellVM {
         return item.hourMinuteFormat()
     }
     
+    
+    
 }
 
-class TimeCell: ANBaseTableViewCell {
+class TimeCell: ANCollectionViewCell {
     
     let timeLabel = UILabel()
     var bgColor = UIColor.cmpPaleGreyThree
     var borderColor = UIColor.cmpSilver
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupLayout()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -44,13 +47,14 @@ class TimeCell: ANBaseTableViewCell {
         }
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        contentView.layer.borderColor = UIColor.cmpShamrock.cgColor
-        contentView.backgroundColor = .cmpMidGreen75
-        timeLabel.textColor = .white
-    }
+//    override func setSelected(_ selected: Bool, animated: Bool) {
+//        super.setSelected(selected, animated: animated)
+//
+//        contentView.layer.borderColor = UIColor.cmpShamrock.cgColor
+//        contentView.backgroundColor = .cmpMidGreen75
+//        timeLabel.textColor = .white
+//    }
+    
     
     func setupLayout() {
         

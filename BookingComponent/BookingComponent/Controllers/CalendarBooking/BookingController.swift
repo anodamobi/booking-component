@@ -108,7 +108,7 @@ class BookingController: NSObject {
 //    MARK: Helpers
     
     private func isTimePast(start: Date) -> Bool {
-        return start.timeIntervalSince(Date()) < 0
+        return start.compare(Date()) == ComparisonResult.orderedAscending//start.timeIntervalSince(Date()) < 0
     }
     
     private func isTimeBeforeSession(start: Date) -> Bool {
