@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		563A208A201788A3002ADEE6 /* UIScreen+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A2089201788A3002ADEE6 /* UIScreen+Ext.swift */; };
+		563A208C20179EAE002ADEE6 /* SelectiveHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563A208B20179EAE002ADEE6 /* SelectiveHeader.swift */; };
 		567DDF892010FFD400906E80 /* StyleGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567DDF882010FFD400906E80 /* StyleGenerator.swift */; };
 		567DDF8B2011018F00906E80 /* UIColor+CMPAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567DDF8A2011018F00906E80 /* UIColor+CMPAdditions.swift */; };
 		567F172120164705006DC9DF /* SelectiveVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567F172020164705006DC9DF /* SelectiveVC.swift */; };
 		567F1723201647B7006DC9DF /* SelectiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567F1722201647B7006DC9DF /* SelectiveView.swift */; };
 		567F172520164A8A006DC9DF /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567F172420164A8A006DC9DF /* UIView+Ext.swift */; };
-		567F172820164B5B006DC9DF /* SelectiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567F172720164B5B006DC9DF /* SelectiveCell.swift */; };
 		567F172A2016543B006DC9DF /* StartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567F17292016543B006DC9DF /* StartVC.swift */; };
 		56802F1C2015FD2800DA7B6D /* ProcedureType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56802F1B2015FD2800DA7B6D /* ProcedureType.swift */; };
 		56802F212015FF2400DA7B6D /* TestDataGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56802F202015FF2400DA7B6D /* TestDataGenerator.swift */; };
@@ -49,12 +49,12 @@
 		308D1DC8CA5415FE5F71A754 /* Pods-BookingComponent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookingComponent.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BookingComponent/Pods-BookingComponent.debug.xcconfig"; sourceTree = "<group>"; };
 		31C183A5285AF8DAD2F441B5 /* Pods-BookingComponent-BookingComponentTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookingComponent-BookingComponentTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BookingComponent-BookingComponentTests/Pods-BookingComponent-BookingComponentTests.debug.xcconfig"; sourceTree = "<group>"; };
 		563A2089201788A3002ADEE6 /* UIScreen+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Ext.swift"; sourceTree = "<group>"; };
+		563A208B20179EAE002ADEE6 /* SelectiveHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectiveHeader.swift; sourceTree = "<group>"; };
 		567DDF882010FFD400906E80 /* StyleGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleGenerator.swift; sourceTree = "<group>"; };
 		567DDF8A2011018F00906E80 /* UIColor+CMPAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+CMPAdditions.swift"; sourceTree = "<group>"; };
 		567F172020164705006DC9DF /* SelectiveVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectiveVC.swift; sourceTree = "<group>"; };
 		567F1722201647B7006DC9DF /* SelectiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectiveView.swift; sourceTree = "<group>"; };
 		567F172420164A8A006DC9DF /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
-		567F172720164B5B006DC9DF /* SelectiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectiveCell.swift; sourceTree = "<group>"; };
 		567F17292016543B006DC9DF /* StartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartVC.swift; sourceTree = "<group>"; };
 		56802F1B2015FD2800DA7B6D /* ProcedureType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcedureType.swift; sourceTree = "<group>"; };
 		56802F202015FF2400DA7B6D /* TestDataGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDataGenerator.swift; sourceTree = "<group>"; };
@@ -138,8 +138,8 @@
 		567F172620164B36006DC9DF /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				567F172720164B5B006DC9DF /* SelectiveCell.swift */,
 				5682839A20174318003A8E19 /* TimeCell.swift */,
+				563A208B20179EAE002ADEE6 /* SelectiveHeader.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -506,7 +506,6 @@
 				56943BDD200E110C001E2D75 /* DataStructHelper.swift in Sources */,
 				563A208A201788A3002ADEE6 /* UIScreen+Ext.swift in Sources */,
 				567F1723201647B7006DC9DF /* SelectiveView.swift in Sources */,
-				567F172820164B5B006DC9DF /* SelectiveCell.swift in Sources */,
 				56943BE0200E2B2D001E2D75 /* Date+Ext.swift in Sources */,
 				56943BD0200E1045001E2D75 /* VendorModel.swift in Sources */,
 				56943BDB200E10CD001E2D75 /* ClientModel.swift in Sources */,
@@ -515,6 +514,7 @@
 				56802F1C2015FD2800DA7B6D /* ProcedureType.swift in Sources */,
 				568FBC2B2011FB620027001F /* String+Ext.swift in Sources */,
 				567DDF892010FFD400906E80 /* StyleGenerator.swift in Sources */,
+				563A208C20179EAE002ADEE6 /* SelectiveHeader.swift in Sources */,
 				567F172120164705006DC9DF /* SelectiveVC.swift in Sources */,
 				567F172A2016543B006DC9DF /* StartVC.swift in Sources */,
 			);

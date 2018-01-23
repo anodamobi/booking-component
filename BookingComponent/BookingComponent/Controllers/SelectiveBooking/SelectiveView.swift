@@ -11,13 +11,21 @@ import UIKit
 import SnapKit
 import ANODA_Alister
 
+enum SectionType: String, Equatable {
+    
+    case morning = "Morning"
+    case day = "Day"
+    case evening = "Evening"
+    
+}
+
 class SelectiveView: UIView {
     
-    var tableView: ANTableView!
+    var collectionView: UICollectionView
     
     override init(frame: CGRect) {
+        collectionView = UICollectionView(frame: frame, collectionViewLayout: SelectiveView.collectionLayout())
         super.init(frame: frame)
-        tableView = ANTableView(frame: frame, style: .plain)
         setupaLayout()
     }
     
@@ -26,19 +34,20 @@ class SelectiveView: UIView {
     }
     
     func setupaLayout() {
-        backgroundColor = .white
-        
-        addSubview(tableView)
-        tableView.separatorStyle = .none
-        tableView.bounces = false
-        tableView.allowsSelection = false
-        tableView.estimatedRowHeight = 512
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.snp.makeConstraints { (make) in
+        addSubview(collectionView)
+        collectionView.backgroundColor = .white
+        collectionView.snp.makeConstraints { (make) in
             make.edges.equalTo(self)
-//            if #available(iOS 11.0, *) {
-//                make.edges.equalTo(self.safeArea.edges)
-//            }
         }
+    }
+    
+    static private func collectionLayout() -> UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.sectionInset = UIEdgeInsetsMake(6, 16, 30, 15)
+        layout.minimumLineSpacing = 5
+        layout.itemSize = CGSize(width: UIScreen.width * 0.28, height: 48)
+        
+        return layout
     }
 }
