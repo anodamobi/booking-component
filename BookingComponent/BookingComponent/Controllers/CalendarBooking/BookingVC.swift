@@ -82,7 +82,9 @@ class BookingVC: DayViewController, EventHandlerDelegate {
         
         let endDayEvent = Event()
         let hoursTilEnd = 24 - vendor.endTime.component(.hour)
-        let period = TimePeriod(beginning: businessTime.endDate, chunk: TimeChunk.dateComponents(hours: hoursTilEnd))
+        let workingHours = vendor.endTime.component(.hour) - vendor.startTime.component(.hour)
+        let beginning = date.add(TimeChunk.dateComponents(hours:workingHours + duration))
+        let period = TimePeriod(beginning: beginning, chunk: TimeChunk.dateComponents(hours: hoursTilEnd))
         endDayEvent.datePeriod = period
         endDayEvent.color = .cmpPaleGreyThree
         endDayEvent.text = "Non-business hours".localized
@@ -169,8 +171,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
             booking.procedure.endDate = selectedDate.addingTimeInterval(procedureLength + timeGap)
             eventHandler.receiveCurrent(bookings: bookings,
                                         businessTime: businessTime,
-                                        newBook: booking,
-                                        currentDate: selectedDate)
+                                        newBook: booking)
         }
     }
  

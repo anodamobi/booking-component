@@ -24,13 +24,12 @@ class EventHandler {
     
     func receiveCurrent(bookings: [Booking],
                         businessTime: BusinessTime,
-                        newBook: Booking,
-                        currentDate: Date) {
+                        newBook: Booking) {
         
         controller.update(booked: bookings,
                           startDate: businessTime.startDate,
                           endDate: businessTime.endDate,
-                          selectedDate: currentDate)
+                          selectedDate: newBook.procedure.startDate)
         
         if controller.isPossibleToBook(newBook: newBook) {
             delegate?.add(booking: newBook)

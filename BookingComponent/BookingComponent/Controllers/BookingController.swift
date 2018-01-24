@@ -60,7 +60,7 @@ class BookingController: NSObject {
                 for item in availableBookings {
                     if !(item.procedure.startDate.compare(date) == .orderedSame) {
                         if !(item.procedure.endDate.compare(date) == .orderedSame) {
-                            isTimeFree = true
+                            continue
                         } else {
                             isTimeFree = false
                         }
