@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import SnapKit
-import ANODA_Alister
 
 enum SectionType: String, Equatable {
     
