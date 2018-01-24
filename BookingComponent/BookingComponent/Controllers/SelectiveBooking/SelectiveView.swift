@@ -13,6 +13,7 @@ import ANODA_Alister
 
 enum SectionType: String, Equatable {
     
+    case other = "other"
     case morning = "Morning"
     case day = "Day"
     case evening = "Evening"

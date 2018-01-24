@@ -8,9 +8,12 @@
 
 import Foundation
 import SnapKit
-import ANODA_Alister
 
 class SelectiveHeaderVM: NSObject {
+    
+    static var reuseIdentifier: String {
+        return NSStringFromClass(SelectiveHeaderVM.self)
+    }
     
     var title = ""
     init(type: SectionType) {
@@ -18,14 +21,12 @@ class SelectiveHeaderVM: NSObject {
     }
 }
 
-class SelectiveHeader: ANCollectionReusableView {
+class SelectiveHeader: UICollectionReusableView {
     
     let label = UILabel()
     
-    override func update(withModel model: Any!) {
-        if let viewModel = model as? SelectiveHeaderVM {
-            label.text = viewModel.title
-        }
+    func update(model: SelectiveHeaderVM) {
+        label.text = model.title
     }
     
     override init(frame: CGRect) {

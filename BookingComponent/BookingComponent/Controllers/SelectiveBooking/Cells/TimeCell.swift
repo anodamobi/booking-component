@@ -14,6 +14,10 @@ import SnapKit
 
 class TimeCellVM: NSObject {
     
+    static var reuseIdentifier: String {
+        return NSStringFromClass(TimeCellVM.self)
+    }
+    
     var item: Date
     var isSelected: Bool =  false
     
@@ -27,7 +31,7 @@ class TimeCellVM: NSObject {
     
 }
 
-class TimeCell: ANCollectionViewCell {
+class TimeCell: UICollectionViewCell {
     
     let timeLabel = UILabel()
     var bgColor = UIColor.cmpPaleGreyThree
@@ -42,11 +46,9 @@ class TimeCell: ANCollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func update(withModel model: Any!) {
-        if let viewModel = model as? TimeCellVM {
-            isSelected(viewModel.isSelected)
-            timeLabel.text = viewModel.updateTimeLabel()
-        }
+    func update(_ model: TimeCellVM) {
+            isSelected(model.isSelected)
+            timeLabel.text = model.updateTimeLabel()
     }
     
     func isSelected(_ selected: Bool) {
