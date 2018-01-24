@@ -2,8 +2,11 @@ PODS:
   - CalendarKit (0.2.3):
     - DateToolsSwift
     - Neon
+  - Crashlytics (3.8.6):
+    - Fabric (~> 1.6.3)
   - DateToolsSwift (2.0.3)
   - Eureka (4.0.1)
+  - Fabric (1.6.13)
   - Neon (0.4.0)
   - Nimble (7.0.3)
   - Quick (1.2.0)
@@ -12,7 +15,9 @@ PODS:
 
 DEPENDENCIES:
   - CalendarKit
+  - Crashlytics (~> 3.8.4)
   - Eureka
+  - Fabric (~> 1.6.3)
   - Nimble (~> 7.0.2)
   - Quick
   - SnapKit (~> 4.0.0)
@@ -20,14 +25,16 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   CalendarKit: 13213d0183a33ba04eac35bea3e87b493c35953d
+  Crashlytics: 95d05f4e4c19a771250c4bd9ce344d996de32bbf
   DateToolsSwift: bf69bf9056d9e53c5c03f06e51f219b9b8b02f9e
   Eureka: c8bd5cc07143b6f66268c208d28a246c99b41955
+  Fabric: 2fb5676bc811af011a04513451f463dac6803206
   Neon: 7fb5a9327e7e57911843f608e08f4893a74deaf9
   Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SwiftyUserDefaults: 0f1d45fc3aafb9064dac661e367f8f83fe21a4b4
 
-PODFILE CHECKSUM: 1c9fa7b7ab8aa0acf0032759eff61e81c4bd05c8
+PODFILE CHECKSUM: a746ae32a76fb33b95e6a3b1d2906fe1edd61857
 
 COCOAPODS: 1.3.1

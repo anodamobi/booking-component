@@ -189,14 +189,15 @@ extension SelectiveVC: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         
-        var cleanArray = elementsForCollection
-        for index in 0..<elementsForCollection.count {
+        var index = elementsForCollection.count - 1
+        while (elementsForCollection.count - 1) >= 0 {
             if elementsForCollection[index].count < 1 {
+                elementsForCollection.remove(at: index)
                 availableSectionHeaders.remove(at: index)
-                cleanArray.remove(at: index)
             }
+            index -= 1
         }
-        elementsForCollection = cleanArray
+
         return availableSectionHeaders.count
     }
     

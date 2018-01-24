@@ -395,7 +395,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BookingComponent/Pods-BookingComponent-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BookingComponent/Pods-BookingComponent-resources.sh\"\n\"${PODS_ROOT}/Fabric/run\" ea7dfb6a1f6555e29edb99c288c71f9fdf6a47a3 4de479224437f54a39b5b0b63aeae21514ba7ae247eeeacd0251d76bcb6b0813";
 			showEnvVarsInLog = 0;
 		};
 		B8BC638D9601C312581301E4 /* [CP] Embed Pods Frameworks */ = {
