@@ -48,7 +48,7 @@ class SelectiveView: UIView {
         layout.sectionInset = UIEdgeInsetsMake(6, 16, 30, 15)
         layout.minimumLineSpacing = 5
         layout.itemSize = CGSize(width: UIScreen.width * 0.28, height: 48)
-        
+        layout.headerReferenceSize = CGSize(width: UIScreen.width, height: 57)
         return layout
     }
 }

@@ -12,15 +12,19 @@ import SwiftyUserDefaults
 class SelectiveVC: UIViewController {
     
     let contentView = SelectiveView()
-    var bookings: [Booking] = []
-    var businessTime = BusinessTime()
-    var procedureLength: TimeInterval!
-    var preservationTime: TimeInterval!
+    
+    internal var bookings: [Booking] = []
+    internal var businessTime = BusinessTime()
+    internal var procedureLength: TimeInterval!
+    internal var preservationTime: TimeInterval!
+    
     var procedureType: ProcedureType!
     var vendor: VendorModel!
     var currentUser: ClientModel!
     var selectedDate: Date!
+    
     var elementsForCollection: [[TimeCellVM]] = []
+    var availableSectionHeaders: [SelectiveHeaderVM] = []
     
     private let eventHandler = EventHandler()
     
@@ -56,7 +60,9 @@ class SelectiveVC: UIViewController {
         eventHandler.delegate = self
         
         contentView.collectionView.register(TimeCell.self, forCellWithReuseIdentifier: TimeCellVM.reuseIdentifier)
-        contentView.collectionView.register(SelectiveHeader.self, forSupplementaryViewOfKind: "SectionHeader", withReuseIdentifier: SelectiveHeaderVM.reuseIdentifier)
+        contentView.collectionView.register(SelectiveHeader.self,
+                                            forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
+                                            withReuseIdentifier: SelectiveHeaderVM.reuseIdentifier)
 
         setupBusinessHours(vendor)
         
@@ -115,6 +121,7 @@ extension SelectiveVC: EventHandlerDelegate {
         }
         
         elementsForCollection = [morning, day, evening]
+        availableSectionHeaders = [SelectiveHeaderVM(type: .morning), SelectiveHeaderVM(type: .day), SelectiveHeaderVM(type: .evening)]
         contentView.collectionView.reloadData()
     }
     
@@ -150,22 +157,6 @@ extension SelectiveVC: UICollectionViewDelegate {
         return cell ?? TimeCell()
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
-        var type: SectionType = .other
-        let cell = collectionView.dequeueReusableSupplementaryView(ofKind: "SectionHeader", withReuseIdentifier: SelectiveHeaderVM.reuseIdentifier, for: indexPath) as? SelectiveHeader
-        
-        switch indexPath.section {
-        case 0: type = .morning
-        case 1: type = .day
-        case 2: type = .evening
-        default: type = .other
-        }
-        cell?.update(model: SelectiveHeaderVM(type: type))
-        
-        return cell ?? SelectiveHeader()
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let viewModel = elementsForCollection[indexPath.section][indexPath.row]
             
@@ -188,13 +179,6 @@ extension SelectiveVC: UICollectionViewDelegate {
                 contentView.collectionView.reloadData()
             }
         }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        referenceSizeForHeaderInSection section: Int) -> CGSize {
-        
-        return CGSize(width: UIScreen.width, height: 57)
-    }
 }
 
 extension SelectiveVC: UICollectionViewDataSource {
@@ -204,6 +188,24 @@ extension SelectiveVC: UICollectionViewDataSource {
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return elementsForCollection.count
+        
+        var cleanArray = elementsForCollection
+        for index in 0..<elementsForCollection.count {
+            if elementsForCollection[index].count < 1 {
+                availableSectionHeaders.remove(at: index)
+                cleanArray.remove(at: index)
+            }
+        }
+        elementsForCollection = cleanArray
+        return availableSectionHeaders.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        let cell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: SelectiveHeaderVM.reuseIdentifier, for: indexPath) as? SelectiveHeader
+
+        cell?.update(model: availableSectionHeaders[indexPath.section])
+
+        return cell ?? SelectiveHeader()
     }
 }
