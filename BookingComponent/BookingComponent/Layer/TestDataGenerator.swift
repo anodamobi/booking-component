@@ -10,7 +10,7 @@ import Foundation
 
 class TestDataGenerator {
     
-    static let minunte: TimeInterval = 60
+    static let minute: TimeInterval = 60
     static let hour: TimeInterval = 60 * 60
     static let stringDate = Date().dateFormat()
     
@@ -26,7 +26,7 @@ class TestDataGenerator {
         vendor.timeZone = NSTimeZone.local
         vendor.photoURL = ""
         vendor.serviceProviders = createServiceProviders()
-        vendor.bookingSettings.timeGap = 5 * minunte
+        vendor.bookingSettings.timeGap = 5 * minute
         
         return vendor
     }
@@ -37,15 +37,15 @@ class TestDataGenerator {
         let booking1 = Booking()
         let booking2 = Booking()
         
-        haircut.bookingSettings.timeGap = 5 * minunte
+        haircut.bookingSettings.timeGap = 5 * minute
         haircut.startTime = Date.date(from: stringDate + "T10:00", timeFormat: "yyyy-MM-dd'T'H:mm") ?? Date()
         haircut.endTime = Date.date(from: stringDate + "T20:00", timeFormat: "yyyy-MM-dd'T'H:mm") ?? Date()
         haircut.firstName = "Felitia"
         haircut.lastName = "Boldsome"
         
-        let procedure = Procedure(procedureName: "Hair style", details: "Test", durationPrice: 80, procedureDuration: 1.5 * hour)
+        let procedure = Procedure(procedureName: "Hair style", details: "Test", durationPrice: 80, procedureDuration: 30 * minute)
         haircut.availableProcedureTypes = [.haircut: procedure]
-        haircut.bookingSettings.timeGap = 10 * minunte
+        haircut.bookingSettings.timeGap = 10 * minute
         
         booking1.client = createClinet(id: 177)
         booking1.procedure.startDate = Date.date(from: stringDate + "T11:00", timeFormat: "yyyy-MM-dd'T'H:mm") ?? Date()

@@ -72,4 +72,10 @@ class TimeCell: ANCollectionViewCell {
             make.edges.equalTo(contentView).inset(UIEdgeInsetsMake(14, 0, 14, 0))
         }
     }
+    
+    override func prepareForReuse() {
+        contentView.layer.borderColor = UIColor.cmpSilver.cgColor
+        contentView.backgroundColor = .cmpPaleGreyThree
+        timeLabel.textColor = .cmpGunmetal
+    }
 }

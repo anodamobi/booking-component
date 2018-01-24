@@ -27,7 +27,7 @@ class StartVC: FormViewController {
                 }.onCellSelection({ (cell, row) in
                     self.navigationController?.pushViewController(SelectiveVC(TestDataGenerator.createVendor(),
                                                                               .haircut,
-                                                                              TestDataGenerator.createClinet(id: 177)), animated: true)
+                                                                              TestDataGenerator.createClinet(id: 177), Date()), animated: true)
                 })
         
     }

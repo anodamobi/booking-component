@@ -76,28 +76,41 @@ class BookingController: NSObject {
         return validTimeIntervals
     }
     
-    func possibleChunks() -> [Date: TimeInterval] {
+    func possibleChunks(for date: Date) -> [Date: TimeInterval] {
+        
+        guard booked.count > 0 else {
+            return [startDate: endDate.timeIntervalSince(startDate)];
+        }
+        
+        var dateChunks: [Booking] = []
+        
+        for element in booked {
+            if element.procedure.startDate.dateFormat() == date.dateFormat() {
+                dateChunks += [element]
+            }
+        }
         
         var availableTime: [Date: TimeInterval] = [:]
         
-        for index in 0..<booked.count {
+        for index in 0..<dateChunks.count {
             
             if index == 0 {
                 
-                let interval = booked[index].procedure.startDate.timeIntervalSince(startDate)
-                if interval >= booked[index].procedure.procedureLength() {
+                let interval = dateChunks[index].procedure.startDate.timeIntervalSince(startDate)
+                if interval >= dateChunks[index].procedure.procedureLength() {
                     availableTime[startDate] = interval
                 }
-            } else if index == (booked.count - 1) {
+            }
+            if index == (dateChunks.count - 1) {
                 
-                let interval = booked[index].procedure.endDate.timeIntervalSince(endDate)
-                if interval >= booked[index].procedure.procedureLength() {
-                    availableTime[booked[index].procedure.endDate] = interval
+                let interval = endDate.timeIntervalSince(dateChunks[index].procedure.endDate)
+                if interval >= dateChunks[index].procedure.procedureLength() {
+                    availableTime[dateChunks[index].procedure.endDate] = interval
                 }
             } else {
-                let interval = booked[index].procedure.startDate.timeIntervalSince(booked[index - 1].procedure.endDate)
-                if interval >= booked[index].procedure.procedureLength() {
-                    availableTime[booked[index - 1].procedure.endDate] = interval
+                let interval = dateChunks[index].procedure.startDate.timeIntervalSince(dateChunks[index - 1].procedure.endDate)
+                if interval >= dateChunks[index].procedure.procedureLength() {
+                    availableTime[dateChunks[index - 1].procedure.endDate] = interval
                 }
             }
         }

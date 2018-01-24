@@ -20,7 +20,9 @@ class EventHandler {
     var delegate: EventHandlerDelegate?
     let controller: BookingController = BookingController()
     
-    func receiveCurrent(bookings: [Booking], businessTime: BusinessTime, newBook: Booking) {
+    func receiveCurrent(bookings: [Booking],
+                        businessTime: BusinessTime,
+                        newBook: Booking) {
         
         controller.update(booked: bookings,
                           startDate: businessTime.startDate,
@@ -29,12 +31,17 @@ class EventHandler {
         useClosestFrom(intervals: intervals, newBook: newBook, bookings: bookings)
     }
     
-    func receiveCurrent(bookings: [Booking], businessTime: BusinessTime, preservationTime: TimeInterval) {
+    func receiveCurrent(bookings: [Booking],
+                        businessTime: BusinessTime,
+                        preservationTime: TimeInterval,
+                        selectedDate: Date) {
+        
         controller.timeBeforeSession = preservationTime
         controller.update(booked: bookings,
                           startDate: businessTime.startDate,
                           endDate: businessTime.endDate)
-        let interlvas = controller.possibleChunks()
+        
+        let interlvas = controller.possibleChunks(for: selectedDate)
         delegate?.availableTimeChunks(interlvas)
         
     }
@@ -52,6 +59,7 @@ class EventHandler {
     }
     
     func setBookOrReset(_ intervals: [Date:TimeInterval], newBook: Booking) {
+        
     var isPossibleToSet = false
         for date in intervals {
             

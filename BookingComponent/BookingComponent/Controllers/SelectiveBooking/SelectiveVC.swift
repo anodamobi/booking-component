@@ -8,6 +8,7 @@
 
 import Foundation
 import ANODA_Alister
+import SwiftyUserDefaults
 
 class SelectiveVC: UIViewController {
     
@@ -21,10 +22,11 @@ class SelectiveVC: UIViewController {
     var vendor: VendorModel!
     var currentUser: ClientModel!
     var storage = ANStorage()
+    var selectedDate: Date!
     
     private let eventHandler = EventHandler()
     
-    init(_ vendor: VendorModel, _ procedureType: ProcedureType, _ client: ClientModel) {
+    init(_ vendor: VendorModel, _ procedureType: ProcedureType, _ client: ClientModel, _ selectedDate: Date) {
         
         controller = ANCollectionController(collectionView: contentView.collectionView)
         super.init(nibName: nil, bundle: nil)
@@ -32,6 +34,7 @@ class SelectiveVC: UIViewController {
         self.vendor = vendor
         self.procedureType = procedureType
         self.currentUser = client
+        self.selectedDate = selectedDate
         
         preservationTime = vendor.bookingSettings.prereservationTimeGap
         procedureLength = vendor.serviceProviders[0].availableProcedureTypes[procedureType]?.procedureDuration
@@ -63,12 +66,15 @@ class SelectiveVC: UIViewController {
         controller.configureItemSelectionBlock { (viewModel, indexPath) in
             
             if let vm = viewModel as? TimeCellVM {
+                
                 var isExist = false
                 let book = Booking()
+                
                 book.client = self.currentUser
                 book.when = vm.item
                 book.procedure.startDate = vm.item
                 book.procedure.endDate = vm.item.addingTimeInterval(self.vendor.bookingSettings.prereservationTimeGap)
+                
                 for single in self.bookings {
                     if (single.procedure.startDate.compare(vm.item) == .orderedSame) {
                         isExist = true
@@ -77,7 +83,7 @@ class SelectiveVC: UIViewController {
                 if !isExist {
                     vm.isSelected = true
                     self.bookings += [book]
-                    self.storage.reload(withAnimation: false)
+                    self.storage.reload(withAnimation: true)
                 }
 
             }
@@ -88,7 +94,8 @@ class SelectiveVC: UIViewController {
         
         eventHandler.receiveCurrent(bookings: bookings,
                                     businessTime: businessTime,
-                                    preservationTime: preservationTime)
+                                    preservationTime: preservationTime,
+                                    selectedDate: selectedDate)
     }
     
     func setupBusinessHours(_ vendor: VendorModel) {
@@ -122,11 +129,11 @@ extension SelectiveVC: EventHandlerDelegate {
         var currentDates: [Date] = []
         
         for date in dates {
-//            if date.dateFormat() == Date().dateFormat() {
-//                if date.compare(Date().addingTimeInterval(vendor.bookingSettings.prereservationTimeGap))  == .orderedDescending {
+            //if date.dateFormat() == Date().dateFormat() {
+                if date.compare(Date().addingTimeInterval(vendor.bookingSettings.prereservationTimeGap))  == .orderedDescending {
                     currentDates += [date]
-//                }
-//            }
+                }
+            //}
         }
         
         let morning = sortByTime(data: currentDates, .morning).map { (day) -> TimeCellVM in
@@ -178,14 +185,6 @@ extension SelectiveVC: EventHandlerDelegate {
     
     private func checkDayHour(_ day: Date, _ minVal: Int, _ maxVal: Int) -> Bool {
         return day.component(.hour) >= minVal && day.component(.hour) < maxVal
-    }
-}
-
-
-class SelectiveController: ANCollectionController {
-    
-    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: UIScreen.width, height: 57)
     }
 }
 

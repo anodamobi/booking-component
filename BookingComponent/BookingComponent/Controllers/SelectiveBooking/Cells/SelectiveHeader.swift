@@ -14,15 +14,7 @@ class SelectiveHeaderVM: NSObject {
     
     var title = ""
     init(type: SectionType) {
-        switch type {
-
-        case .morning:
-            title = type.rawValue
-        case .day:
-            title = type.rawValue
-        case .evening:
-            title = type.rawValue
-        }
+        title = type.rawValue
     }
 }
 
@@ -31,8 +23,8 @@ class SelectiveHeader: ANCollectionReusableView {
     let label = UILabel()
     
     override func update(withModel model: Any!) {
-        if let vm = model as? SelectiveHeaderVM {
-            label.text = vm.title
+        if let viewModel = model as? SelectiveHeaderVM {
+            label.text = viewModel.title
         }
     }
     
