@@ -40,6 +40,7 @@ class SelectiveHeader: UICollectionReusableView {
     
     func setupLayout() {
         addSubview(label)
+        //TODO: add font + fontSize
         label.snp.makeConstraints { (make) in
             make.height.equalTo(26)
             make.left.equalTo(self).offset(15)

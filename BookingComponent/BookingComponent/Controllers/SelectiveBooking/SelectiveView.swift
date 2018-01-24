@@ -45,10 +45,10 @@ class SelectiveView: UIView {
     static private func collectionLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsetsMake(6, 16, 30, 15)
+        layout.sectionInset = UIEdgeInsetsMake(6, 16, 10, 15)
         layout.minimumLineSpacing = 5
         layout.itemSize = CGSize(width: UIScreen.width * 0.28, height: 48)
-        layout.headerReferenceSize = CGSize(width: UIScreen.width, height: 57)
+        layout.headerReferenceSize = CGSize(width: UIScreen.width, height: 50)
         return layout
     }
 }

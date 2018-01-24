@@ -19,6 +19,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
     var procedureLength: TimeInterval!
     var procedureType: ProcedureType!
     var preservationTime: TimeInterval!
+    
     var vendor: VendorModel!
     var currentUser: ClientModel!
     
@@ -166,7 +167,10 @@ class BookingVC: DayViewController, EventHandlerDelegate {
             booking.procedure.startDate = selectedDate
             let timeGap = vendor.bookingSettings.timeGap //TODO: Pavel - vendor's or serviceProvider's gap should be used.
             booking.procedure.endDate = selectedDate.addingTimeInterval(procedureLength + timeGap)
-            eventHandler.receiveCurrent(bookings: bookings, businessTime: businessTime, newBook: booking)
+            eventHandler.receiveCurrent(bookings: bookings,
+                                        businessTime: businessTime,
+                                        newBook: booking,
+                                        currentDate: selectedDate)
         }
     }
  

@@ -13,20 +13,22 @@ class BookingController: NSObject {
     var booked: [Booking] = []
     var startDate: Date = Date()
     var endDate: Date = Date()
+    var selectedDate: Date?
     var timeBeforeSession: TimeInterval = 60 * 60 // 1h by default.
 
-    func update(booked: [Booking], startDate: Date, endDate: Date) {
+    func update(booked: [Booking], startDate: Date, endDate: Date, selectedDate: Date? = nil) {
         self.endDate = endDate
         self.startDate = startDate
         self.booked = booked
+        self.selectedDate = selectedDate
     }
     
-    func isPossibleToBook(newBook: Booking) -> [Date: TimeInterval] { //TODO: add start Date to return
+    func isPossibleToBook(newBook: Booking) -> [Date: TimeInterval] {
         
         let procedureLength = newBook.procedure.procedureLength()
         var validTimeIntervals: [Date: TimeInterval] = [:]
         var topTimeLimit = startDate
-        var availableBookings = booked
+        let availableBookings = booked
         
         //NOTE: Not in past (yesterday).
         guard newBook.procedure.startDate.timeIntervalSince(startDate) > 0 else {
@@ -37,42 +39,41 @@ class BookingController: NSObject {
             topTimeLimit = Date().addingTimeInterval(timeBeforeSession)
         }
         
-        guard booked.count > 0 else {
-            return [endDate:endDate.timeIntervalSince(startDate)]
-        }
-        
-        if !isTimeBeforeSession(start: newBook.procedure.startDate) {
-            availableBookings = findPossibleTime(availableBookings, newBook)
-            topTimeLimit = Date().addingTimeInterval(timeBeforeSession)
-        }
-        
-        guard availableBookings.count > 0 else {
-            return [:]
-        }
-        
-        for index in 0..<availableBookings.count {
+        if let date = selectedDate {
             
-            if index == 0 {
+            let resultInRange = topTimeLimit.compare(date)
+            guard resultInRange == .orderedAscending || resultInRange == .orderedSame else {
+                return validTimeIntervals
+            }
                 
-                let timeInterval =  availableBookings[index].procedure.startDate.timeIntervalSince(topTimeLimit)
-                if compareTimeIntervals(timeInterval, procedure: procedureLength) {
-                    validTimeIntervals = [topTimeLimit: timeInterval]
-                }
-            } else if index == (availableBookings.count - 1) {
-                
-                let timeInterval = availableBookings[index].procedure.endDate.timeIntervalSince(endDate)
-                if compareTimeIntervals(timeInterval, procedure: procedureLength) {
-                    validTimeIntervals = [availableBookings[index].procedure.endDate: timeInterval]
-                }
-            } else {
-                
-                let timeInterval = availableBookings[index].procedure.startDate.timeIntervalSince(availableBookings[index - 1].procedure.endDate)
-                if compareTimeIntervals(timeInterval, procedure: procedureLength) {
-                    validTimeIntervals = [availableBookings[index - 1].procedure.endDate: timeInterval]
+            let resultReservation = date.addingTimeInterval(-timeBeforeSession).compare(topTimeLimit)
+            guard resultReservation == .orderedDescending || resultReservation == .orderedSame else {
+                return validTimeIntervals
+            }
+            
+            guard isInTimeLimits(date: date, procedureLength: procedureLength) else {
+                return validTimeIntervals
+            }
+        
+            var isTimeFree = true
+            if availableBookings.count > 0 {
+                for item in availableBookings {
+                    if !(item.procedure.startDate.compare(date) == .orderedSame) {
+                        if !(item.procedure.endDate.compare(date) == .orderedSame) {
+                            isTimeFree = true
+                        } else {
+                            isTimeFree = false
+                        }
+                    } else {
+                        isTimeFree = false
+                    }
                 }
             }
+            if isTimeFree {
+                validTimeIntervals = [date: procedureLength]
+            }
         }
-        
+
         return validTimeIntervals
     }
     
@@ -155,6 +156,24 @@ class BookingController: NSObject {
         }
         
         return filteredDates
+    }
+    
+    private func isInTimeLimits(date: Date, procedureLength: TimeInterval) -> Bool {
+        
+        let dateFinish = date.addingTimeInterval(procedureLength)
+        let topMinutes: Float = date.component(.minute) > 0 ? Float(1 / date.component(.minute)) : 0.1
+        let selectedTimeTop: Float = Float(date.component(.hour)) + topMinutes
+        
+        let botMinutes: Float = dateFinish.component(.minute) > 0 ? Float(1 / dateFinish.component(.minute)) : 0.1
+        let selectedTimeBot: Float = Float(dateFinish.component(.hour)) + botMinutes
+        
+        let startMinutes: Float = startDate.component(.minute) > 0 ? Float(1 / startDate.component(.minute)) : 0.1
+        let startDateNorm: Float = Float(startDate.component(.hour)) + startMinutes
+        
+        let endMinutes: Float = endDate.component(.minute) > 0 ? Float(1 / endDate.component(.minute)) : 0.1
+        let endDateNorm: Float = Float(endDate.component(.hour)) + endMinutes
+        
+        return startDateNorm < selectedTimeTop && endDateNorm > selectedTimeBot
     }
     
 }

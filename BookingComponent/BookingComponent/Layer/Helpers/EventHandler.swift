@@ -20,13 +20,17 @@ class EventHandler {
     var delegate: EventHandlerDelegate?
     let controller: BookingController = BookingController()
     
+//    MARK: entrancePoint
+    
     func receiveCurrent(bookings: [Booking],
                         businessTime: BusinessTime,
-                        newBook: Booking) {
+                        newBook: Booking,
+                        currentDate: Date) {
         
         controller.update(booked: bookings,
                           startDate: businessTime.startDate,
-                          endDate: businessTime.endDate)
+                          endDate: businessTime.endDate,
+                          selectedDate: currentDate)
         let intervals = controller.isPossibleToBook(newBook: newBook)
         useClosestFrom(intervals: intervals, newBook: newBook, bookings: bookings)
     }
@@ -46,6 +50,8 @@ class EventHandler {
         
     }
     
+//     MARK: outroPoint
+    
     func useClosestFrom(intervals: [Date: TimeInterval], newBook: Booking, bookings: [Booking]) {
         
         var validInterval: Dictionary<Date, TimeInterval> = [:]
@@ -57,7 +63,7 @@ class EventHandler {
         }
         setBookOrReset(validInterval, newBook: newBook)
     }
-    
+
     func setBookOrReset(_ intervals: [Date:TimeInterval], newBook: Booking) {
         
     var isPossibleToSet = false
@@ -66,10 +72,8 @@ class EventHandler {
             let comparisonResult = date.key.compare(newBook.procedure.startDate)
             
             if comparisonResult == .orderedSame || comparisonResult == .orderedAscending{
-               // if (date.value >= newBook.procedure.procedureLength()) {
-                    isPossibleToSet = true
-                    delegate?.add(booking: newBook)
-               // }
+                isPossibleToSet = true
+                delegate?.add(booking: newBook)
             }
         }
         if isPossibleToSet == false {
