@@ -12,6 +12,10 @@ import SnapKit
 import CalendarKit
 import DateToolsSwift
 
+protocol BookingVCDelegate {
+    func removeObject(item: Booking, from list: [Booking])
+}
+
 class BookingVC: DayViewController, EventHandlerDelegate {
     
     var bookings: [Booking] = []
@@ -22,8 +26,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
     
     var vendor: VendorModel!
     var currentUser: ClientModel!
-    
-    var testVendor = TestDataGenerator.createVendor()
+    var delegate: BookingVCDelegate?
     
     private let eventHandler = EventHandler()
     
@@ -132,10 +135,15 @@ class BookingVC: DayViewController, EventHandlerDelegate {
     }
     
     override func dayViewDidLongPressEventView(_ eventView: EventView) {
+        for book in bookings {
+            if let eventBeginning = eventView.descriptor?.datePeriod.beginning {
+                if book.procedure.startDate.compare(eventBeginning) == .orderedSame {
+                    delegate?.removeObject(item: book, from: bookings)
+                }
+            }
+        }
         print("Event has been longPressed:")
     }
-    
-//    MARK: Helpers
     
     fileprivate func procedure(start: String, end: String) -> ProcedureDuration {
         var proc = ProcedureDuration()
