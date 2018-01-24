@@ -12,10 +12,10 @@ build/
 xcuserdata
 *.xccheckout
 *.moved-aside
+*.xcuserstate
 DerivedData
 *.hmap
 *.ipa
-*.xcuserstate
 .DS_Store
 
 #markdown files

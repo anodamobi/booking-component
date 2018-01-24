@@ -1,0 +1,109 @@
+PODS:
+  - ANODA-Alister (0.2):
+    - ANODA-Alister/ANKeyboardHandler (= 0.2)
+    - ANODA-Alister/ANPrototypingUIKit (= 0.2)
+    - ANODA-Alister/Core (= 0.2)
+  - ANODA-Alister/ANKeyboardHandler (0.2)
+  - ANODA-Alister/ANPrototypingUIKit (0.2):
+    - ANODA-Alister/ANKeyboardHandler
+    - ANODA-Alister/Core
+    - libextobjc
+    - Masonry
+  - ANODA-Alister/Core (0.2):
+    - ANODA-Alister/ANKeyboardHandler
+  - CalendarKit (0.2.3):
+    - DateToolsSwift
+    - Neon
+  - DateToolsSwift (2.0.3)
+  - Eureka (4.0.1)
+  - libextobjc (0.4.1):
+    - libextobjc/EXTADT (= 0.4.1)
+    - libextobjc/EXTConcreteProtocol (= 0.4.1)
+    - libextobjc/EXTKeyPathCoding (= 0.4.1)
+    - libextobjc/EXTNil (= 0.4.1)
+    - libextobjc/EXTSafeCategory (= 0.4.1)
+    - libextobjc/EXTScope (= 0.4.1)
+    - libextobjc/EXTSelectorChecking (= 0.4.1)
+    - libextobjc/EXTSynthesize (= 0.4.1)
+    - libextobjc/NSInvocation+EXT (= 0.4.1)
+    - libextobjc/NSMethodSignature+EXT (= 0.4.1)
+    - libextobjc/RuntimeExtensions (= 0.4.1)
+    - libextobjc/UmbrellaHeader (= 0.4.1)
+  - libextobjc/EXTADT (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTConcreteProtocol (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTKeyPathCoding (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTNil (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTSafeCategory (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTScope (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTSelectorChecking (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTSynthesize (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/NSInvocation+EXT (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/NSMethodSignature+EXT (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/RuntimeExtensions (0.4.1)
+  - libextobjc/UmbrellaHeader (0.4.1)
+  - Masonry (1.1.0)
+  - Neon (0.4.0)
+  - Nimble (7.0.3)
+  - Quick (1.2.0)
+  - Reveal-iOS-SDK (1.6.2)
+  - SnapKit (4.0.0)
+  - SwiftyUserDefaults (3.0.0)
+  - UIImagePDF (0.9-beta1)
+
+DEPENDENCIES:
+  - ANODA-Alister (from `https://github.com/anodamobi/Alister.git`, commit `8178433`, branch `master`)
+  - CalendarKit
+  - Eureka
+  - Nimble (~> 7.0.2)
+  - Quick
+  - Reveal-iOS-SDK (~> 1.6.1)
+  - SnapKit (~> 4.0.0)
+  - SwiftyUserDefaults
+  - UIImagePDF (from `git@github.com:anodamobi/UIImage-PDF.git`, commit `7d9dfbf`, branch `0.9-beta1`)
+
+EXTERNAL SOURCES:
+  ANODA-Alister:
+    :branch: master
+    :commit: 8178433
+    :git: https://github.com/anodamobi/Alister.git
+  UIImagePDF:
+    :branch: 0.9-beta1
+    :commit: 7d9dfbf
+    :git: git@github.com:anodamobi/UIImage-PDF.git
+
+CHECKOUT OPTIONS:
+  ANODA-Alister:
+    :commit: 7a5bd5ab21ce82e833d49453c8c9188f6468baed
+    :git: https://github.com/anodamobi/Alister.git
+  UIImagePDF:
+    :commit: 7d9dfbf7d961f6af225e015dae94728f029fe7ef
+    :git: git@github.com:anodamobi/UIImage-PDF.git
+
+SPEC CHECKSUMS:
+  ANODA-Alister: 193602452fd17d2cad2f0e7fe93ffdb605eae0fc
+  CalendarKit: 13213d0183a33ba04eac35bea3e87b493c35953d
+  DateToolsSwift: bf69bf9056d9e53c5c03f06e51f219b9b8b02f9e
+  Eureka: c8bd5cc07143b6f66268c208d28a246c99b41955
+  libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  Neon: 7fb5a9327e7e57911843f608e08f4893a74deaf9
+  Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
+  Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
+  Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
+  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  SwiftyUserDefaults: 0f1d45fc3aafb9064dac661e367f8f83fe21a4b4
+  UIImagePDF: 7cae10d97e503ae042a3ebbfa53d19e4bca4daf9
+
+PODFILE CHECKSUM: 57ec7f643e40b800bf763b6b293a4906a1f376ce
+
+COCOAPODS: 1.3.1

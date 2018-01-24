@@ -1,0 +1,32 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '10.3'
+use_frameworks!
+
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'BookingComponent' do
+
+#ANODA
+pod 'ANODA-Alister', :git => 'https://github.com/anodamobi/Alister.git', :branch => 'master', :commit => '8178433'
+
+pod 'SwiftyUserDefaults'
+pod 'CalendarKit'
+
+#UI
+pod 'SnapKit', '~> 4.0.0'
+
+#temp
+pod 'Eureka'
+
+pod 'UIImagePDF', :git=> 'git@github.com:anodamobi/UIImage-PDF.git', :branch => '0.9-beta1', :commit => '7d9dfbf'
+pod 'Reveal-iOS-SDK', '~> 1.6.1', :configurations => ['Debug']
+#            pod 'Reveal-SDK', '~> 11', :configurations => ['Debug']
+
+ target 'BookingComponentTests' do
+#    use_frameworks!
+    inherit! :search_paths
+    pod 'Quick'
+    pod 'Nimble', '~> 7.0.2'
+  end
+
+end

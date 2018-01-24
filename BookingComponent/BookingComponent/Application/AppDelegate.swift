@@ -3,7 +3,7 @@
 //  BookingComponent
 //
 //  Created by Pavel Mosunov on 1/16/18.
-//  Copyright © 2018 Anoda. All rights reserved.
+//  Copyright © 2018 ANODA. All rights reserved.
 //
 
 import UIKit
@@ -18,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white
         window?.makeKeyAndVisible()
-        
-        window?.rootViewController = UINavigationController.init(rootViewController: ViewController())
+    
+        window?.rootViewController = UINavigationController.init(rootViewController: StartVC())
         
         return true
     }
