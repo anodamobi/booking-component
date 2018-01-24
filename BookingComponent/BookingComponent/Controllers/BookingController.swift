@@ -23,16 +23,16 @@ class BookingController: NSObject {
         self.selectedDate = selectedDate
     }
     
-    func isPossibleToBook(newBook: Booking) -> [Date: TimeInterval] {
+    func isPossibleToBook(newBook: Booking) -> Bool {
         
         let procedureLength = newBook.procedure.procedureLength()
-        var validTimeIntervals: [Date: TimeInterval] = [:]
+        var couldBeBooked = false
         var topTimeLimit = startDate
         let availableBookings = booked
         
         //NOTE: Not in past (yesterday).
         guard newBook.procedure.startDate.timeIntervalSince(startDate) > 0 else {
-            return [:]
+            return false
         }
         
         if isTimePast(start: newBook.procedure.startDate) {
@@ -43,16 +43,16 @@ class BookingController: NSObject {
             
             let resultInRange = topTimeLimit.compare(date)
             guard resultInRange == .orderedAscending || resultInRange == .orderedSame else {
-                return validTimeIntervals
+                return false
             }
                 
             let resultReservation = date.addingTimeInterval(-timeBeforeSession).compare(topTimeLimit)
             guard resultReservation == .orderedDescending || resultReservation == .orderedSame else {
-                return validTimeIntervals
+                return false
             }
             
             guard isInTimeLimits(date: date, procedureLength: procedureLength) else {
-                return validTimeIntervals
+                return false
             }
         
             var isTimeFree = true
@@ -70,11 +70,11 @@ class BookingController: NSObject {
                 }
             }
             if isTimeFree {
-                validTimeIntervals = [date: procedureLength]
+                couldBeBooked = true
             }
         }
 
-        return validTimeIntervals
+        return couldBeBooked
     }
     
     func possibleChunks(for date: Date) -> [Date: TimeInterval] {
