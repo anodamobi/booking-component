@@ -29,7 +29,8 @@ class EventHandler {
         useClosestFrom(intervals: intervals, newBook: newBook, bookings: bookings)
     }
     
-    func receiveCurrent(bookings: [Booking], businessTime: BusinessTime) {
+    func receiveCurrent(bookings: [Booking], businessTime: BusinessTime, preservationTime: TimeInterval) {
+        controller.timeBeforeSession = preservationTime
         controller.update(booked: bookings,
                           startDate: businessTime.startDate,
                           endDate: businessTime.endDate)

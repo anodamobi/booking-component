@@ -18,6 +18,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
     var businessTime = BusinessTime()
     var procedureLength: TimeInterval!
     var procedureType: ProcedureType!
+    var preservationTime: TimeInterval!
     var vendor: VendorModel!
     var currentUser: ClientModel!
     
@@ -31,8 +32,12 @@ class BookingVC: DayViewController, EventHandlerDelegate {
         self.vendor = vendor
         self.procedureType = procedureType
         self.currentUser = client
+        
+        preservationTime = vendor.bookingSettings.prereservationTimeGap
+        
         procedureLength = vendor.serviceProviders[0].availableProcedureTypes[procedureType]?.procedureDuration
         bookings = vendor.serviceProviders[0].bookings
+        
         setupBusinessHours(vendor)
         
     }

@@ -16,12 +16,11 @@ class SelectiveVC: UIViewController {
     var bookings: [Booking] = []
     var businessTime = BusinessTime()
     var procedureLength: TimeInterval!
+    var preservationTime: TimeInterval!
     var procedureType: ProcedureType!
     var vendor: VendorModel!
     var currentUser: ClientModel!
     var storage = ANStorage()
-    
-    var testVendor = TestDataGenerator.createVendor()
     
     private let eventHandler = EventHandler()
     
@@ -34,11 +33,9 @@ class SelectiveVC: UIViewController {
         self.procedureType = procedureType
         self.currentUser = client
         
+        preservationTime = vendor.bookingSettings.prereservationTimeGap
         procedureLength = vendor.serviceProviders[0].availableProcedureTypes[procedureType]?.procedureDuration
         bookings = vendor.serviceProviders[0].bookings
-        
-        setupBusinessHours(vendor)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -87,8 +84,11 @@ class SelectiveVC: UIViewController {
         }
         
         controller.attachStorage(storage)
+        setupBusinessHours(vendor)
         
-        eventHandler.receiveCurrent(bookings: bookings, businessTime: businessTime)
+        eventHandler.receiveCurrent(bookings: bookings,
+                                    businessTime: businessTime,
+                                    preservationTime: preservationTime)
     }
     
     func setupBusinessHours(_ vendor: VendorModel) {
@@ -178,6 +178,14 @@ extension SelectiveVC: EventHandlerDelegate {
     
     private func checkDayHour(_ day: Date, _ minVal: Int, _ maxVal: Int) -> Bool {
         return day.component(.hour) >= minVal && day.component(.hour) < maxVal
+    }
+}
+
+
+class SelectiveController: ANCollectionController {
+    
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: UIScreen.width, height: 57)
     }
 }
 
