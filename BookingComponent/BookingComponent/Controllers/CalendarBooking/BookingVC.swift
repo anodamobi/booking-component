@@ -136,9 +136,12 @@ class BookingVC: DayViewController, EventHandlerDelegate {
     
     override func dayViewDidLongPressEventView(_ eventView: EventView) {
         for book in bookings {
-            if let eventBeginning = eventView.descriptor?.datePeriod.beginning {
-                if book.procedure.startDate.compare(eventBeginning) == .orderedSame {
-                    delegate?.removeObject(item: book, from: bookings)
+            if book.client.userID == currentUser.userID {
+                if let eventBeginning = eventView.descriptor?.datePeriod.beginning {
+                    if book.procedure.startDate.compare(eventBeginning) == .orderedSame {
+                        delegate?.removeObject(item: book, from: bookings)
+                        break
+                    }
                 }
             }
         }
