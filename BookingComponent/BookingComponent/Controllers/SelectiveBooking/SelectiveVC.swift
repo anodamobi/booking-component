@@ -42,6 +42,7 @@ class SelectiveVC: UIViewController {
         preservationTime = vendor.bookingSettings.prereservationTimeGap
         procedureLength = vendor.serviceProviders[0].availableProcedureTypes[procedureType]?.procedureDuration
         bookings = vendor.serviceProviders[0].bookings
+        availableSectionHeaders = [SelectiveHeaderVM(type: .morning), SelectiveHeaderVM(type: .day), SelectiveHeaderVM(type: .evening)]
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -56,6 +57,10 @@ class SelectiveVC: UIViewController {
         
         navigationController?.navigationBar.tintColor = .cmpMidGreen
         title = "Select Time".localized
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Date".localized,
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(selectDate))
         
         eventHandler.delegate = self
         
@@ -72,10 +77,26 @@ class SelectiveVC: UIViewController {
                                     selectedDate: selectedDate)
     }
     
-    func setupBusinessHours(_ vendor: VendorModel) {
+    private func setupBusinessHours(_ vendor: VendorModel) {
         businessTime.startDate = vendor.startTime
         businessTime.endDate = vendor.endTime
     }
+    
+    @objc private func selectDate() {
+        navigationController?.pushViewController(DatePickerVC.init(callBack: { (result) in
+            
+            self.selectedDate = result
+            self.availableSectionHeaders = [SelectiveHeaderVM(type: .morning),
+                                            SelectiveHeaderVM(type: .day),
+                                            SelectiveHeaderVM(type: .evening)]
+            
+            self.eventHandler.receiveCurrent(bookings: self.bookings,
+                                        businessTime: self.businessTime,
+                                        preservationTime: self.preservationTime,
+                                        selectedDate: self.selectedDate)
+        }), animated: true)
+    }
+    
 }
 
 extension SelectiveVC: EventHandlerDelegate {
@@ -121,7 +142,6 @@ extension SelectiveVC: EventHandlerDelegate {
         }
         
         elementsForCollection = [morning, day, evening]
-        availableSectionHeaders = [SelectiveHeaderVM(type: .morning), SelectiveHeaderVM(type: .day), SelectiveHeaderVM(type: .evening)]
         contentView.collectionView.reloadData()
     }
     
@@ -191,10 +211,16 @@ extension SelectiveVC: UICollectionViewDataSource {
         
         var index = elementsForCollection.count - 1
         while (elementsForCollection.count - 1) >= 0 {
+            
+            if index == -1 {
+                break
+            }
+            
             if elementsForCollection[index].count < 1 {
                 elementsForCollection.remove(at: index)
                 availableSectionHeaders.remove(at: index)
             }
+            
             index -= 1
         }
 

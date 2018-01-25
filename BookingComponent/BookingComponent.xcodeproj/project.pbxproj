@@ -18,6 +18,7 @@
 		56802F1C2015FD2800DA7B6D /* ProcedureType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56802F1B2015FD2800DA7B6D /* ProcedureType.swift */; };
 		56802F212015FF2400DA7B6D /* TestDataGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56802F202015FF2400DA7B6D /* TestDataGenerator.swift */; };
 		5682839B20174318003A8E19 /* TimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5682839A20174318003A8E19 /* TimeCell.swift */; };
+		5683BBC92019F00400DD1799 /* DatePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5683BBC82019F00400DD1799 /* DatePickerVC.swift */; };
 		568FBC2B2011FB620027001F /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568FBC2A2011FB620027001F /* String+Ext.swift */; };
 		568FBC2F20120CB50027001F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 568FBC2E20120CB50027001F /* Localizable.strings */; };
 		568FBC3620121B450027001F /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568FBC3520121B450027001F /* EventHandler.swift */; };
@@ -59,6 +60,7 @@
 		56802F1B2015FD2800DA7B6D /* ProcedureType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcedureType.swift; sourceTree = "<group>"; };
 		56802F202015FF2400DA7B6D /* TestDataGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDataGenerator.swift; sourceTree = "<group>"; };
 		5682839A20174318003A8E19 /* TimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCell.swift; sourceTree = "<group>"; };
+		5683BBC82019F00400DD1799 /* DatePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerVC.swift; sourceTree = "<group>"; };
 		568FBC2A2011FB620027001F /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		568FBC2E20120CB50027001F /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		568FBC3520121B450027001F /* EventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 		567F171F201646EE006DC9DF /* SelectiveBooking */ = {
 			isa = PBXGroup;
 			children = (
+				5683BBCA2019FC0D00DD1799 /* DatePicker */,
 				567F172620164B36006DC9DF /* Cells */,
 				567F172020164705006DC9DF /* SelectiveVC.swift */,
 				567F1722201647B7006DC9DF /* SelectiveView.swift */,
@@ -161,6 +164,14 @@
 				568FBC3520121B450027001F /* EventHandler.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		5683BBCA2019FC0D00DD1799 /* DatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				5683BBC82019F00400DD1799 /* DatePickerVC.swift */,
+			);
+			path = DatePicker;
 			sourceTree = "<group>";
 		};
 		56943BA0200E0D63001E2D75 = {
@@ -505,6 +516,7 @@
 				567DDF8B2011018F00906E80 /* UIColor+CMPAdditions.swift in Sources */,
 				56802F1C2015FD2800DA7B6D /* ProcedureType.swift in Sources */,
 				568FBC2B2011FB620027001F /* String+Ext.swift in Sources */,
+				5683BBC92019F00400DD1799 /* DatePickerVC.swift in Sources */,
 				567DDF892010FFD400906E80 /* StyleGenerator.swift in Sources */,
 				563A208C20179EAE002ADEE6 /* SelectiveHeader.swift in Sources */,
 				567F172120164705006DC9DF /* SelectiveVC.swift in Sources */,
