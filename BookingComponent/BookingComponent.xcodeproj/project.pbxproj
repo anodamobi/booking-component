@@ -20,7 +20,6 @@
 		5682839B20174318003A8E19 /* TimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5682839A20174318003A8E19 /* TimeCell.swift */; };
 		5683BBC92019F00400DD1799 /* DatePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5683BBC82019F00400DD1799 /* DatePickerVC.swift */; };
 		568FBC2B2011FB620027001F /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568FBC2A2011FB620027001F /* String+Ext.swift */; };
-		568FBC2F20120CB50027001F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 568FBC2E20120CB50027001F /* Localizable.strings */; };
 		568FBC3620121B450027001F /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568FBC3520121B450027001F /* EventHandler.swift */; };
 		56943BB4200E0D63001E2D75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56943BB3200E0D63001E2D75 /* Assets.xcassets */; };
 		56943BC2200E0D63001E2D75 /* BookingComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56943BC1200E0D63001E2D75 /* BookingComponentTests.swift */; };
@@ -32,6 +31,7 @@
 		56943BDD200E110C001E2D75 /* DataStructHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56943BDC200E110C001E2D75 /* DataStructHelper.swift */; };
 		56943BE0200E2B2D001E2D75 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56943BDF200E2B2D001E2D75 /* Date+Ext.swift */; };
 		56943BE6200E5456001E2D75 /* BookingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56943BE5200E5456001E2D75 /* BookingController.swift */; };
+		569DA985201B8B68001BC0FE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 569DA987201B8B68001BC0FE /* Localizable.strings */; };
 		68985228A4E4A004A0B2957C /* Pods_BookingComponentTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9C3320D57261431256F61D4 /* Pods_BookingComponentTests.framework */; };
 		E709DD8C1F666F01C414D3AE /* Pods_BookingComponent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A940503C780E7EC429B7FAC4 /* Pods_BookingComponent.framework */; };
 /* End PBXBuildFile section */
@@ -62,7 +62,6 @@
 		5682839A20174318003A8E19 /* TimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCell.swift; sourceTree = "<group>"; };
 		5683BBC82019F00400DD1799 /* DatePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerVC.swift; sourceTree = "<group>"; };
 		568FBC2A2011FB620027001F /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
-		568FBC2E20120CB50027001F /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		568FBC3520121B450027001F /* EventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
 		56943BA9200E0D63001E2D75 /* BookingComponent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookingComponent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56943BB3200E0D63001E2D75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -77,6 +76,7 @@
 		56943BDC200E110C001E2D75 /* DataStructHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStructHelper.swift; sourceTree = "<group>"; };
 		56943BDF200E2B2D001E2D75 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		56943BE5200E5456001E2D75 /* BookingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingController.swift; sourceTree = "<group>"; };
+		569DA986201B8B68001BC0FE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		63A477704F14FD183A6CF152 /* Pods-BookingComponentTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookingComponentTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BookingComponentTests/Pods-BookingComponentTests.release.xcconfig"; sourceTree = "<group>"; };
 		7E535F1A572996DD238871B4 /* Pods-BookingComponent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookingComponent.release.xcconfig"; path = "Pods/Target Support Files/Pods-BookingComponent/Pods-BookingComponent.release.xcconfig"; sourceTree = "<group>"; };
 		802CC5B5E8A801EA85C70F17 /* Pods-BookingComponentTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookingComponentTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BookingComponentTests/Pods-BookingComponentTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -238,7 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				56943BD4200E109B001E2D75 /* Info.plist */,
-				568FBC2E20120CB50027001F /* Localizable.strings */,
+				569DA987201B8B68001BC0FE /* Localizable.strings */,
 			);
 			path = BundleFiles;
 			sourceTree = "<group>";
@@ -364,7 +364,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				56943BD6200E109B001E2D75 /* Info.plist in Resources */,
-				568FBC2F20120CB50027001F /* Localizable.strings in Resources */,
+				569DA985201B8B68001BC0FE /* Localizable.strings in Resources */,
 				56943BB4200E0D63001E2D75 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -541,6 +541,17 @@
 			targetProxy = 56943BBE200E0D63001E2D75 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		569DA987201B8B68001BC0FE /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				569DA986201B8B68001BC0FE /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		56943BC4200E0D63001E2D75 /* Debug */ = {

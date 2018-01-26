@@ -12,7 +12,7 @@ import SnapKit
 import CalendarKit
 import DateToolsSwift
 
-protocol BookingVCDelegate {
+protocol BookingVCDelegate: class {
     func removeObject(item: Booking, from list: [Booking])
 }
 
@@ -26,7 +26,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
     
     var vendor: VendorModel!
     var currentUser: ClientModel!
-    var delegate: BookingVCDelegate?
+    weak var delegate: BookingVCDelegate?
     
     private let eventHandler = EventHandler()
     

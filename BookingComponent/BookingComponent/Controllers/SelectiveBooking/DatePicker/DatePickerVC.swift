@@ -10,14 +10,14 @@ import Foundation
 import UIKit
 import SnapKit
 
+typealias callBackClosure = (Date) -> ()
+
 class DatePickerVC: UIViewController {
     
-    let contentView: DatePickerView
-    
-    var callBackClosure: (Date) -> () = {_ in }
+    let contentView: DatePickerView = DatePickerView()
+    var callBackClosure: callBackClosure = { _ in }
     
     init(callBack: @escaping (Date) -> ()) {
-        contentView = DatePickerView()
         super.init(nibName: nil, bundle: nil)
         callBackClosure = callBack
     }
@@ -32,7 +32,7 @@ class DatePickerVC: UIViewController {
     
     override func viewDidLoad() {
         
-        title = "Select Date".localized
+        title = "selective.title".localized
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Save".localized, style: .done, target: self, action: #selector(back))
         
     }

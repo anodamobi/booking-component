@@ -90,6 +90,11 @@ class BookingController: NSObject {
                 dateChunks += [element]
             }
         }
+        guard !dateChunks.isEmpty else {
+            let start = date.dateFormat() + "T" + startDate.hourMinuteFormat()
+            let interval = endDate.timeIntervalSince(startDate)
+            return [Date.date(from: start, timeFormat: "yyyy-mm-dd'T'H:mm") ?? startDate:interval]
+        }
         
         var availableTime: [Date: TimeInterval] = [:]
         
@@ -115,6 +120,7 @@ class BookingController: NSObject {
                 }
             }
         }
+        
         return availableTime
     }
     
@@ -122,7 +128,7 @@ class BookingController: NSObject {
 //    MARK: Helpers
     
     private func isTimePast(start: Date) -> Bool {
-        return start.compare(Date()) == ComparisonResult.orderedAscending//start.timeIntervalSince(Date()) < 0
+        return start.compare(Date()) == ComparisonResult.orderedAscending
     }
     
     private func isTimeBeforeSession(start: Date) -> Bool {

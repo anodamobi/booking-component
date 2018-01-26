@@ -9,8 +9,6 @@
 import Foundation
 import SnapKit
 
-
-
 class TimeCellVM: NSObject {
     
     static var reuseIdentifier: String {
