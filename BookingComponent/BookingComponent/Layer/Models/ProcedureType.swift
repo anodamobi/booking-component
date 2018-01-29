@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum ProcedureType: String, Equatable {
+public enum ProcedureType: String {
     
     case none = "None"
     case haircut = "Haircut"

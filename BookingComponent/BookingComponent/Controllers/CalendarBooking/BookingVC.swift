@@ -57,7 +57,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
         style = StyleGenerator.appStyle()
         updateStyle(style)
         
-        title = "Select Date and Time".localized
+        title = "select.date.time".localized
         navigationController?.navigationBar.barTintColor = style.header.backgroundColor
         navigationController?.navigationBar.tintColor = .cmpMidGreen
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.cmpGunmetal]
@@ -65,7 +65,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         dayView.autoScrollToFirstEvent = false
 
-        eventHandler.delegate = self
+        eventHandler.bookingDelegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -80,7 +80,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
         let datePeriod = TimePeriod(beginning: date, chunk: TimeChunk.dateComponents(hours: duration))
         event.datePeriod = datePeriod
         event.color = .cmpPaleGreyThree
-        event.text = "Non-business hours".localized
+        event.text = "non-business.hours".localized
         event.textColor = .cmpCoolGrey
         
         let endDayEvent = Event()
@@ -90,7 +90,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
         let period = TimePeriod(beginning: beginning, chunk: TimeChunk.dateComponents(hours: hoursTilEnd))
         endDayEvent.datePeriod = period
         endDayEvent.color = .cmpPaleGreyThree
-        endDayEvent.text = "Non-business hours".localized
+        endDayEvent.text = "non-business.hours".localized
         endDayEvent.textColor = .cmpCoolGrey
         
         events.append(event)
@@ -98,10 +98,11 @@ class BookingVC: DayViewController, EventHandlerDelegate {
 
         
         for book in bookings {
+            
             let bookedEvent = Event()
             let eventTimePeriod = TimePeriod(beginning: book.procedure.startDate, end: book.procedure.endDate)
             bookedEvent.datePeriod = eventTimePeriod
-            bookedEvent.text = "Busy"
+            bookedEvent.text = "busy".localized
             bookedEvent.textColor = .cmpCoolGrey
             bookedEvent.backgroundColor = .cmpBrownishOrange5
             
@@ -118,6 +119,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
     }
     
     func setupBusinessHours(_ vendor: VendorModel) {
+        
         businessTime.startDate = vendor.startTime
         businessTime.endDate = vendor.endTime
     }
@@ -131,13 +133,15 @@ class BookingVC: DayViewController, EventHandlerDelegate {
     }
     
     override func dayViewDidSelectEventView(_ eventview: EventView) {
-        print("Event has been selected: \(String(describing: eventview.descriptor?.datePeriod))")
     }
     
     override func dayViewDidLongPressEventView(_ eventView: EventView) {
+        
         for book in bookings {
             if book.client.userID == currentUser.userID {
+                
                 if let eventBeginning = eventView.descriptor?.datePeriod.beginning {
+                    
                     if book.procedure.startDate.compare(eventBeginning) == .orderedSame {
                         delegate?.removeObject(item: book, from: bookings)
                         break
@@ -145,10 +149,10 @@ class BookingVC: DayViewController, EventHandlerDelegate {
                 }
             }
         }
-        print("Event has been longPressed:")
     }
     
     fileprivate func procedure(start: String, end: String) -> ProcedureDuration {
+        
         var proc = ProcedureDuration()
         proc.startDate = setup(date: start)
         proc.endDate = setup(date: end).addingTimeInterval(15*60)
@@ -160,6 +164,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
     }
     
     fileprivate func stringDateFromDate(_ date: Date? = nil) -> String {
+        
         if date == nil {
             return Date().dateFormat()
         } else {
@@ -174,11 +179,13 @@ class BookingVC: DayViewController, EventHandlerDelegate {
     override func dayViewDidLongPressTimelineAtHour(_ hour: Int) {
         
         if let selectedDate = dayView.state?.selectedDate.add(TimeChunk.dateComponents(hours:hour)) {
+            
             let booking = Booking()
             booking.client = currentUser
-            booking.when = selectedDate
+            booking.eventDate = selectedDate
             booking.procedure.startDate = selectedDate
-            let timeGap = vendor.bookingSettings.timeGap //TODO: Pavel - vendor's or serviceProvider's gap should be used.
+            
+            let timeGap = vendor.bookingSettings.timeGap
             booking.procedure.endDate = selectedDate.addingTimeInterval(procedureLength + timeGap)
             eventHandler.receiveCurrent(bookings: bookings,
                                         businessTime: businessTime,

@@ -72,7 +72,7 @@ class BookingComponentTests: XCTestCase {
         
         expect(intervals.count > 0).to(beTrue())
         for interval in intervals {
-            expect(interval < newBook.procedure.procedureLength()).to(beTrue())
+            expect(interval < newBook.procedure.duration()).to(beTrue())
         }
     }
     
@@ -97,10 +97,10 @@ class BookingComponentTests: XCTestCase {
         expect(intervals.count > 0).to(beTrue())
         
         for index in 0..<intervals.count {
-            if intervals[index] >= newBook.procedure.procedureLength() {
-                expect(intervals[index] >= newBook.procedure.procedureLength()).to(beTrue())
+            if intervals[index] >= newBook.procedure.duration() {
+                expect(intervals[index] >= newBook.procedure.duration()).to(beTrue())
             } else {
-                expect(intervals[index] < newBook.procedure.procedureLength()).to(beTrue())
+                expect(intervals[index] < newBook.procedure.duration()).to(beTrue())
             }
         }
     }
@@ -168,10 +168,10 @@ class BookingComponentTests: XCTestCase {
         let intervals = bookingController.isPossibleToBook(newBook: newBook)
         
         for index in 0..<intervals.count {
-            if intervals[index] >= newBook.procedure.procedureLength() {
-                expect(intervals[index] >= newBook.procedure.procedureLength()).to(beTrue())
+            if intervals[index] >= newBook.procedure.duration() {
+                expect(intervals[index] >= newBook.procedure.duration()).to(beTrue())
             } else {
-                expect(intervals[index] < newBook.procedure.procedureLength()).to(beTrue())
+                expect(intervals[index] < newBook.procedure.duration()).to(beTrue())
             }
         }
     }
@@ -205,7 +205,7 @@ class BookingComponentTests: XCTestCase {
         
         expect(intervals.count > 0).to(beTrue())
         for interval in intervals {
-            expect(interval < newBook.procedure.procedureLength()).to(beTrue())
+            expect(interval < newBook.procedure.duration()).to(beTrue())
         }
     }
     

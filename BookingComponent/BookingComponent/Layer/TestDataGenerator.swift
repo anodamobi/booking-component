@@ -50,12 +50,12 @@ class TestDataGenerator {
         booking1.client = createClinet(id: 177)
         booking1.procedure.startDate = Date.date(from: stringDate + "T11:00", timeFormat: "yyyy-MM-dd'T'H:mm") ?? Date()
         booking1.procedure.endDate = booking1.procedure.startDate.addingTimeInterval(procedure.procedureDuration + haircut.bookingSettings.timeGap)
-        booking1.when = Date.date(from: stringDate, timeFormat: "yyyy-MM-dd") ?? Date()
+        booking1.eventDate = Date.date(from: stringDate, timeFormat: "yyyy-MM-dd") ?? Date()
         
         booking2.client = createClinet(id: 32)
         booking2.procedure.startDate = Date.date(from: stringDate + "T10:00", timeFormat: "yyyy-MM-dd'T'H:mm")?.addingTimeInterval(24 * hour) ?? Date().addingTimeInterval(24 * hour)
         booking2.procedure.endDate = booking2.procedure.startDate.addingTimeInterval(procedure.procedureDuration + haircut.bookingSettings.timeGap)
-        booking2.when = (Date.date(from: stringDate, timeFormat: "yyyy-MM-dd")?.addingTimeInterval(24 * hour)) ?? Date().addingTimeInterval(24 * hour)
+        booking2.eventDate = (Date.date(from: stringDate, timeFormat: "yyyy-MM-dd")?.addingTimeInterval(24 * hour)) ?? Date().addingTimeInterval(24 * hour)
         
         haircut.bookings = [booking1, booking2]
         

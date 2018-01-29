@@ -17,7 +17,7 @@ class SelectiveHeaderVM: NSObject {
     
     var title = ""
     init(type: SectionType) {
-        title = type.rawValue
+        title = type.rawValue.localized
     }
 }
 

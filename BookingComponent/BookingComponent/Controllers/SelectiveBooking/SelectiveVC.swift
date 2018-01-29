@@ -13,10 +13,10 @@ class SelectiveVC: UIViewController {
     
     let contentView = SelectiveView()
     
-    internal var bookings: [Booking] = []
-    internal var businessTime = BusinessTime()
-    internal var procedureLength: TimeInterval!
-    internal var preservationTime: TimeInterval!
+    private var bookings: [Booking] = []
+    private var businessTime = BusinessTime()
+    private var procedureLength: TimeInterval!
+    private var preservationTime: TimeInterval!
     
     var procedureType: ProcedureType!
     var vendor: VendorModel!
@@ -56,13 +56,13 @@ class SelectiveVC: UIViewController {
     override func viewDidLoad() {
         
         navigationController?.navigationBar.tintColor = .cmpMidGreen
-        title = "Select Time".localized
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Date".localized,
+        title = "select.time".localized
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "date".localized,
                                                             style: .plain,
                                                             target: self,
                                                             action: #selector(selectDate))
         
-        eventHandler.delegate = self
+        eventHandler.selectiveDelegate = self
         
         contentView.collectionView.register(TimeCell.self, forCellWithReuseIdentifier: TimeCellVM.reuseIdentifier)
         contentView.collectionView.register(SelectiveHeader.self,
@@ -99,7 +99,7 @@ class SelectiveVC: UIViewController {
     
 }
 
-extension SelectiveVC: EventHandlerDelegate {
+extension SelectiveVC: EventSelectiveHandlerDelegate {
     
     func add(booking: Booking) {
         //Stub
@@ -184,7 +184,7 @@ extension SelectiveVC: UICollectionViewDelegate {
             let book = Booking()
             
             book.client = self.currentUser
-            book.when = viewModel.item
+            book.eventDate = viewModel.item
             book.procedure.startDate = viewModel.item
             book.procedure.endDate = viewModel.item.addingTimeInterval(self.vendor.bookingSettings.prereservationTimeGap)
             

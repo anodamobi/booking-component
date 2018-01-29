@@ -7,3 +7,12 @@
 */
 
 "selective.title" = "Select Date";
+"save" = "Save";
+"date" = "Date";
+"select.time" = "Select Time";
+"morning" = "Morning";
+"day" = "Day";
+"evening" = "Evening";
+"non-business.hours" = "Non-business hours";
+"select.date.time" = "Select Date and Time";
+"busy" = "Busy";

@@ -18,7 +18,7 @@ struct BusinessTime {
 class Booking {
     
     var client: ClientModel = ClientModel()
-    var when: Date = Date()
+    var eventDate: Date = Date()
     var procedure: ProcedureDuration = ProcedureDuration()
 }
 
@@ -26,7 +26,7 @@ struct ProcedureDuration {
     var startDate: Date = Date()
     var endDate: Date = Date()
     
-    func procedureLength() -> TimeInterval {
+    func duration() -> TimeInterval {
         return endDate.timeIntervalSince(startDate)
     }
 }

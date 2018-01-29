@@ -25,12 +25,11 @@ class BookingController: NSObject {
     
     func isPossibleToBook(newBook: Booking) -> Bool {
         
-        let procedureLength = newBook.procedure.procedureLength()
+        let procedureLength = newBook.procedure.duration()
         var couldBeBooked = false
         var topTimeLimit = startDate
         let availableBookings = booked
         
-        //NOTE: Not in past (yesterday).
         guard newBook.procedure.startDate.timeIntervalSince(startDate) > 0 else {
             return false
         }
@@ -42,34 +41,20 @@ class BookingController: NSObject {
         if let date = selectedDate {
             
             let resultInRange = topTimeLimit.compare(date)
-            guard resultInRange == .orderedAscending || resultInRange == .orderedSame else {
+            guard resultInRange != .orderedDescending else {
                 return false
             }
                 
             let resultReservation = date.addingTimeInterval(-timeBeforeSession).compare(topTimeLimit)
-            guard resultReservation == .orderedDescending || resultReservation == .orderedSame else {
+            guard resultReservation != .orderedAscending else {
                 return false
             }
             
             guard isInTimeLimits(date: date, procedureLength: procedureLength) else {
                 return false
             }
-        
-            var isTimeFree = true
-            if availableBookings.count > 0 {
-                for item in availableBookings {
-                    if !(item.procedure.startDate.compare(date) == .orderedSame) {
-                        if !(item.procedure.endDate.compare(date) == .orderedSame) {
-                            continue
-                        } else {
-                            isTimeFree = false
-                        }
-                    } else {
-                        isTimeFree = false
-                    }
-                }
-            }
-            if isTimeFree {
+            
+            if isBookingPossible(bookings: availableBookings, date: date) {
                 couldBeBooked = true
             }
         }
@@ -79,6 +64,11 @@ class BookingController: NSObject {
     
     func possibleChunks(for date: Date) -> [Date: TimeInterval] {
         
+        let startString = date.dateFormat() + "T" + startDate.hourMinuteFormat()
+        let endString = date.dateFormat() + "T" + endDate.hourMinuteFormat()
+        let start = Date.date(from: startString, timeFormat: "yyyy-mm-dd'T'H:mm") ?? startDate
+        let end = Date.date(from: endString, timeFormat: "yyyy-mm-dd'T'H:mm") ?? endDate
+        
         guard booked.count > 0 else {
             return [startDate: endDate.timeIntervalSince(startDate)];
         }
@@ -86,42 +76,18 @@ class BookingController: NSObject {
         var dateChunks: [Booking] = []
         
         for element in booked {
+            
             if element.procedure.startDate.dateFormat() == date.dateFormat() {
                 dateChunks += [element]
             }
         }
         guard !dateChunks.isEmpty else {
-            let start = date.dateFormat() + "T" + startDate.hourMinuteFormat()
-            let interval = endDate.timeIntervalSince(startDate)
-            return [Date.date(from: start, timeFormat: "yyyy-mm-dd'T'H:mm") ?? startDate:interval]
-        }
-        
-        var availableTime: [Date: TimeInterval] = [:]
-        
-        for index in 0..<dateChunks.count {
             
-            if index == 0 {
-                
-                let interval = dateChunks[index].procedure.startDate.timeIntervalSince(startDate)
-                if interval >= dateChunks[index].procedure.procedureLength() {
-                    availableTime[startDate] = interval
-                }
-            }
-            if index == (dateChunks.count - 1) {
-                
-                let interval = endDate.timeIntervalSince(dateChunks[index].procedure.endDate)
-                if interval >= dateChunks[index].procedure.procedureLength() {
-                    availableTime[dateChunks[index].procedure.endDate] = interval
-                }
-            } else {
-                let interval = dateChunks[index].procedure.startDate.timeIntervalSince(dateChunks[index - 1].procedure.endDate)
-                if interval >= dateChunks[index].procedure.procedureLength() {
-                    availableTime[dateChunks[index - 1].procedure.endDate] = interval
-                }
-            }
+            let interval = endDate.timeIntervalSince(startDate)
+            return [start: interval]
         }
         
-        return availableTime
+        return calculateTimeChunks(dateChunks: dateChunks, start: start, end: end)
     }
     
     
@@ -150,12 +116,14 @@ class BookingController: NSObject {
         
         var filteredDates: [Booking] = []
         for index in 0..<result.count {
+            
             let newBookDate = newBook.procedure.startDate.dateFormat()
             let current = result[index].procedure.startDate.dateFormat()
             let comparisonResult = Date.date(from: newBookDate,
                                              timeFormat: "yyyy-MM-dd")?
                 .compare(Date.date(from: current,
                                    timeFormat: "yyyy-MM-dd") ?? Date())
+            
             if comparisonResult == .orderedSame {
                 filteredDates += [result[index]]
             }
@@ -182,5 +150,59 @@ class BookingController: NSObject {
         return startDateNorm < selectedTimeTop && endDateNorm > selectedTimeBot
     }
     
+    private func isBookingPossible(bookings: [Booking], date: Date) -> Bool {
+        var isTimeFree = true
+        if bookings.count > 0 {
+            
+            for item in bookings {
+                
+                if !(item.procedure.startDate.compare(date) == .orderedSame) {
+                    
+                    if !(item.procedure.endDate.compare(date) == .orderedSame) {
+                        continue
+                    } else {
+                        isTimeFree = false
+                    }
+                    
+                } else {
+                    isTimeFree = false
+                }
+            }
+        }
+        return isTimeFree
+    }
+    
+    private func calculateTimeChunks(dateChunks: [Booking], start: Date, end: Date) -> [Date: TimeInterval] {
+        
+        var availableTime: [Date: TimeInterval] = [:]
+        
+        for index in 0..<dateChunks.count {
+            
+            if index == 0 {
+                
+                let interval = dateChunks[index].procedure.startDate.timeIntervalSince(start)
+                if interval >= dateChunks[index].procedure.duration() {
+                    availableTime[start] = interval
+                }
+            }
+            if index == (dateChunks.count - 1) {
+                
+                var interval = dateChunks[index].procedure.endDate.timeIntervalSince(end)
+                if interval < 0 {
+                    interval *= -1
+                }
+                if interval >= dateChunks[index].procedure.duration() {
+                    availableTime[dateChunks[index].procedure.endDate] = interval
+                }
+            } else {
+                
+                let interval = dateChunks[index].procedure.startDate.timeIntervalSince(dateChunks[index - 1].procedure.endDate)
+                if interval >= dateChunks[index].procedure.duration() {
+                    availableTime[dateChunks[index - 1].procedure.endDate] = interval
+                }
+            }
+        }
+        return availableTime
+    }
 }
 
