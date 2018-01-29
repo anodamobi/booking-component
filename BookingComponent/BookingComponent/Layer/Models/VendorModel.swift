@@ -46,7 +46,7 @@ class ServiceProvider {
     
     var firstName: String = ""
     var lastName: String = ""
-    var bookings: [Booking] = []
+    var bookings: [BookingModel] = []
     
     var startTime: Date = Date()
     var endTime: Date = Date()

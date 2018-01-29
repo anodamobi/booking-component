@@ -23,6 +23,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
         window?.rootViewController = UINavigationController.init(rootViewController: StartVC())
         
+        print(UIFont.familyNames)
+        let nameString = "SF Pro Text"
+        for name in UIFont.familyNames {
+            print(name)
+            if nameString == name
+            {
+                print(UIFont.fontNames(forFamilyName: nameString))
+            }
+        }
+        
         Fabric.with([Crashlytics.self])
         
         return true

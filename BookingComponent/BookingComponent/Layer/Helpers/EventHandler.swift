@@ -8,23 +8,27 @@
 
 import Foundation
 
-protocol EventHandlerDelegate {
+protocol EventHandlerDelegate: class {
     
-    func add(booking: Booking)
+    func add(booking: BookingModel)
     func resetPanGesture()
+}
+
+protocol EventSelectiveHandlerDelegate: class {
     func availableTimeChunks(_ intervals: [Date: TimeInterval])
 }
 
 class EventHandler {
     
-    var delegate: EventHandlerDelegate?
+    weak var bookingDelegate: EventHandlerDelegate?
+    weak var selectiveDelegate: EventSelectiveHandlerDelegate?
     let controller: BookingController = BookingController()
     
 //    MARK: entrancePoint
     
-    func receiveCurrent(bookings: [Booking],
+    func receiveCurrent(bookings: [BookingModel],
                         businessTime: BusinessTime,
-                        newBook: Booking) {
+                        newBook: BookingModel) {
         
         controller.update(booked: bookings,
                           startDate: businessTime.startDate,
@@ -32,13 +36,13 @@ class EventHandler {
                           selectedDate: newBook.procedure.startDate)
         
         if controller.isPossibleToBook(newBook: newBook) {
-            delegate?.add(booking: newBook)
+            bookingDelegate?.add(booking: newBook)
         } else {
-            delegate?.resetPanGesture()
+            bookingDelegate?.resetPanGesture()
         }
     }
     
-    func receiveCurrent(bookings: [Booking],
+    func receiveCurrent(bookings: [BookingModel],
                         businessTime: BusinessTime,
                         preservationTime: TimeInterval,
                         selectedDate: Date) {
@@ -48,8 +52,8 @@ class EventHandler {
                           startDate: businessTime.startDate,
                           endDate: businessTime.endDate)
         
-        let interlvas = controller.possibleChunks(for: selectedDate)
-        delegate?.availableTimeChunks(interlvas)
+        let intervlas = controller.possibleChunks(for: selectedDate)
+        selectiveDelegate?.availableTimeChunks(intervlas)
         
     }
 }

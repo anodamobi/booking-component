@@ -10,12 +10,12 @@ import Foundation
 import UIKit
 import SnapKit
 
-enum SectionType: String, Equatable {
+enum SectionType: String {
     
     case other = "other"
-    case morning = "Morning"
-    case day = "Day"
-    case evening = "Evening"
+    case morning = "morning"
+    case day = "day"
+    case evening = "evening"
     
 }
 
@@ -26,14 +26,15 @@ class SelectiveView: UIView {
     override init(frame: CGRect) {
         collectionView = UICollectionView(frame: frame, collectionViewLayout: SelectiveView.collectionLayout())
         super.init(frame: frame)
-        setupaLayout()
+        setupLayout()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupaLayout() {
+    func setupLayout() {
+        
         addSubview(collectionView)
         collectionView.backgroundColor = .white
         collectionView.snp.makeConstraints { (make) in

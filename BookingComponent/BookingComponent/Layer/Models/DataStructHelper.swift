@@ -8,17 +8,15 @@
 
 import Foundation
 
-
-
 struct BusinessTime {
     var startDate: Date = Date()
     var endDate: Date = Date()
 }
 
-class Booking {
+class BookingModel {
     
     var client: ClientModel = ClientModel()
-    var when: Date = Date()
+    var eventDate: Date = Date()
     var procedure: ProcedureDuration = ProcedureDuration()
 }
 
@@ -26,7 +24,7 @@ struct ProcedureDuration {
     var startDate: Date = Date()
     var endDate: Date = Date()
     
-    func procedureLength() -> TimeInterval {
+    func duration() -> TimeInterval {
         return endDate.timeIntervalSince(startDate)
     }
 }
@@ -37,4 +35,12 @@ struct Procedure {
     var details: String = ""
     var durationPrice: Float = 0
     var procedureDuration: TimeInterval = 0
+}
+
+class BookViewModel {
+    var vendor: VendorModel = VendorModel()
+    var procedureType: ProcedureType = .none
+    var client: ClientModel = ClientModel()
+    var selectedDate: Date = Date()
+    var serviceProviderIndex: ServiceProviderType = .haircut
 }

@@ -33,7 +33,7 @@ class DatePickerVC: UIViewController {
     override func viewDidLoad() {
         
         title = "selective.title".localized
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Save".localized, style: .done, target: self, action: #selector(back))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "save".localized, style: .done, target: self, action: #selector(back))
         
     }
     
