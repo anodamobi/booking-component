@@ -32,6 +32,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
     private var serviceProviderIndex: Int = 0
     
     init(_ model: BookViewModel) {
+        
         super.init(nibName: nil, bundle: nil)
         self.vendor = model.vendor
         self.procedureType = model.procedureType
