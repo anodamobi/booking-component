@@ -10,7 +10,7 @@ import Foundation
 
 protocol EventHandlerDelegate: class {
     
-    func add(booking: Booking)
+    func add(booking: BookingModel)
     func resetPanGesture()
 }
 
@@ -26,9 +26,9 @@ class EventHandler {
     
 //    MARK: entrancePoint
     
-    func receiveCurrent(bookings: [Booking],
+    func receiveCurrent(bookings: [BookingModel],
                         businessTime: BusinessTime,
-                        newBook: Booking) {
+                        newBook: BookingModel) {
         
         controller.update(booked: bookings,
                           startDate: businessTime.startDate,
@@ -42,7 +42,7 @@ class EventHandler {
         }
     }
     
-    func receiveCurrent(bookings: [Booking],
+    func receiveCurrent(bookings: [BookingModel],
                         businessTime: BusinessTime,
                         preservationTime: TimeInterval,
                         selectedDate: Date) {

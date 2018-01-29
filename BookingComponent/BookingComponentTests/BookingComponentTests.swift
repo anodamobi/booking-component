@@ -38,7 +38,7 @@ class BookingComponentTests: XCTestCase {
     
     func testWholeTableFree() {
         
-        let book = Booking()
+        let book = BookingModel()
         book.procedure = procedure(start: "\(dateString)T9:00", end: "\(dateString)T10:00")
         
         bookingController.update(booked: [], startDate: startDate, endDate: endDate)
@@ -52,18 +52,18 @@ class BookingComponentTests: XCTestCase {
     
     func testWholeTableSet() {
         
-        let book1 = Booking()
+        let book1 = BookingModel()
         book1.procedure = procedure(start: "\(dateString)T8:30", end: "\(dateString)T10:30")
-        let book2 = Booking()
+        let book2 = BookingModel()
         book2.procedure = procedure(start: "\(dateString)T11:00", end: "\(dateString)T12:00")
-        let book3 = Booking()
+        let book3 = BookingModel()
         book3.procedure = procedure(start: "\(dateString)T12:30", end: "\(dateString)T14:00")
-        let book4 = Booking()
+        let book4 = BookingModel()
         book4.procedure = procedure(start: "\(dateString)T14:15", end: "\(dateString)T16:30")
-        let book5 = Booking()
+        let book5 = BookingModel()
         book5.procedure = procedure(start: "\(dateString)T17:00", end: "\(dateString)T18:00")
         
-        let newBook = Booking()
+        let newBook = BookingModel()
         newBook.procedure = procedure(start: "\(dateString)T9:00", end: "\(dateString)T10:00")
         
         bookingController.update(booked: [book1, book2, book3, book4, book5], startDate: startDate, endDate: endDate)
@@ -78,16 +78,16 @@ class BookingComponentTests: XCTestCase {
     
     func testPossibleReservetaionTime() {
         
-        let book1 = Booking()
+        let book1 = BookingModel()
         book1.procedure = procedure(start: "\(dateString)T8:30", end: "\(dateString)T10:30")
-        let book2 = Booking()
+        let book2 = BookingModel()
         book2.procedure = procedure(start: "\(dateString)T11:00", end: "\(dateString)T12:00")
-        let book3 = Booking()
+        let book3 = BookingModel()
         book3.procedure = procedure(start: "\(dateString)T12:30", end: "\(dateString)T14:00")
-        let book4 = Booking()
+        let book4 = BookingModel()
         book4.procedure = procedure(start: "\(dateString)T14:15", end: "\(dateString)T16:30")
         
-        let newBook = Booking()
+        let newBook = BookingModel()
         newBook.procedure = procedure(start: "\(dateString)T9:00", end: "\(dateString)T10:00")
         
         bookingController.update(booked: [book1, book2, book3, book4], startDate: startDate, endDate: endDate)
@@ -106,7 +106,7 @@ class BookingComponentTests: XCTestCase {
     }
     
     func testBookInPast() {
-        let newBook = Booking()
+        let newBook = BookingModel()
         newBook.procedure = procedure(start: "2018-01-16T16:00", end: "2018-01-16T17:00")
         
         bookingController.update(booked: [], startDate: startDate, endDate: endDate)
@@ -116,10 +116,10 @@ class BookingComponentTests: XCTestCase {
     }
     
     func testBookRightNow() {
-        let newBook = Booking()
+        let newBook = BookingModel()
         newBook.procedure = procedure(start: fullDateStringFrom(Date()),
                                       end: fullDateStringFrom(Date().addingTimeInterval(60*60)))
-        let booking = Booking()
+        let booking = BookingModel()
         booking.procedure = procedure(start: fullDateStringFrom(Date().addingTimeInterval((60 + 15) * 60)),
                                       end: fullDateStringFrom(endDate))
         bookingController.update(booked: [booking], startDate: startDate, endDate: endDate)
@@ -130,7 +130,7 @@ class BookingComponentTests: XCTestCase {
     }
     
     func testBookTomorrow() {
-        let newBook = Booking()
+        let newBook = BookingModel()
         let start = fullDateStringFrom(Date().addingTimeInterval(day))
         let end = fullDateStringFrom(Date().addingTimeInterval(day + 3600))
         newBook.procedure = procedure(start: start, end: end)
@@ -143,7 +143,7 @@ class BookingComponentTests: XCTestCase {
     }
     
     func testBookTomorrowNotEmtyTable() {
-        let newBook = Booking()
+        let newBook = BookingModel()
         let start = fullDateStringFrom(nextDay)
         let end = fullDateStringFrom(Date().addingTimeInterval(day + 3600))
         
@@ -152,13 +152,13 @@ class BookingComponentTests: XCTestCase {
         let dayEnd = stringNextDay + "T18:00"
         newBook.procedure = procedure(start: start, end: end)
         
-        let book1 = Booking()
+        let book1 = BookingModel()
         book1.procedure = procedure(start: "\(stringNextDay)T8:30", end: "\(stringNextDay)T10:30")
-        let book2 = Booking()
+        let book2 = BookingModel()
         book2.procedure = procedure(start: "\(stringNextDay)T11:00", end: "\(stringNextDay)T12:00")
-        let book3 = Booking()
+        let book3 = BookingModel()
         book3.procedure = procedure(start: "\(stringNextDay)T12:30", end: "\(stringNextDay)T14:00")
-        let book4 = Booking()
+        let book4 = BookingModel()
         book4.procedure = procedure(start: "\(stringNextDay)T14:15", end: "\(stringNextDay)T16:30")
         
         bookingController.update(booked: [book1, book2, book3, book4],
@@ -177,7 +177,7 @@ class BookingComponentTests: XCTestCase {
     }
     
     func testNextDayIsFull() {
-        let newBook = Booking()
+        let newBook = BookingModel()
         let start = fullDateStringFrom(nextDay)
         let end = fullDateStringFrom(Date().addingTimeInterval(day + 3600))
         
@@ -186,15 +186,15 @@ class BookingComponentTests: XCTestCase {
         let dayEnd = stringNextDay + "T18:00"
         newBook.procedure = procedure(start: start, end: end)
         
-        let book1 = Booking()
+        let book1 = BookingModel()
         book1.procedure = procedure(start: "\(stringNextDay)T8:30", end: "\(stringNextDay)T10:30")
-        let book2 = Booking()
+        let book2 = BookingModel()
         book2.procedure = procedure(start: "\(stringNextDay)T11:00", end: "\(stringNextDay)T12:00")
-        let book3 = Booking()
+        let book3 = BookingModel()
         book3.procedure = procedure(start: "\(stringNextDay)T12:30", end: "\(stringNextDay)T14:00")
-        let book4 = Booking()
+        let book4 = BookingModel()
         book4.procedure = procedure(start: "\(stringNextDay)T14:15", end: "\(stringNextDay)T16:30")
-        let book5 = Booking()
+        let book5 = BookingModel()
         book5.procedure = procedure(start: "\(stringNextDay)T17:00", end: "\(stringNextDay)T18:00")
         
         bookingController.update(booked: [book1, book2, book3, book4, book5],

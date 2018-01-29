@@ -18,16 +18,27 @@ class StartVC: FormViewController {
             <<< LabelRow() { row in
                 row.title = "Calendar View"
                 }.onCellSelection({ (cell, row) in
-                self.navigationController?.pushViewController(BookingVC(TestDataGenerator.createVendor(),
-                                                                        .haircut,
-                                                                        TestDataGenerator.createClinet(id: 177)), animated: true)
+                    
+                    let model = BookViewModel()
+                    model.vendor = TestDataGenerator.createVendor()
+                    model.client = TestDataGenerator.createClinet(id: 177)
+                    model.procedureType = .haircut
+                    model.serviceProviderIndex = .haircut
+                    
+                self.navigationController?.pushViewController(BookingVC(model), animated: true)
             })
             <<< LabelRow() { row in
                 row.title = "Selective View"
                 }.onCellSelection({ (cell, row) in
-                    self.navigationController?.pushViewController(SelectiveVC(TestDataGenerator.createVendor(),
-                                                                              .haircut,
-                                                                              TestDataGenerator.createClinet(id: 177), Date()), animated: true)
+                    
+                    let model = BookViewModel()
+                    model.vendor = TestDataGenerator.createVendor()
+                    model.client = TestDataGenerator.createClinet(id: 177)
+                    model.procedureType = .haircut
+                    model.serviceProviderIndex = .haircut
+                    model.selectedDate = Date()
+                    
+                    self.navigationController?.pushViewController(SelectiveVC(model), animated: true)
                 })
         
     }

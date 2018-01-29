@@ -13,12 +13,12 @@ import CalendarKit
 import DateToolsSwift
 
 protocol BookingVCDelegate: class {
-    func removeObject(item: Booking, from list: [Booking])
+    func removeObject(item: BookingModel, from list: [BookingModel])
 }
 
 class BookingVC: DayViewController, EventHandlerDelegate {
     
-    var bookings: [Booking] = []
+    var bookings: [BookingModel] = []
     var businessTime = BusinessTime()
     var procedureLength: TimeInterval!
     var procedureType: ProcedureType!
@@ -29,18 +29,19 @@ class BookingVC: DayViewController, EventHandlerDelegate {
     weak var delegate: BookingVCDelegate?
     
     private let eventHandler = EventHandler()
+    private var serviceProviderIndex: Int = 0
     
-    init(_ vendor: VendorModel, _ procedureType: ProcedureType, _ client: ClientModel) {
-        
+    init(_ model: BookViewModel) {
         super.init(nibName: nil, bundle: nil)
-        self.vendor = vendor
-        self.procedureType = procedureType
-        self.currentUser = client
+        self.vendor = model.vendor
+        self.procedureType = model.procedureType
+        self.currentUser = model.client
+        self.serviceProviderIndex = model.serviceProviderIndex.rawValue
         
         preservationTime = vendor.bookingSettings.prereservationTimeGap
         
-        procedureLength = vendor.serviceProviders[0].availableProcedureTypes[procedureType]?.procedureDuration
-        bookings = vendor.serviceProviders[0].bookings
+        procedureLength = vendor.serviceProviders[serviceProviderIndex].availableProcedureTypes[procedureType]?.procedureDuration
+        bookings = vendor.serviceProviders[serviceProviderIndex].bookings
         
         setupBusinessHours(vendor)
         
@@ -60,7 +61,8 @@ class BookingVC: DayViewController, EventHandlerDelegate {
         title = "select.date.time".localized
         navigationController?.navigationBar.barTintColor = style.header.backgroundColor
         navigationController?.navigationBar.tintColor = .cmpMidGreen
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.cmpGunmetal]
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.cmpGunmetal,
+                                                                   .font: UIFont.cmpTextStyleFont() ?? UIFont.systemFont(ofSize: 17.0)]
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         dayView.autoScrollToFirstEvent = false
@@ -109,7 +111,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
             if book.client.userID == currentUser.userID {
                 bookedEvent.textColor = .white
                 bookedEvent.backgroundColor = .cmpMidGreen75
-                let procedureName = (vendor.serviceProviders[0].availableProcedureTypes[procedureType]?.procedureName) ?? procedureType.rawValue.capitalized
+                let procedureName = (vendor.serviceProviders[serviceProviderIndex].availableProcedureTypes[procedureType]?.procedureName) ?? procedureType.rawValue.capitalized
                 bookedEvent.text = procedureName
             }
             events.append(bookedEvent)
@@ -180,7 +182,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
         
         if let selectedDate = dayView.state?.selectedDate.add(TimeChunk.dateComponents(hours:hour)) {
             
-            let booking = Booking()
+            let booking = BookingModel()
             booking.client = currentUser
             booking.eventDate = selectedDate
             booking.procedure.startDate = selectedDate
@@ -193,7 +195,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
         }
     }
  
-    func add(booking: Booking) {
+    func add(booking: BookingModel) {
         
         bookings += [booking]
         reloadData()
@@ -201,10 +203,6 @@ class BookingVC: DayViewController, EventHandlerDelegate {
     
     func resetPanGesture() {
         
-    }
-    
-    func availableTimeChunks(_ intervals: [Date: TimeInterval]) {
-        //Stub
     }
 }
 

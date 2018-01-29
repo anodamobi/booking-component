@@ -34,8 +34,8 @@ class TestDataGenerator {
     static func createServiceProviders() -> [ServiceProvider] {
         
         let haircut = ServiceProvider()
-        let booking1 = Booking()
-        let booking2 = Booking()
+        let booking1 = BookingModel()
+        let booking2 = BookingModel()
         
         haircut.bookingSettings.timeGap = 5 * minute
         haircut.startTime = Date.date(from: stringDate + "T10:00", timeFormat: "yyyy-MM-dd'T'H:mm") ?? Date()

@@ -15,6 +15,11 @@ public enum ProcedureType: String {
     case manicure = "Manicure"
 }
 
+enum ServiceProviderType: Int {
+    case haircut = 0
+    case manicure = 1
+}
+
 extension ProcedureType {
     
     func allProcedureTypes() -> [ProcedureType] {

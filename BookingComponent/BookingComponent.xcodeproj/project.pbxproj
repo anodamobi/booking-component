@@ -19,6 +19,18 @@
 		56802F212015FF2400DA7B6D /* TestDataGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56802F202015FF2400DA7B6D /* TestDataGenerator.swift */; };
 		5682839B20174318003A8E19 /* TimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5682839A20174318003A8E19 /* TimeCell.swift */; };
 		5683BBC92019F00400DD1799 /* DatePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5683BBC82019F00400DD1799 /* DatePickerVC.swift */; };
+		568BFE68201F3EFE00362918 /* SelectiveCollectionView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568BFE67201F3EFE00362918 /* SelectiveCollectionView+Ext.swift */; };
+		568BFE6B201F3F5700362918 /* BookingController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568BFE6A201F3F5700362918 /* BookingController+Ext.swift */; };
+		568BFE6D201F417000362918 /* EventSelectiveHandler+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568BFE6C201F417000362918 /* EventSelectiveHandler+Ext.swift */; };
+		568BFE6F201F5C6300362918 /* UIFont+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568BFE6E201F5C6300362918 /* UIFont+Ext.swift */; };
+		568BFE76201F5FAD00362918 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 568BFE72201F5FAC00362918 /* SF-Pro-Text-Regular.otf */; };
+		568BFE77201F5FAD00362918 /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 568BFE73201F5FAC00362918 /* SF-Pro-Text-Semibold.otf */; };
+		568BFE78201F5FAD00362918 /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 568BFE74201F5FAD00362918 /* SF-Pro-Text-Bold.otf */; };
+		568BFE79201F5FAD00362918 /* SF-Pro-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 568BFE75201F5FAD00362918 /* SF-Pro-Text-Medium.otf */; };
+		568BFE7E201F6D2700362918 /* SF-Pro-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 568BFE7A201F6D2600362918 /* SF-Pro-Display-Semibold.otf */; };
+		568BFE7F201F6D2700362918 /* SF-Pro-Display-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 568BFE7B201F6D2600362918 /* SF-Pro-Display-Medium.otf */; };
+		568BFE80201F6D2700362918 /* SF-Pro-Display-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 568BFE7C201F6D2700362918 /* SF-Pro-Display-Bold.otf */; };
+		568BFE81201F6D2700362918 /* SF-Pro-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 568BFE7D201F6D2700362918 /* SF-Pro-Display-Regular.otf */; };
 		568FBC2B2011FB620027001F /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568FBC2A2011FB620027001F /* String+Ext.swift */; };
 		568FBC3620121B450027001F /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568FBC3520121B450027001F /* EventHandler.swift */; };
 		56943BB4200E0D63001E2D75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56943BB3200E0D63001E2D75 /* Assets.xcassets */; };
@@ -61,6 +73,18 @@
 		56802F202015FF2400DA7B6D /* TestDataGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDataGenerator.swift; sourceTree = "<group>"; };
 		5682839A20174318003A8E19 /* TimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCell.swift; sourceTree = "<group>"; };
 		5683BBC82019F00400DD1799 /* DatePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerVC.swift; sourceTree = "<group>"; };
+		568BFE67201F3EFE00362918 /* SelectiveCollectionView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SelectiveCollectionView+Ext.swift"; sourceTree = "<group>"; };
+		568BFE6A201F3F5700362918 /* BookingController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookingController+Ext.swift"; sourceTree = "<group>"; };
+		568BFE6C201F417000362918 /* EventSelectiveHandler+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventSelectiveHandler+Ext.swift"; sourceTree = "<group>"; };
+		568BFE6E201F5C6300362918 /* UIFont+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Ext.swift"; sourceTree = "<group>"; };
+		568BFE72201F5FAC00362918 /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
+		568BFE73201F5FAC00362918 /* SF-Pro-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Semibold.otf"; sourceTree = "<group>"; };
+		568BFE74201F5FAD00362918 /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
+		568BFE75201F5FAD00362918 /* SF-Pro-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Medium.otf"; sourceTree = "<group>"; };
+		568BFE7A201F6D2600362918 /* SF-Pro-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.otf"; sourceTree = "<group>"; };
+		568BFE7B201F6D2600362918 /* SF-Pro-Display-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Medium.otf"; sourceTree = "<group>"; };
+		568BFE7C201F6D2700362918 /* SF-Pro-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.otf"; sourceTree = "<group>"; };
+		568BFE7D201F6D2700362918 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
 		568FBC2A2011FB620027001F /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		568FBC3520121B450027001F /* EventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
 		56943BA9200E0D63001E2D75 /* BookingComponent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookingComponent.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,7 +156,9 @@
 				5683BBCA2019FC0D00DD1799 /* DatePicker */,
 				567F172620164B36006DC9DF /* Cells */,
 				567F172020164705006DC9DF /* SelectiveVC.swift */,
+				568BFE6C201F417000362918 /* EventSelectiveHandler+Ext.swift */,
 				567F1722201647B7006DC9DF /* SelectiveView.swift */,
+				568BFE67201F3EFE00362918 /* SelectiveCollectionView+Ext.swift */,
 			);
 			path = SelectiveBooking;
 			sourceTree = "<group>";
@@ -174,6 +200,39 @@
 			path = DatePicker;
 			sourceTree = "<group>";
 		};
+		568BFE69201F3F3C00362918 /* BookingController */ = {
+			isa = PBXGroup;
+			children = (
+				56943BE5200E5456001E2D75 /* BookingController.swift */,
+				568BFE6A201F3F5700362918 /* BookingController+Ext.swift */,
+			);
+			path = BookingController;
+			sourceTree = "<group>";
+		};
+		568BFE70201F5ED600362918 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				56943BB3200E0D63001E2D75 /* Assets.xcassets */,
+				568BFE71201F5EDF00362918 /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		568BFE71201F5EDF00362918 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				568BFE7C201F6D2700362918 /* SF-Pro-Display-Bold.otf */,
+				568BFE7B201F6D2600362918 /* SF-Pro-Display-Medium.otf */,
+				568BFE7D201F6D2700362918 /* SF-Pro-Display-Regular.otf */,
+				568BFE7A201F6D2600362918 /* SF-Pro-Display-Semibold.otf */,
+				568BFE74201F5FAD00362918 /* SF-Pro-Text-Bold.otf */,
+				568BFE75201F5FAD00362918 /* SF-Pro-Text-Medium.otf */,
+				568BFE72201F5FAC00362918 /* SF-Pro-Text-Regular.otf */,
+				568BFE73201F5FAC00362918 /* SF-Pro-Text-Semibold.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		56943BA0200E0D63001E2D75 = {
 			isa = PBXGroup;
 			children = (
@@ -197,10 +256,10 @@
 		56943BAB200E0D63001E2D75 /* BookingComponent */ = {
 			isa = PBXGroup;
 			children = (
+				568BFE70201F5ED600362918 /* Resources */,
 				56802F1F2015FEF900DA7B6D /* Layer */,
 				56943BD7200E10BB001E2D75 /* Controllers */,
 				56943BD1200E109B001E2D75 /* Application */,
-				56943BB3200E0D63001E2D75 /* Assets.xcassets */,
 			);
 			path = BookingComponent;
 			sourceTree = "<group>";
@@ -246,7 +305,7 @@
 		56943BD7200E10BB001E2D75 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				56943BE5200E5456001E2D75 /* BookingController.swift */,
+				568BFE69201F3F3C00362918 /* BookingController */,
 				567F171F201646EE006DC9DF /* SelectiveBooking */,
 				567F171E201646D3006DC9DF /* CalendarBooking */,
 				567F17292016543B006DC9DF /* StartVC.swift */,
@@ -262,6 +321,7 @@
 				568FBC2A2011FB620027001F /* String+Ext.swift */,
 				567F172420164A8A006DC9DF /* UIView+Ext.swift */,
 				563A2089201788A3002ADEE6 /* UIScreen+Ext.swift */,
+				568BFE6E201F5C6300362918 /* UIFont+Ext.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -363,8 +423,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				568BFE7E201F6D2700362918 /* SF-Pro-Display-Semibold.otf in Resources */,
+				568BFE81201F6D2700362918 /* SF-Pro-Display-Regular.otf in Resources */,
 				56943BD6200E109B001E2D75 /* Info.plist in Resources */,
 				569DA985201B8B68001BC0FE /* Localizable.strings in Resources */,
+				568BFE78201F5FAD00362918 /* SF-Pro-Text-Bold.otf in Resources */,
+				568BFE77201F5FAD00362918 /* SF-Pro-Text-Semibold.otf in Resources */,
+				568BFE76201F5FAD00362918 /* SF-Pro-Text-Regular.otf in Resources */,
+				568BFE80201F6D2700362918 /* SF-Pro-Display-Bold.otf in Resources */,
+				568BFE7F201F6D2700362918 /* SF-Pro-Display-Medium.otf in Resources */,
+				568BFE79201F5FAD00362918 /* SF-Pro-Text-Medium.otf in Resources */,
 				56943BB4200E0D63001E2D75 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -505,6 +573,7 @@
 				56943BE6200E5456001E2D75 /* BookingController.swift in Sources */,
 				5682839B20174318003A8E19 /* TimeCell.swift in Sources */,
 				56943BD9200E10BB001E2D75 /* BookingVC.swift in Sources */,
+				568BFE6D201F417000362918 /* EventSelectiveHandler+Ext.swift in Sources */,
 				56802F212015FF2400DA7B6D /* TestDataGenerator.swift in Sources */,
 				56943BDD200E110C001E2D75 /* DataStructHelper.swift in Sources */,
 				563A208A201788A3002ADEE6 /* UIScreen+Ext.swift in Sources */,
@@ -518,6 +587,9 @@
 				568FBC2B2011FB620027001F /* String+Ext.swift in Sources */,
 				5683BBC92019F00400DD1799 /* DatePickerVC.swift in Sources */,
 				567DDF892010FFD400906E80 /* StyleGenerator.swift in Sources */,
+				568BFE6F201F5C6300362918 /* UIFont+Ext.swift in Sources */,
+				568BFE68201F3EFE00362918 /* SelectiveCollectionView+Ext.swift in Sources */,
+				568BFE6B201F3F5700362918 /* BookingController+Ext.swift in Sources */,
 				563A208C20179EAE002ADEE6 /* SelectiveHeader.swift in Sources */,
 				567F172120164705006DC9DF /* SelectiveVC.swift in Sources */,
 				567F172A2016543B006DC9DF /* StartVC.swift in Sources */,

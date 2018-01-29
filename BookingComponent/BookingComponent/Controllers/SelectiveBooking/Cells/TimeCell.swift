@@ -23,9 +23,8 @@ class TimeCellVM: NSObject {
     }
     
     func updateTimeLabel() -> String {
-        return item.hourMinuteFormat()
+        return item.twelweHourFormat()
     }
-    
 }
 
 class TimeCell: UICollectionViewCell {
@@ -65,6 +64,7 @@ class TimeCell: UICollectionViewCell {
         
         contentView.addSubview(timeLabel)
         timeLabel.text = "0:00 AM"
+        timeLabel.font = UIFont.cmpTextStyle3Font() ?? UIFont.systemFont(ofSize: 17.0)
         timeLabel.textAlignment = .center
         timeLabel.textColor = .cmpGunmetal
         timeLabel.snp.makeConstraints { (make) in
