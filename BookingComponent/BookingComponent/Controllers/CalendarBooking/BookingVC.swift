@@ -62,7 +62,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
         navigationController?.navigationBar.barTintColor = style.header.backgroundColor
         navigationController?.navigationBar.tintColor = .cmpMidGreen
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.cmpGunmetal,
-                                                                   .font: UIFont.cmpTextStyleFont() ?? UIFont.systemFont(ofSize: 17.0)]
+                                                                   .font: UIFont.cmpTextStyleFont()]
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         dayView.autoScrollToFirstEvent = false
@@ -84,6 +84,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
         event.color = .cmpPaleGreyThree
         event.text = "non-business.hours".localized
         event.textColor = .cmpCoolGrey
+        event.font = UIFont.cmpTextStyle2Font()
         
         let endDayEvent = Event()
         let hoursTilEnd = 24 - vendor.endTime.component(.hour)
@@ -93,6 +94,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
         endDayEvent.datePeriod = period
         endDayEvent.color = .cmpPaleGreyThree
         endDayEvent.text = "non-business.hours".localized
+        endDayEvent.font = UIFont.cmpTextStyle2Font()
         endDayEvent.textColor = .cmpCoolGrey
         
         events.append(event)
@@ -106,6 +108,7 @@ class BookingVC: DayViewController, EventHandlerDelegate {
             bookedEvent.datePeriod = eventTimePeriod
             bookedEvent.text = "busy".localized
             bookedEvent.textColor = .cmpCoolGrey
+            bookedEvent.font = UIFont.cmpTextStyle2Font()
             bookedEvent.backgroundColor = .cmpBrownishOrange5
             
             if book.client.userID == currentUser.userID {
